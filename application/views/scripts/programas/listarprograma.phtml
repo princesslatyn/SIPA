@@ -1,0 +1,29 @@
+<div class="row col-sm-4 col-md-6 col-lg-9" style="margin-top: 10px;">
+    <h3>Listado de los Programas Académicos</h3>
+    <br>
+        <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+              
+                <th>Nombre del Programa</th>
+                <th>Acciones</th>
+                
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+            
+                <th>Nombre del Programa</th>
+                <th>Acciones</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            <?php foreach ($this->programas as $programas) {?>  
+            <tr>
+                <td><?php echo $programas['nombre'];?></td>
+                <td><a href="/programas/editarprograma/id/<?php echo $programas['id_programa'];?>"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a>&nbsp;<a class="eliminar_programa" data-programa="<?php echo $programas['id_programa'];?>" href="#"> <i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>
+            </tr> 
+            <?php }?>
+        </tbody>
+    </table>    
+        </div> 

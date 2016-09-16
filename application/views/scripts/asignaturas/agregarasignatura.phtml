@@ -1,0 +1,40 @@
+
+<div class="container col-sm-4 col-md-6 col-lg-9" style="margin-top: 20px;">
+<h3 class=""> Agregar Asignatura</h3>     
+<br>
+<div class="panel panel-default">  
+<div class="panel-heading"> Datos de la asigantura</div>   
+<div class="panel-body">  
+<form id="asigna">
+<div class="row">    
+      <div class="form-group">
+      <div class="col-lg-6">    
+      <label for="input" class="">Nombre de la asignatura</label>           
+      <input  type="text" class="form-control" id="asignatura" name="asignatura"> 
+      </div>    
+      </div> 
+ </div>
+ <div class="row"> 
+     <br>
+      <div class="form-group">
+      <div class="col-lg-6"> 
+      <label>Nombre del Programa</label>    
+      <select class="form-control" id="programa" name="programa" style="cursor:pointer;">
+          <?php foreach ($this->programas as $programas) {?>
+          <option  value="<?php echo $programas['id_programa'];?>"><?php echo $programas['nombre'];?></option>
+          <?php }?>
+       </select>
+      </div>    
+      </div> 
+ </div>     
+</form>   
+</div>
+</div>    
+   <div class="row espacio">
+   <div class=" text-center">
+     <input type="button" value="Guardar" id="agregar" class="btn btn-default" data-toggle="modal" data-target="#myModal" onclick="" />
+     <input type="button" value="Cancelar" class="btn btn-danger " /> 
+    
+   </div>          
+   </div>  
+</div>
