@@ -42,6 +42,18 @@ class Application_Model_Programas extends \Application_Model_Programas implement
     }
 
     
+    public function setnombre($nom)
+    {
+        $this->__load();
+        return parent::setnombre($nom);
+    }
+
+    public function setcod_facultad($cod)
+    {
+        $this->__load();
+        return parent::setcod_facultad($cod);
+    }
+
 
     public function __sleep()
     {

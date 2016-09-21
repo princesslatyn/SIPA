@@ -14,6 +14,24 @@
       </div>    
       </div> 
  </div>
+     <div class="row"> 
+        <br>
+      <div class="form-group">
+      <div class="col-lg-6">    
+      <label for="input" class="">Codigo de la asignatura</label>           
+      <input  type="text" class="form-control" value="<?php echo $this->asignaturas[0]['codigo']; ?>" id="codigo" name="codigo"> 
+      </div>    
+      </div> 
+    </div>
+    <div class="row">
+        <br>
+      <div class="form-group">
+      <div class="col-lg-6">    
+      <label for="input" class="">Grupo</label>           
+      <input  type="text" class="form-control" value="<?php echo $this->asignaturas[0]['grupo']; ?>" id="grupo" name="grupo"> 
+      </div>    
+      </div> 
+    </div>
  <div class="row"> 
      <br>
       <div class="form-group">
@@ -26,7 +44,33 @@
        </select>
       </div>    
       </div> 
- </div>     
+ </div> 
+  <div class="row"> 
+     <br>
+      <div class="form-group">
+      <div class="col-lg-6"> 
+      <label>Nombre de la facultad</label>    
+      <select class="form-control" id="facultad" name="facultad" data-facultad="<?php echo $this->asignaturas[0]['id_facultad']['id_facultad']; ?>" style="cursor:pointer;">
+         <?php foreach ($this->facultad as $facultad) {?>
+          <option  value="<?php echo $facultad['id_facultad'];?>"><?php echo $facultad['nombre']; ?></option>
+         <?php }?>
+       </select>
+      </div>    
+      </div> 
+ </div>
+ <div class="row"> 
+     <br>
+      <div class="form-group">
+      <div class="col-lg-6"> 
+      <label>Nombre de la Sede</label>    
+      <select class="form-control" id="sede" name="sede" data-sede="<?php echo $this->asignaturas[0]['id_sede']['id_sede']; ?>" style="cursor:pointer;">
+         <?php foreach ($this->sedes as $sedes) {?>
+          <option  value="<?php echo $sedes['id_sede']; ?>"><?php echo $sedes['nombre']; ?></option>
+         <?php }?> 
+       </select>
+      </div>    
+      </div> 
+ </div>   
 </from>   
 </div>
 </div>    

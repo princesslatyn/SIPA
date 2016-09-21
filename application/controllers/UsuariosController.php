@@ -26,7 +26,6 @@ class UsuariosController extends Zend_Controller_Action
     
     public function agregarusuarioAction()
     { 
-     
        //Consulta dql para listar las facultades
         $dql1 ="select p from Application_Model_Programas p";
         
@@ -76,8 +75,12 @@ class UsuariosController extends Zend_Controller_Action
      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
     }
     public function listarusuarioAction()
-    { 
-       
+    {  
+         //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+//     $this->_helper->layout->disableLayout();
+//     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+//     $this->_helper->viewRenderer->setNoRender(TRUE);
+//       
             //Codigo de editar programas
         
         // Con left join salen los datos sin existir las llaves foraneas
@@ -151,25 +154,22 @@ class UsuariosController extends Zend_Controller_Action
      } */
      
    }
-    public function editarusuarioAction()
-    { 
-       
-        
-       //Consulta dql para listar las facultades
-     /**   $dql3 ="select p from Application_Model_Programas p";
+    public function editarusuarioAction(){ 
+         
+        $dql3 ="select p from Application_Model_Programas p";
         
         // Ejecutar el Query, la variable query es donde se carga la consulta.
         $query3 = $this->em->createQuery($dql3);
         
        $programas = $query3->getArrayResult();
+      // var_dump($programas);
         
         //Imprimir en la pagina lo que esta en la variable en este caso facultades
        // var_dump($facultades);
         //Pasarle a la Vista la informción de la facultad
         $this->view->programas= $programas;
-       
-       
-       //Consulta dql para listar las Roles
+        
+         //Consulta dql para listar las Roles
         $dql4 ="select r from Application_Model_Roles r";
         
         // Ejecutar el Query, la variable query es donde se carga la consulta.
@@ -177,34 +177,38 @@ class UsuariosController extends Zend_Controller_Action
         
         //Resultados de la consulta en un Vector, en este caso en Array
        $roles = $query4->getArrayResult();
-        
+      // var_dump($roles);
         //Imprimir en la pagina lo que esta en la variable en este caso facultades
        // var_dump($facultades);
         //Pasarle a la Vista la informción de la facultad
         $this->view->roles= $roles;
         
-            //Codigo de editar programas
-        $programa_id =$this->_getParam('id');
-       // var_dump($programa_id);
-        //Preparo la consulta 
-        $dql5="select p from Application_Model_Programas p";
-        // Creo un Nuevo Query donde se guarda la consulta.
-        $query5= $this->em->createQuery($dql5);
-        //Donde se guarda el id del Programa...
-        $query5->setParameter('programa', $programa_id);
-       // var_dump($query);
-        //Muestre el resultado en un array
-        $programa=  $query5->getArrayResult();
         
-       // var_dump();
+        $usuario_id =$this->_getParam('id');
+       //Preparo la consulta 
+        $dql6="select u, usu, r from Application_Model_Usuarios u left join u.cod_programa usu left join u.id_rol r where u.id_usuario=:usuario";
         
-          try{ 
+         // Ejecutar el Query, la variable query es donde se carga la consulta.
+        $query6 = $this->em->createQuery($dql6);
+        
+        $query6->setParameter('usuario', $usuario_id);
+        
+        //Resultados de la consulta en un Vector, en este caso en Array
+        $usuarios = $query6->getArrayResult();
+        //var_dump($usuarios);
+        
+        // Pasarle la información de programas a la vista ..
+        $this->view->usuarios= $usuarios; 
+       //Consulta dql para listar las facultades
+       
+        
+       /**   try{ 
     
      } catch (Exception $e) {
          echo $e->getMessage();
      }  */
     
-       // $this->view->programa= $programa;  
+      
         
         
         
@@ -235,43 +239,155 @@ class UsuariosController extends Zend_Controller_Action
      $this->_helper->viewRenderer->setNoRender(TRUE);
      
      //Recibir id como parametro
-     $id= $this->_getParam('id');   
+     $id= $this->_getParam('id'); 
+     
      //Se hace un condicional que el id es mayo que cero
      if($id>0){
-      //Proceso a editar
-       //$facultad recibe los datos que se les pasa por petición ajax
-     $programa =$this->_getParam('programa');  
-     //var_dump($programa);
-     //Nombre de la facultad donde esta asociada la llave foranea...
-     $facultad =  $this->_getParam('facultad');
+     //$usuario recibe los datos que se les pasa por petición ajax
+     $nom =$this->_getParam('nom');
+     $ape =$this->_getParam('ape');
+     $ide =$this->_getParam('ide');
+     $correo =$this->_getParam('correo');
+     $usuario =$this->_getParam('usuario');
+     $pass =$this->_getParam('pass');
+     $programa =$this->_getParam('programa');
+     $rol =$this->_getParam('rol');
      
-     // Almacena en el objecto Programa que tiene el id..
-    $programa_objeto = ($this->em->getRepository('Application_Model_Programas')->find($id));
-     //la instancia le asigna una facultad, hacer el nombre de la facultad..
-     $programa_objeto->setnombre($programa);
-     //da la orden de guardar...
-     $programa_objeto->setcod_facultad($this->em->getRepository('Application_Model_Facultades')->find($facultad));
-             
-     $this->em->persist($programa_objeto);
+     // Almacena en el objecto usuario que tiene el id..
+     $usuario_objeto= ($this->em->getRepository('Application_Model_Usuarios')->find($id));
+     $usuario_objeto->setnombre($nom);
+     $usuario_objeto->setapellidos($ape);
+     $usuario_objeto->setidentificacion($ide);
+     $usuario_objeto->setcorreo($correo);
+     $usuario_objeto->setusuario($usuario);
+     $usuario_objeto->setcod_programa($this->em->getRepository('Application_Model_Programas')->find($programa));
+     $usuario_objeto->setid_rol($this->em->getRepository('Application_Model_Roles')->find($rol));
+    // var_dump($usuario_objeto);
+     
+     $this->em->persist($usuario_objeto);
      //Ejecuta la Orden de guardar..
      $this->em->flush();
-     
-    $this->view->headScript()->appendFile('/admin/usuarios.js');
-     }      
+     } 
+   $this->view->headScript()->appendFile('/admin/usuarios.js');
+          
     }
-     public function eliminarusuarioAction(){
+    public function resetearusuarioAction(){
+      
+     
+            $usuario_id =$this->_getParam('id');
+       //Preparo la consulta 
+        $dql="select u from Application_Model_Usuarios u where u.id_usuario=:usuario";
+        
+         // Ejecutar el Query, la variable query es donde se carga la consulta.
+        $query = $this->em->createQuery($dql);
+        
+        $query->setParameter('usuario', $usuario_id);
+        
+        //Resultados de la consulta en un Vector, en este caso en Array
+        $usuarios = $query->getArrayResult();
+        //var_dump($usuarios);
+        
+        // Pasarle la información de programas a la vista ..
+        $this->view->usuarios= $usuarios; 
+       //Consulta dql para listar las facultades 
+    /**  try{ 
+     } catch (Exception $e) {
+         echo $e->getMessage();
+     } */
+      
+        
+    //Librerias de la vista resear Usuario....    
+     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
+     $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
+     $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
+     $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
+     $this->view->headLink()->appendStylesheet('/css/facultad.css');
+//     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.css.map');
+     $this->view->headScript()->appendFile('/js/fuelux.min.js');
+     $this->view->headScript()->appendFile('/js/wizard.js');
+     $this->view->headScript()->appendFile('/bootstrap/js/moment.min.js');   
+     $this->view->headScript()->appendFile('/bootstrap/js/bootstrap-datepicker.js');      
+     $this->view->headScript()->appendFile('/bootstrap/js/datepicker.es.min.js');
+     $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
+     $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
+     $this->view->headScript()->appendFile('/js/practica.js');
+     $this->view->headScript()->appendFile('/admin/usuarios.js');
+     $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
+     $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
+     $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
+     $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
+        
+    }
+    public function actualizarresAction(){
+      $this->_helper->layout->disableLayout();
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+     $this->_helper->viewRenderer->setNoRender(TRUE);
+     
+     //recibo los datos por petición Ajax
+     $id= $this->_getParam('id'); 
+     
+     //Se hace un condicional que el id es mayo que cero
+     if($id>0){
+     //$usuario recibe los datos que se les pasa por petición ajax
+     
+     $pass =$this->_getParam('pass');
+     $pas =$this->_getParam('pas');
+     
+     //Armo el query consulta la contraseña de la base de datos
+      $dql="select u from Application_Model_Usuarios u where u.id_usuario=:usuario";
+        
+         // Ejecutar el Query, la variable query es donde se carga la consulta.
+        $query = $this->em->createQuery($dql);
+        
+        $query->setParameter('usuario', $id);
+        
+       $usuarios = $query->getArrayResult();
+       //la mejor forma de saber la estructura de un vector.
+      // var_dump($usuarios);
+       $pas_actual= $usuarios[0]['contrasena'];
+       var_dump($pass);
+       $pas_ingresa= md5($pass);
+       var_dump($pas_actual);
+       var_dump($pas_ingresa);
+       if($pas_actual == $pas_ingresa){
+          // Almacena en el objecto usuario que tiene el id..
+        $usuario_objeto= ($this->em->getRepository('Application_Model_Usuarios')->find($id));
+        $usuario_objeto->setcontrasena(md5($pas));
+    
+   
+    // var_dump($usuario_objeto);
+     
+     $this->em->persist($usuario_objeto);
+     //Ejecuta la Orden de guardar..
+      $this->em->flush(); 
+           
+       }else{
+          header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500); 
+       }
+       
+     
+     
+     
+     
+     
+     
+        }
+      $this->view->headScript()->appendFile('/admin/usuarios.js');
+    }
+
+    public function eliminarusuarioAction(){
           //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->viewRenderer->setNoRender(TRUE);
      //Recibo el dato por ajax
      try {
-     $programa_id= $this->_getParam('programa_id');  
+     $usuario_id= $this->_getParam('usuario_id');  
      
-     $programa_objeto= ($this->em->getRepository('Application_Model_Programas')->find($programa_id));
+     $usuario_objeto= ($this->em->getRepository('Application_Model_Usuarios')->find($usuario_id));
      
      // da la orden de guardar
-     $this->em->remove($programa_objeto);
+     $this->em->remove($usuario_objeto);
      
      //Ejecuta la Orden de Guardar
      $this->em->flush();

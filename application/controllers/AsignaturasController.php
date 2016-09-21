@@ -36,6 +36,23 @@ class AsignaturasController extends Zend_Controller_Action
         // Pasarle la información de programas a la vista ..
         $this->view->programas= $programas;
         
+        //preparo la consulta de facultades
+        $dql1= "select fa from Application_Model_Facultades fa";
+        
+        $query1= $this->em->createQuery($dql1);
+        
+        $facultad =  $query1->getArrayResult();
+        
+        $this->view->facultad= $facultad;
+         //preparo la consulta de sede
+        $dql2= "select s from Application_Model_Sedes s";
+        
+        $query2= $this->em->createQuery($dql2);
+        
+        $sedes= $query2->getArrayResult();
+        
+        $this->view->sedes= $sedes;
+        
         
      $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
     // $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
@@ -59,7 +76,7 @@ class AsignaturasController extends Zend_Controller_Action
     public function listarasignaturaAction()
     { 
        // Realizamos la consulta dql
-        $dql ="select a from Application_Model_Asignaturas a";
+        $dql ="select a, cod, fac, se from Application_Model_Asignaturas a join a.cod_programa cod join a.id_facultad fac join a.id_sede se";
         
        // Ejecutamos la consulta con Query
          $query = $this->em->createQuery($dql);
@@ -89,22 +106,28 @@ class AsignaturasController extends Zend_Controller_Action
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->viewRenderer->setNoRender(TRUE);
     
-             //Asignatura Recibe los datos por Ajax
+     //Asignatura Recibe los datos por Ajax
      $asignatura= $this->_getParam('asignatura');
-     
-     //Programa recibe los datos por Ajax
-     $programa =$this->_getParam('programa');  
+     $codigo= $this->_getParam('codigo');
+     $grupo= $this->_getParam('grupo');
+     $programa= $this->_getParam('programa');  
+     $facultad= $this->_getParam('facultad');
+     $sede= $this->_getParam('sede');
      
     // Instancia del modelo Facultades. crea una facultad automatico..
      $asignatura_objeto= new Application_Model_Asignaturas();
      
      // La instancia le asigna un nombre a la asignatura
      $asignatura_objeto->setnombre($asignatura);
+     $asignatura_objeto->setcodigo($codigo);
+     $asignatura_objeto->setgrupo($grupo);
      // Almacena en el objecto la programa que tiene el id..
      $asignatura_objeto->setcod_programa($this->em->getRepository('Application_Model_Programas')->find($programa));
-    // var_dump($programa_objeto);     
+     $asignatura_objeto->setid_facultad($this->em->getRepository('Application_Model_Facultades')->find($facultad));
+     $asignatura_objeto->setid_sede($this->em->getRepository('Application_Model_Sedes')->find($sede));
+    //var_dump($asignatura_objeto);     
     //da la orden de guardar...
-    $this->em->persist($asignatura_objeto);
+     $this->em->persist($asignatura_objeto);
      //Ejecuta la Orden de guardar..
      $this->em->flush();
      
@@ -129,11 +152,28 @@ class AsignaturasController extends Zend_Controller_Action
         // Pasarle la información de programas a la vista ..
         $this->view->programas= $programas;
         //var_dump($programas);
+       // Preparo la consulta
+       $dql1= "select fa from Application_Model_Facultades fa";
+       
+       $quer1= $this->em->createQuery($dql1);
+       
+       $facultad = $quer1->getArrayResult();
+       
+       $this->view->facultad = $facultad;
+       
+        //Preparo la consulta de sede
+       $dql3= "select s from Application_Model_Sedes s";
+       
+       $query3= $this->em->createQuery($dql3);
+       
+       $sedes = $query3->getArrayResult();
+       
+       $this->view->sedes= $sedes;
         //instacia para la edición del metodo editar asignatura
         $asignatura_id= $this->_getParam('id');
         
         //Preparo la consulta
-       $dql2= "select a, asig from Application_Model_Asignaturas a join a.cod_programa asig where a.cod_asignatura=:asignatura";
+       $dql2= "select a, asig, fac, se from Application_Model_Asignaturas a join a.cod_programa asig join a.id_facultad fac join a.id_sede se where a.cod_asignatura=:asignatura";
         
         // Creo el Nuevo Query
         $query2= $this->em->createQuery($dql2);
@@ -168,19 +208,30 @@ class AsignaturasController extends Zend_Controller_Action
      //Recibir id como parametro
      $id= $this->_getParam('id');
      // var_dump($id);
-     //Se hace un condicional que el id es mayo que cero
+     //Se hace un condicional que el id es mayor que cero
      if($id>0){
       //Proceso a editar
        //$Asignatura recibe los datos que se les pasa por petición ajax
-     $asignatura =$this->_getParam('asignatura');  
-     //var_dump($programa);
-     //Capturar los datos de programas que recibo por peticiones ajax
+     $asignatura =$this->_getParam('asignatura'); 
+     $codigo =$this->_getParam('codigo');
+     $grupo =$this->_getParam('grupo');
      $programa=$this->_getParam('programa');
+     $facultad =$this->_getParam('facultad');
+     $sede =$this->_getParam('sede');
+     //var_dump($programa);
+     
+    
          // Almacena en el objecto Asignatura que tiene el id..
-    $asignatura_objeto = ($this->em->getRepository('Application_Model_Asignaturas')->find($id));
+     $asignatura_objeto = ($this->em->getRepository('Application_Model_Asignaturas')->find($id));
      //la instancia le asigna una facultad, hacer el nombre de la facultad..
      $asignatura_objeto->setnombre($asignatura);
+     $asignatura_objeto->setcodigo($codigo);
+     $asignatura_objeto->setgrupo($grupo);
      $asignatura_objeto->setcod_programa($this->em->getRepository('Application_Model_Programas')->find($programa));
+     $asignatura_objeto->setid_facultad($this->em->getRepository('Application_Model_Facultades')->find($facultad));
+     $asignatura_objeto->setid_sede($this->em->getRepository('Application_Model_Sedes')->find($sede));
+    // var_dump($asignatura_objeto);
+     
      //da la orden de guardar...
      $this->em->persist($asignatura_objeto);
      //Ejecuta la Orden de guardar..

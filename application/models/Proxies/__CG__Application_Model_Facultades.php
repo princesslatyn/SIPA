@@ -42,6 +42,12 @@ class Application_Model_Facultades extends \Application_Model_Facultades impleme
     }
 
     
+    public function setnombre($nom)
+    {
+        $this->__load();
+        return parent::setnombre($nom);
+    }
+
 
     public function __sleep()
     {

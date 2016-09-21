@@ -15,28 +15,43 @@ materias.agregarmaterias = function(){
     asignatura: {
       required: true 
        },
+       codigo:{
+       required: true    
+       },
+       grupo:{
+       required: true    
+       },
        programa:{
        required: true    
+       },
+       facultad:{
+       required: true    
+       },
+       sede:{
+       required: true    
        }
-       
       }
    });
   //on hace la asignación de un evento..
     $('#agregar').on('click', function(){
        // console.log('Hola');
        if ($('#asigna').valid()){
+       // facultad variable donde se guarda los datos
+       var asignatura= $('#asignatura').val(); 
+       var codigo= $('#codigo').val();
+       var grupo= $('#grupo').val();
        var programa= $('#programa').val();
-   // console.log(programa);
-    //val me devuelve el elemento que esta en el id de la función  (extrae el valor del input)
-    // #facultad valor del input
-    // facultad variable donde se guarda los datos
-     var asignatura= $('#asignatura').val();  
+       var facultad= $('#facultad').val();
+       var sede= $('#sede').val();
+       // console.log(sede);
+    
+     
       //console.log(programa);
     //Metodo Para enviar los datos al controlador
-    var ajax= $.post('/asignaturas/guardarasignatura', {asignatura:asignatura, programa:programa}); 
-     ajax.done(function(){
+    var ajax= $.post('/asignaturas/guardarasignatura', {asignatura:asignatura, codigo:codigo, grupo:grupo, programa:programa, facultad:facultad, sede:sede}); 
+    ajax.done(function(){
          window.location='/asignaturas/listarasignatura';
-     });
+     }); 
        }
    
   }); 
@@ -50,7 +65,19 @@ materias.agregarmaterias = function(){
     asignatura: {
       required: true 
        },
+       codigo:{
+       required: true    
+       },
+       grupo:{
+       required: true    
+       },
        programa:{
+       required: true    
+       },
+       facultad:{
+       required: true    
+       },
+       sede:{
        required: true    
        } 
       }
@@ -63,28 +90,55 @@ materias.agregarmaterias = function(){
    $('#programa').val(programa);
     //Se actualice el valor del selector cuando elija un programa que este asociado a su facultad.
     $('#programa').trigger('change');
+    
+     // para que se actualice el id...
+    
+    var facultad= $('#facultad').data('facultad');
+    
+    // Val le asigna valor al selector
+    $('#facultad').val(facultad);
+    //Se actualice el valor del selector cuando elija una faculta que este asociado a un programa
+    $('#facultad').trigger('change');
+    
+    //Para que se actualice el id
+    var sede= $('#sede').data('sede');
+    
+     //val le asigna valor al selector
+      $('#sede').val(sede);
+      
+    //Se actualiza el valor del selector cuando elija una sede que este asociada a una asignatura
+    $('#sede').trigger('change');
+    
  $('#editar').on('click', function(){
      //Creo una variable temporal para que guarde el dato que en el selector de programas
      //Valido los campos
      if($('#asigna').valid()){
          //Creo una variable...
+        var asignatura= $('#asignatura').val(); 
+        var codigo= $('#codigo').val();
+        var grupo= $('#grupo').val();
         var idprograma= $('#programa').val();
+        var id_facultad= $('#facultad').val();
+        var id_sede= $('#sede').val();
+      //  console.log(id_sede);
     // console.log(idprograma);
       //Creo una variable que me guarde el dato de la facultad para este caso el id. 
     //Guardar los datos
-        var asignatura= $('#asignatura').val();  
+        
       //console.log(programa);
       //Guardar los Datos
-        var id= $('#cod_asignatura').val();
+      var id= $('#cod_asignatura').val();
       //Actualizar el dato del selector cuando lo edite
       programa= $('#programa').val();
+      facultad= $('#facultad').val();
+      sede= $('#sede').val();
      // console.log(programa);
     //Metodo Para enviar los datos al controlador
-       var ajax=  $.post('/asignaturas/actualizarasignatura', {asignatura:asignatura, programa:idprograma, id:id}); 
+     var ajax= $.post('/asignaturas/actualizarasignatura', {asignatura:asignatura, codigo:codigo, grupo:grupo, programa:idprograma, facultad:id_facultad, sede:id_sede, id:id}); 
  // actualizar las modificaciones de las asignaturas
        ajax.done(function(){
          window.location='/asignaturas/listarasignatura';
-     });    
+     });   
      }
  });
   

@@ -6,7 +6,8 @@
 <div class="panel-heading"> Datos de la asigantura</div>   
 <div class="panel-body">  
 <form id="asigna">
-<div class="row">    
+<div class="row"> 
+    
       <div class="form-group">
       <div class="col-lg-6">    
       <label for="input" class="">Nombre de la asignatura</label>           
@@ -14,6 +15,24 @@
       </div>    
       </div> 
  </div>
+    <div class="row"> 
+        <br>
+      <div class="form-group">
+      <div class="col-lg-6">    
+      <label for="input" class="">Codigo de la asignatura</label>           
+      <input  type="text" class="form-control" id="codigo" name="codigo"> 
+      </div>    
+      </div> 
+    </div>  
+    <div class="row">
+        <br>
+      <div class="form-group">
+      <div class="col-lg-6">    
+      <label for="input" class="">Grupo</label>           
+      <input  type="text" class="form-control" id="grupo" name="grupo"> 
+      </div>    
+      </div> 
+    </div>
  <div class="row"> 
      <br>
       <div class="form-group">
@@ -26,13 +45,39 @@
        </select>
       </div>    
       </div> 
- </div>     
+ </div> 
+ <div class="row"> 
+     <br>
+      <div class="form-group">
+      <div class="col-lg-6"> 
+      <label>Nombre de la facultad</label>    
+      <select class="form-control" id="facultad" name="facultad" style="cursor:pointer;">
+         <?php foreach ($this->facultad as $facultad) {?>
+          <option  value="<?php echo $facultad['id_facultad'];?>"><?php echo $facultad['nombre']; ?></option>
+         <?php }?>
+       </select>
+      </div>    
+      </div> 
+ </div> 
+    <div class="row"> 
+     <br>
+      <div class="form-group">
+      <div class="col-lg-6"> 
+      <label>Nombre de la Sede</label>    
+      <select class="form-control" id="sede" name="sede" style="cursor:pointer;">
+         <?php foreach ($this->sedes as $sedes) {?>
+          <option  value="<?php echo $sedes['id_sede']; ?>"><?php echo $sedes['nombre']; ?></option>
+         <?php }?> 
+       </select>
+      </div>    
+      </div> 
+ </div> 
 </form>   
 </div>
 </div>    
    <div class="row espacio">
    <div class=" text-center">
-     <input type="button" value="Guardar" id="agregar" class="btn btn-default" data-toggle="modal" data-target="#myModal" onclick="" />
+     <input type="button" value="Guardar" id="agregar" class="btn btn-default"  />
      <input type="button" value="Cancelar" class="btn btn-danger " /> 
     
    </div>          

@@ -106,7 +106,7 @@ $(document).on('click', '.eliminar_facultad', function(e){
       label: "Cancelar",
       className: "btn-danger",
       callback: function() {
-        Example.show("oh, Error!");
+       // Example.show("oh, Error!");
       }
     }
     
