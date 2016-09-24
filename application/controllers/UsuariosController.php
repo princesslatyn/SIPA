@@ -126,6 +126,7 @@ class UsuariosController extends Zend_Controller_Action
      $correo =$this->_getParam('correo');
      $usuario =$this->_getParam('usuario');
      $pass =$this->_getParam('pass');
+     var_dump($pass);
      $programa =$this->_getParam('programa');
      $rol =$this->_getParam('rol');
       // var_dump($facultad);
@@ -137,7 +138,7 @@ class UsuariosController extends Zend_Controller_Action
      $usuario_objeto->setidentificacion($ide);
      $usuario_objeto->setcorreo($correo);
      $usuario_objeto->setusuario(htmlentities($usuario));
-     $usuario_objeto->setcontrasena(md5($pass));
+     $usuario_objeto->setcontrasena(hash('sha256', $pass));
      $usuario_objeto->setcod_programa($this->em->getRepository('Application_Model_Programas')->find($programa));
      $usuario_objeto->setid_rol($this->em->getRepository('Application_Model_Roles')->find($rol));
      // Almacena en el objecto la usuario que tiene el id..
@@ -249,7 +250,7 @@ class UsuariosController extends Zend_Controller_Action
      $ide =$this->_getParam('ide');
      $correo =$this->_getParam('correo');
      $usuario =$this->_getParam('usuario');
-     $pass =$this->_getParam('pass');
+    // $pass =$this->_getParam('pass');
      $programa =$this->_getParam('programa');
      $rol =$this->_getParam('rol');
      
@@ -274,7 +275,7 @@ class UsuariosController extends Zend_Controller_Action
     public function resetearusuarioAction(){
       
      
-            $usuario_id =$this->_getParam('id');
+        $usuario_id =$this->_getParam('id');
        //Preparo la consulta 
         $dql="select u from Application_Model_Usuarios u where u.id_usuario=:usuario";
         
@@ -346,13 +347,13 @@ class UsuariosController extends Zend_Controller_Action
       // var_dump($usuarios);
        $pas_actual= $usuarios[0]['contrasena'];
        var_dump($pass);
-       $pas_ingresa= md5($pass);
+       $pas_ingresa= hash('sha256', $pass);
        var_dump($pas_actual);
        var_dump($pas_ingresa);
        if($pas_actual == $pas_ingresa){
           // Almacena en el objecto usuario que tiene el id..
         $usuario_objeto= ($this->em->getRepository('Application_Model_Usuarios')->find($id));
-        $usuario_objeto->setcontrasena(md5($pas));
+        $usuario_objeto->setcontrasena(hash('sha256', $pass));
     
    
     // var_dump($usuario_objeto);
@@ -364,16 +365,92 @@ class UsuariosController extends Zend_Controller_Action
        }else{
           header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500); 
        }
-       
-     
-     
-     
-     
-     
-     
         }
       $this->view->headScript()->appendFile('/admin/usuarios.js');
     }
+    //reseteo de contraseñas por el Administrador
+    public function nuevacontrasenaAction(){
+        
+        $usuario_id =$this->_getParam('id');
+       //Preparo la consulta 
+        $dql="select u from Application_Model_Usuarios u where u.id_usuario=:usuario";
+        
+         // Ejecutar el Query, la variable query es donde se carga la consulta.
+        $query = $this->em->createQuery($dql);
+        
+        $query->setParameter('usuario', $usuario_id);
+        
+        //Resultados de la consulta en un Vector, en este caso en Array
+        $usuarios = $query->getArrayResult();
+        var_dump($usuarios);
+        
+        // Pasarle la información de programas a la vista ..
+        $this->view->usuarios= $usuarios;
+        
+        
+     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
+     $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
+     $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
+     $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
+     $this->view->headLink()->appendStylesheet('/css/facultad.css');
+//     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.css.map');
+     $this->view->headScript()->appendFile('/js/fuelux.min.js');
+     $this->view->headScript()->appendFile('/js/wizard.js');
+     $this->view->headScript()->appendFile('/bootstrap/js/moment.min.js');   
+     $this->view->headScript()->appendFile('/bootstrap/js/bootstrap-datepicker.js');      
+     $this->view->headScript()->appendFile('/bootstrap/js/datepicker.es.min.js');
+     $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
+     $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
+     $this->view->headScript()->appendFile('/js/practica.js');
+     $this->view->headScript()->appendFile('/admin/usuarios.js');
+     $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
+     $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
+     $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
+     $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
+        
+    }
+    //Actualizar nueva contraseña
+    public function actualizarcontrasenaAction(){
+     $this->_helper->layout->disableLayout();
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+     $this->_helper->viewRenderer->setNoRender(TRUE);
+     
+      $id= $this->_getParam('id'); 
+     
+     //Se hace un condicional que el id es mayo que cero
+     if($id>0){
+     //$usuario recibe los datos que se les pasa por petición ajax
+     
+     
+  
+     $pas =$this->_getParam('pas');
+     
+     //Armo el query consulta la contraseña de la base de datos
+      $dql="select u from Application_Model_Usuarios u where u.id_usuario=:usuario";
+        
+         // Ejecutar el Query, la variable query es donde se carga la consulta.
+        $query = $this->em->createQuery($dql);
+        
+        $query->setParameter('usuario', $id);
+      
+   
+          // Almacena en el objecto usuario que tiene el id..
+        $usuario_objeto= ($this->em->getRepository('Application_Model_Usuarios')->find($id));
+        $usuario_objeto->setcontrasena(hash('sha256', $pas));
+    
+        // var_dump($usuario_objeto);
+     
+   // $this->em->persist($usuario_objeto);
+     //Ejecuta la Orden de guardar..
+   //   $this->em->flush(); 
+              
+    }
+     $this->view->headScript()->appendFile('/admin/usuarios.js');
+        
+        
+    }
+
+
 
     public function eliminarusuarioAction(){
           //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información

@@ -7,10 +7,10 @@
               
                 <th>Nombres</th>
                 <th>Apellidos</th>
-                <th>Identificación</th>
-                <th>Correo</th>
-                <th>Usuario</th>
-                <th>Contraseña</th>
+           <!-- <th>Identificación</th> -->
+          <!--  <th>Correo</th> -->
+                <th>Usuario</th> 
+          <!--  <th>Contraseña</th> -->
                 <th>Nombre Programa</th>
                 <th>Rol</th>
                 <th>Acciones</th>
@@ -22,10 +22,10 @@
             
                 <th>Nombres</th>
                 <th>Apellidos</th>
-                <th>Identificación</th>
-                <th>Correo</th>
+          <!--  <th>Identificación</th> -->
+           <!-- <th>Correo</th> -->
                 <th>Usuario</th>
-                <th>Contraseña</th>
+           <!-- <th>Contraseña</th> -->
                 <th>Nombre Programa</th>
                 <th>Rol</th>
                 <th>Acciones</th>
@@ -36,10 +36,10 @@
            <tr>
                <td><?php echo $usuarios['nombre']; ?></td>
                <td><?php echo $usuarios['apellidos']; ?></td>
-               <td><?php echo $usuarios['identificacion']; ?></td>
-               <td><?php echo $usuarios['correo']; ?></td>
+          <!-- <td><?php echo $usuarios['identificacion']; ?></td> -->
+          <!-- <td><?php echo $usuarios['correo']; ?></td> -->
                <td><?php echo $usuarios['usuario']; ?></td>
-               <td><?php echo $usuarios['contrasena']; ?></td>
+          <!-- <td><?php echo $usuarios['contrasena']; ?></td> -->
                <td><?php echo $usuarios['cod_programa']['nombre']; ?></td>
                <td><?php echo $usuarios['id_rol']['nombre']; ?></td>
                <td><a href="/usuarios/editarusuario/id/<?php echo $usuarios['id_usuario']; ?>"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a>&nbsp;<a class="eliminar_usuario" data-usuario="<?php echo $usuarios['id_usuario']; ?>" href="#"> <i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a>&nbsp;<a href="/usuarios/resetearusuario/id/<?php echo $usuarios['id_usuario'];?>"> <i class="fa fa-unlock" style="font-size:18px;color:#643b25;cursor:pointer;"></i></a></td>

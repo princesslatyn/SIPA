@@ -6,6 +6,7 @@ usuarios.agregarusuario();
 usuarios.editarusuario();
 usuarios.eliminarusuario();
 usuarios.resetearcontrasena();
+usuarios.nuevacontrasena();
 }
 $(usuarios.init);
 
@@ -59,11 +60,12 @@ $(usuarios.init);
     //console.log(programa);
     
     //Metodo Para enviar los datos al controlador
- var ajax= $.post('/usuarios/guardarusuario', {nom:nom, ape:ape, ide:ide, correo:correo, usuario:usuario, pass:pass, programa:programa, rol:rol});  
+ // var ajax= 
+         $.post('/usuarios/guardarusuario', {nom:nom, ape:ape, ide:ide, correo:correo, usuario:usuario, pass:pass, programa:programa, rol:rol});  
      
-    ajax.done(function(){
-      window.location='/usuarios/listarusuario';   
-     }); 
+   // ajax.done(function(){
+     // window.location='/usuarios/listarusuario';   
+    // }); 
     }
     }); 
  
@@ -139,7 +141,7 @@ $(usuarios.init);
     var ajax= $.post('/usuarios/actualizarusuario', {nom:nom, ape:ape, ide:ide, correo:correo, usuario:usuario,  programa:id_programa, rol:id_rol, id:id });
   //Actualizar el programa
       ajax.done(function(){
-      window.location='/usuarios/listarusuario';   
+    //  window.location='/usuarios/listarusuario';   
      });   
     }
  }); 
@@ -186,8 +188,45 @@ $(usuarios.init);
         });  
     }
  }); 
+  }
+  //Nueva contraseña
+  usuarios.nuevacontrasena = function(){
+    //Validación de campos vacios
+    $( "#usu" ).validate({
+  rules: {
+    
+       
+       pas:{
+       required: true    
+       } 
+      }
+   }); 
+        //Asignación del Evento
+ $('#cambiar').on('click', function(){
+     //valido los campos
+     if($('#usu').valid()){
+     //Creo una variable temporal para que guarde el dato que en el selector de programa
+    //Guardar los datos
+    
   
- 
+     var pas =$('#pas').val();
+     console.log(pas);
+     var id=$('#id_usuario').val();
+    
+    //Actualizar el dato del selector cuando lo edite
+    
+    //Metodo Para enviar los datos al controlador
+    var ajax= $.post('/usuarios/actualizarcontrasena', {  pas:pas,  id:id });
+    ajax.error(function(){
+    //alert('No se pueden las contraseñas son incorrectas');
+ });
+     //Actualizar el programa
+        ajax.done(function(){
+     //  window.location='/usuarios/listarusuario';   
+        });  
+    }
+ }); 
+      
   }
   
   usuarios.eliminarusuario = function(){

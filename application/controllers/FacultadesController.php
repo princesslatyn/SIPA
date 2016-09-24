@@ -145,7 +145,7 @@ class FacultadesController extends Zend_Controller_Action
      
      //Recibir id como parametro
      $id= $this->_getParam('id');   
-     //Se hace un condicional que el id es mayo que cero
+     //Se hace un condicional que el id es mayor que cero
      if($id>0){
       //Proceso a editar
        //$facultad recibe los datos que se les pasa por petición ajax
