@@ -346,10 +346,10 @@ class UsuariosController extends Zend_Controller_Action
        //la mejor forma de saber la estructura de un vector.
       // var_dump($usuarios);
        $pas_actual= $usuarios[0]['contrasena'];
-       var_dump($pass);
+      // var_dump($pass);
        $pas_ingresa= hash('sha256', $pass);
-       var_dump($pas_actual);
-       var_dump($pas_ingresa);
+      // var_dump($pas_actual);
+      // var_dump($pas_ingresa);
        if($pas_actual == $pas_ingresa){
           // Almacena en el objecto usuario que tiene el id..
         $usuario_objeto= ($this->em->getRepository('Application_Model_Usuarios')->find($id));
@@ -382,7 +382,7 @@ class UsuariosController extends Zend_Controller_Action
         
         //Resultados de la consulta en un Vector, en este caso en Array
         $usuarios = $query->getArrayResult();
-        var_dump($usuarios);
+       // var_dump($usuarios);
         
         // Pasarle la información de programas a la vista ..
         $this->view->usuarios= $usuarios;

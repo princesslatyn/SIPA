@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8"> 
+        
+        <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href='/css/family.css' rel='stylesheet' type='text/css'>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>login</title>
+         </head>
+         <style>
+             body{
+                background-image: url(img/2.JPG);  /* Ubicación de la imagen */
+                background-position: center center; /* Nos aseguramos que la imagen de fondo este centrada vertical y horizontalmente en todo momento */
+                background-repeat: no-repeat;  /* La imagen de fondo no se repite*/
+                background-attachment: fixed;  /*La imagen de fondo está fija en el viewport, de modo que no se mueva cuando la altura del contenido supere la altura de la imagen */
+                background-color: snow;  /*La imagen de fondo se reescala cuando se cambia el ancho de ventana del navegador */
+                background-size:cover; /*Fijamos un color de fondo para que se muestre mientras se está cargando la imagen de fondo o si hay problemas para cargarla */ 
+               
+                
+             }
+             .panel-body{
+                 background-image: url();
+                 background-position: center center;
+                 background-repeat: no-repeat;
+                 background-size: 100% auto; /* fijar la imagen a la pantalla*/
+                 
+             }
+          
+             img{
+                 width: 100%;
+             }
+         
+             input[type="text"]:focus:invalid{
+              border: 1px solid red;
+              box-shadow: 0 0 5px red;
+              background: #d0e9c6;
+          }
+          input[type="password"]:focus:invalid{
+              border: 1px solid red;
+              box-shadow: 0 0 5px red;
+              background: #a6e1ec;
+              
+          }
+          input[type="email"]:focus:invalid{
+              border: 1px solid red;
+              box-shadow: 0 0 5px red;
+              background: #a6e1ec;
+          }
+          input[type="tel"]:focus:invalid{
+              border: 1px solid red;
+              box-shadow: 0 0 5px red;
+              background: #a6e1ec;
+              
+          }
+             input[type="datetime"]:focus:invalid{
+              border: 1px solid red;
+              box-shadow: 0 0 5px red;
+              background: #a6e1ec;
+              
+          }
+ 
+             
+         </style>  
+    <body>
+    <div class="container">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+            <div class="panel-heading">
+            <h3 class="panel-title" align="center">Autenticación Sipa</h3>
+            </div>
+           <div class="panel-body"  class='img-responsive'alt='imagen responsive'>
+            <form id="log" >
+            <div class="row">
+              <div class="col-xs-8 form-group ">
+              <label for="user" class="control-label">Usuario:</label>
+              <input class="form-control" id="user" name="user" type="text" placeholder="Usuario" required/> 
+               </div>
+             <div class="col-xs-8 form-group ">
+                 <label for="contrasena" class="control-label">Contraseña:</label>
+                 <input class="form-control" id="pass" name="pass"  type="password" placeholder="contraseña" required/>         
+             </div>
+                <div class="form-group">  
+             <div class='col-xs-offset-3 col-sm-8' style='padding-top: 28px'>
+             <button  id="acceder" class="btn btn-danger">Acceder</button>
+             </div>
+             </div>        
+             </div>
+             </form> 
+                    
+            </div>    
+                    
+            </div>    
+                    
+            </div>    
+                
+            </div>     
+          
+        </div>
+    <script src="/bootstrap/js/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/autenticar/login.js"></script>
+     <script src="/validacion/jquery.validate.min.js"></script>
+    <script src="/validacion/localization/messages_es.min.js"></script>    
+    </body>
+    
+   
+</html>
+
