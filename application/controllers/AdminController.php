@@ -1,12 +1,10 @@
 <?php
 
-class AdminController extends Zend_Controller_Action
-{
+class AdminController extends Zend_Controller_Action{
     // Entity Manager
     private $em;
 
-    public function init()
-    {
+    public function init(){
         // Activar el Entity Manager
         $registry = Zend_Registry::getInstance();
         $this->em = $registry->entitymanager;

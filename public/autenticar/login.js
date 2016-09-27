@@ -35,7 +35,7 @@ login.autenticar = function(){
     ajax.error(function(){
      alert('Los Datos No son Correctos');
  });
-  // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
+  // Codigo para actualizar 
   ajax.done(function(){
       window.location='/Autorizar/index';
   });
