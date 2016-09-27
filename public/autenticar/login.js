@@ -26,14 +26,18 @@ login.autenticar = function(){
     if($('#log').valid()){
     var user= $('#user').val();
     var pass= $('#pass').val();
+   
    // console.log(pass);
     
    // console.log(facultad);
     //Metodo Para enviar los datos al controlador
   var ajax= $.post('/login/autenticar', {user:user, pass:pass});
+    ajax.error(function(){
+     alert('Los Datos No son Correctos');
+ });
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
   ajax.done(function(){
-     // window.location='/facultades/listarfacultad';
+      window.location='/Autorizar/index';
   });
     }
     

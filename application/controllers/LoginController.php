@@ -40,40 +40,41 @@ class LoginController extends Zend_Controller_Action
      //Recibo los parametros por Ajax
      $user=  $this->_getParam('user');
      $pass= $this->_getParam('pass');
-     //var_dump($pass);
+    // var_dump($pass);
      
      //Encripto la contraseña...
      
      $pass= hash('sha256', $pass);
      
      // Preparo la consulta
-     $dql="select u from Application_Model_Usuarios u where u.usuario=:user and u.contrasena=:pass";
-     var_dump($dql);
+     $dql="select u, r from Application_Model_Usuarios u join u.id_rol r where u.usuario=:user and u.contrasena=:pass";
+    
      
      $query = $this->em->createQuery($dql);
      //Agrego los Parametros
-     $query->setParameter('pass', $user);
+     $query->setParameter('pass', $pass);
+    // var_dump($query);
+     $query->setParameter('user', $user);
      
      //Obtengo el resultado del query
      $usuarios = $query->getArrayResult();
+     var_dump(count($usuarios));
+     
+    if(count($usuarios)== 1){
+       echo 'Datos Ingresados Correctos';
+    //Inicio sesión cuando los datos sean correctos   
+    $authNamespace = new Zend_Session_Namespace('Zend_Auth');
+    $authNamespace->usuarios = $usuarios;
+       
+       
+    } else {
+        header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500); 
+    }
      // Se la paso al listado de usuarios.
-     $this->view->usuarios= $usuarios; 
+  //   $this->view->usuarios= $usuarios; 
      
     // 
-    
-    
-     
-     
-    
-     
-     
-     
-     
-     
-     
-     
-     
-     
+       
      
     }
     
