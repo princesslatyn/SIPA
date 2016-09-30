@@ -1,10 +1,12 @@
 <?php
 
-class AdminController extends Zend_Controller_Action{
+class PaneldepartamentoController extends Zend_Controller_Action
+{
     // Entity Manager
     private $em;
 
-    public function init(){
+    public function init()
+    {
         // Activar el Entity Manager
         $registry = Zend_Registry::getInstance();
         $this->em = $registry->entitymanager;
@@ -14,14 +16,12 @@ class AdminController extends Zend_Controller_Action{
     }
 
     public function indexAction(){
-    //La vista que quiero que solo se me muestre aqui...    
-     $this->_helper->layout->setLayout('admin');
-      
-    $authNamespace = new Zend_Session_Namespace('Zend_Auth');
-    $authNamespace->usuarios[0]['id_rol']['id_rol'];
-    //var_dump();        
-    
-    $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
+        
+     $this->_helper->layout->setLayout('layout');
+     
+     
+     //Librerias
+     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
      $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
@@ -41,7 +41,7 @@ class AdminController extends Zend_Controller_Action{
      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
     
     }
-    
+  
    
     
    

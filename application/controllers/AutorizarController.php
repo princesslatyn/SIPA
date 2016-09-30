@@ -23,6 +23,7 @@ class AutorizarController extends Zend_Controller_Action
     $authNamespace = new Zend_Session_Namespace('Zend_Auth');
     
     //Creo un swich para que me controle todas los roles
+   // var_dump($authNamespace->usuarios[0]['id_rol']['id_rol']);
     switch ($authNamespace->usuarios[0]['id_rol']['id_rol']){
         case "1": 
             $this->_redirect('/application/confirm/');
@@ -30,6 +31,9 @@ class AutorizarController extends Zend_Controller_Action
         case "2": 
             echo "hola";
             $this->_redirect('/admin/index');
+            break;
+        case "5":
+            $this->_redirect('/Paneldepartamento/index');
             break;
     }
     
