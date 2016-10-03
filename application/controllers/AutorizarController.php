@@ -31,7 +31,7 @@ class AutorizarController extends Zend_Controller_Action{
             $this->_redirect('/application/confirm/');
             break;
         case "4":
-            $this->_redirect('/Paneldepartamento/index');
+            $this->_redirect('/inicio/departamento');
             break;
     }
     
