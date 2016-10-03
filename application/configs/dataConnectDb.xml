@@ -4,8 +4,8 @@
         <driver>pdo_mysql</driver>
         <host>127.0.0.1</host>
         <dbname>practicas</dbname>
-        <username>root</username>
-        <pass>lila</pass>
+        <username>sipa</username>
+        <pass>Sip@2016</pass>
         </database>
 </databases>
 

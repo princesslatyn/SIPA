@@ -1,21 +1,21 @@
 <?php
 
-class PaneldepartamentoController extends Zend_Controller_Action
-{
+class IniciosController extends Zend_Controller_Action{
     // Entity Manager
     private $em;
 
-    public function init()
-    {
+    public function init(){
         // Activar el Entity Manager
         $registry = Zend_Registry::getInstance();
         $this->em = $registry->entitymanager;
         
-        
+        // $this->_helper->layout->setLayout('admin');
+         $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
+         $this->view->headLink()->appendStylesheet('/css/facultad.css');
         
     }
 
-    public function indexAction(){
+      public function indexAction(){
         
      $this->_helper->layout->setLayout('layout');
      
@@ -35,16 +35,11 @@ class PaneldepartamentoController extends Zend_Controller_Action
      $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
      $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
      $this->view->headScript()->appendFile('/js/practica.js');
-     $this->view->headScript()->appendFile('/admin/facultades.js');
      $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
      $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
     
     }
-  
-   
-    
-   
 }
 
 

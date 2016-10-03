@@ -333,6 +333,9 @@ class UsuariosController extends Zend_Controller_Action
      
      $pass =$this->_getParam('pass');
      $pas =$this->_getParam('pas');
+    // var_dump($pas);
+     $pa =  $this->_getParam('pa');
+    // var_dump($pa);
      
      //Armo el query consulta la contraseña de la base de datos
       $dql="select u from Application_Model_Usuarios u where u.id_usuario=:usuario";
@@ -349,18 +352,25 @@ class UsuariosController extends Zend_Controller_Action
       // var_dump($pass);
        $pas_ingresa= hash('sha256', $pass);
       // var_dump($pas_actual);
-      // var_dump($pas_ingresa);
-       if($pas_actual == $pas_ingresa){
-          // Almacena en el objecto usuario que tiene el id..
+       var_dump($pas);
+       var_dump($pa);
+       if($pas_actual == $pas_ingresa && $pas == $pa){
+           try {
+                // Almacena en el objecto usuario que tiene el id..
         $usuario_objeto= ($this->em->getRepository('Application_Model_Usuarios')->find($id));
-        $usuario_objeto->setcontrasena(hash('sha256', $pass));
-    
+        $usuario_objeto->setcontrasena(hash('sha256', $pas));
+       
+        var_dump('hola');
    
     // var_dump($usuario_objeto);
      
      $this->em->persist($usuario_objeto);
      //Ejecuta la Orden de guardar..
       $this->em->flush(); 
+               
+           } catch (Exception $e) {
+               echo $e->get_message(); 
+           }
            
        }else{
           header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500); 

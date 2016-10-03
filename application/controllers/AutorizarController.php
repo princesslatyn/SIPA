@@ -1,12 +1,10 @@
 <?php
 
-class AutorizarController extends Zend_Controller_Action
-{
+class AutorizarController extends Zend_Controller_Action{
     // Entity Manager
     private $em;
 
-    public function init()
-    {
+    public function init(){
         // Activar el Entity Manager
         $registry = Zend_Registry::getInstance();
         $this->em = $registry->entitymanager;
@@ -23,16 +21,16 @@ class AutorizarController extends Zend_Controller_Action
     $authNamespace = new Zend_Session_Namespace('Zend_Auth');
     
     //Creo un swich para que me controle todas los roles
-   // var_dump($authNamespace->usuarios[0]['id_rol']['id_rol']);
+  // var_dump($authNamespace->usuarios[0]['id_rol']['id_rol']);
     switch ($authNamespace->usuarios[0]['id_rol']['id_rol']){
         case "1": 
-            $this->_redirect('/application/confirm/');
+            $this->_redirect('/admin/index');
             break;
         case "2": 
             echo "hola";
-            $this->_redirect('/admin/index');
+            $this->_redirect('/application/confirm/');
             break;
-        case "5":
+        case "4":
             $this->_redirect('/Paneldepartamento/index');
             break;
     }

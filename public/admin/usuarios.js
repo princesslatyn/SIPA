@@ -159,7 +159,10 @@ $(usuarios.init);
        },
        pas:{
        required: true    
-       } 
+       },
+        pa:{
+       required: true    
+       }
       }
    }); 
 
@@ -173,12 +176,15 @@ $(usuarios.init);
    //  console.log(ape);
      var pass= $('#pass').val();
      var pas =$('#pas').val();
+     console.log(pas);
+     var pa =$('#pa').val();
+     console.log(pa);
      var id=$('#id_usuario').val();
     
     //Actualizar el dato del selector cuando lo edite
     
     //Metodo Para enviar los datos al controlador
-    var ajax= $.post('/usuarios/actualizarres', { pass:pass,  pas:pas,  id:id });
+    var ajax= $.post('/usuarios/actualizarres', { pass:pass,  pas:pas, pa:pa, id:id });
     ajax.error(function(){
      alert('No se pueden las contraseñas son incorrectas');
  });
