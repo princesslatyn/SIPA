@@ -13,8 +13,13 @@ class LogoutController extends Zend_Controller_Action{
     }
 
     public function indexAction(){
-        $auth = Zend_Auth::getInstance();
-        $auth->clearIdentity();
+    //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+     $this->_helper->layout->disableLayout();
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+    $this->_helper->viewRenderer->setNoRender(TRUE); 
+       
+        $authNamespace = new Zend_Session_Namespace('Zend_Auth');
+        unset($authNamespace);
         $this->_helper->redirector->goToUrl('/login');
     }
 

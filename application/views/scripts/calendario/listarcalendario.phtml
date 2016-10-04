@@ -1,0 +1,38 @@
+<div class="row col-sm-4 col-md-6 col-lg-9" style="margin-top: 10px;">
+    <h3>Listar Calendario</h3>
+    <br>
+        <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+              
+                <th>Año</th>
+                <th>Periodo</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Final</th>
+                <th>Acciones</th>
+                
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+            
+                <th>Año</th>
+                <th>Periodo</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Final</th>
+                <th>Acciones</th>
+            </tr>
+        </tfoot>
+        <tbody>
+           <?php foreach ($this->calendario as $calendario) {?> 
+            <tr>
+                <td><?php echo $calendario ['annio'];?></td>
+                <td><?php echo $calendario ['periodo'];?></td>
+                <td><?php echo $calendario ['fecha_inicio']->format('Y-m-d H:i:s');?></td>
+                <td><?php echo $calendario ['fecha_fin']->format('Y-m-d H:i:s');?></td>
+                <td><a href="/Calendario/agregarcalendario/id/<?php echo $calendario ['id'];?> "><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a>&nbsp;<a class="eliminar_calendario" data-calendario="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>
+            </tr> 
+            <?php }?>
+        </tbody>
+    </table>    
+        </div> 
