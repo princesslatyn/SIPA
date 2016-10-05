@@ -36,10 +36,10 @@ calendario.agregarcalendario = function(){
     // facultad variable donde se guarda los datos
     if($('#cale').valid()){
     var annio= $('#annio').val();  
-    console.log(annio);
     var per= $('#per').val(); 
     var ini= $('#ini').val(); 
-    var fin= $('#fin').val(); 
+    var fin= $('#fin').val();
+    console.log(fin);
    // console.log(facultad);
     //Metodo Para enviar los datos al controlador
   var ajax= $.post('/Calendario/guardarcalendario', {annio:annio, per:per, ini:ini, fin:fin});

@@ -37,7 +37,14 @@ class Application_Model_Calendario {
     $this->periodo =$per;
         
     }
-    
+    public function setfecha_inicio($ini){
+    $this->fecha_inicio =$ini;
+        
+    }
+    public function setfecha_fin($fin){
+    $this->fecha_fin =$fin;
+        
+    } 
     public function __construct() {
         // la variable now, se comporta como un objeto donde la fecha se haga automaticamente..
         $this->fecha_inicio=new DateTime('now');
