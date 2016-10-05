@@ -19,10 +19,10 @@ class Application_Model_Calendario {
      /** @Column(type="string", length=20) */
     private $periodo;
     
-      /** @Column(type="datetime") */
+      /** @Column(type="date") */
     private $fecha_inicio;
     
-      /** @Column(type="datetime") */
+      /** @Column(type="date") */
     private $fecha_fin;
 
      /** @Column(type="datetime") */

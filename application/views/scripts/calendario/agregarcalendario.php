@@ -13,7 +13,7 @@
       <label>Año</label> 
       <select class="form-control" id="annio" name="annio" style="cursor:pointer;">
       <?php foreach ($this->calendario as $calendario) {?>  
-      <option  value="<?php echo $calendario['id'];?>"><?php echo $calendario['annio'];?></option>
+      <option  value="<?php echo $calendario['annio'];?>"><?php echo $calendario['annio'];?></option>
       <?php }?> 
       </select>
       </div>    
@@ -26,7 +26,7 @@
       <label>Periodo</label>    
       <select class="form-control" id="per" name="per" style="cursor:pointer;">
       <?php foreach ($this->calendario as $calendario) {?>  
-      <option  value="<?php echo $calendario['id'];?>"><?php echo $calendario['periodo'];?></option>
+      <option  value="<?php echo $calendario['periodo'];?>"><?php echo $calendario['periodo'];?></option>
       <?php }?> 
       </select>
       </div>    
@@ -65,3 +65,4 @@
    </div>          
    </div>  
 </div>
+

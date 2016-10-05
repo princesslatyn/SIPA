@@ -1,12 +1,13 @@
 <?php
 
-class CalendarioController extends Zend_Controller_Action{
+class CalendarioController extends Zend_Controller_Action
+{
      private $em;
 
-    public function init()
-    {
+    public function init(){
         /* Initialize action controller here */
         // Activar el Entity Manager
+         // Activar el Entity Manager
         $registry = Zend_Registry::getInstance();
         $this->em = $registry->entitymanager;
         
@@ -59,20 +60,34 @@ class CalendarioController extends Zend_Controller_Action{
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->viewRenderer->setNoRender(TRUE);
      
+     //formato para convertir string a datetime
      
-    
-      
+     
+     
+     //Recibo los parametros por ajax
      $annio =$this->_getParam('annio'); 
      $per =$this->_getParam('per');
-     var_dump($per);
      $ini =$this->_getParam('ini');
      $fin =$this->_getParam('fin');
+     try{
+         $fecha_inicio = new DateTime($ini);
+         $fecha_inicio->format('d/m/Y');
+     
+        $fecha_fin = DateTime::createFromFormat('d/m/Y', $fin);
+     } catch (Exception $ex) {
+        echo $ex->getMessage();
+     }
+      
+     var_dump($ini);
+     var_dump($fin);
+     
+     
      
      $calendario_objeto = new Application_Model_Calendario();
      $calendario_objeto->setannio($annio);
      $calendario_objeto->setperiodo($per);
-     $calendario_objeto->setfecha_inicio($ini);
-     $calendario_objeto->setfecha_fin($fin);
+     $calendario_objeto->setfecha_inicio($fecha_inicio);
+     $calendario_objeto->setfecha_fin($fecha_fin);
      
     // var_dump($calendario_objeto);
     $this->em->persist($calendario_objeto);
@@ -118,6 +133,7 @@ class CalendarioController extends Zend_Controller_Action{
     }
 
 }
+
 
 
 

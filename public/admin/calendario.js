@@ -54,9 +54,18 @@ calendario.agregarcalendario = function(){
 }
 calendario.editarcalendario = function(){
      //Validación de que los campos no se vayan vacios
-    $( "#fac" ).validate({
+    $( "#cale" ).validate({
   rules: {
-    facultad: {
+    annio: {
+      required: true
+       },
+       per: {
+      required: true
+       },
+       ini: {
+      required: true
+       },
+      fin: {
       required: true
        }
       }
@@ -68,7 +77,7 @@ calendario.editarcalendario = function(){
     // #facultad valor del input
     // facultad variable donde se guarda los datos
     //Valido los campos
-    if($('#fac').valid()){
+    if($('#cale').valid()){
     var facultad= $('#facultad').val(); 
     //Guardar el id de facultades
     var id=$('#id_facultad').val();
