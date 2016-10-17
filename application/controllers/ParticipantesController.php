@@ -32,51 +32,22 @@ class ParticipantesController extends Zend_Controller_Action
      //Recibo los parametros por ajax, para participante Docente...
      
      try {
-     $doce= $this->_getParam('doce');
-     var_dump($doce);
-     $docente= $this->_getParam('docente');
-     var_dump($docente);
-     $tipo_docente= $this->_getParam('tipo_docente');
-     var_dump($tipo_docente);
+     $nombre= $this->_getParam('nombre');
+     var_dump($nombre);
+     $identificacion= $this->_getParam('identificacion');
+     var_dump($identificacion);
+     $tipo_participante= $this->_getParam('tipo_participante');
+     var_dump($tipo_participante);
      $programa= $this->_getParam('programa');
      var_dump($programa);
      
       $participante_objeto = new Application_Model_Participantes();
-      $participante_objeto->setnombre($doce);
-      $participante_objeto-> setidentificacion($docente);
-      $participante_objeto-> settipo_participante($tipo_docente);
+      $participante_objeto->setnombre($nombre);
+      $participante_objeto-> setidentificacion($identificacion);
+      $participante_objeto-> settipo_participante($tipo_participante);
       $participante_objeto->setid_programa($this->em->getRepository('Application_Model_Programas')->find($programa));
       
-      //recibo los parametros por ajax, para participante Auxiliares..
-     $aux= $this->_getParam('aux');
-      var_dump($aux);
-      $auxiliar= $this->_getParam('auxiliar');
-      var_dump($auxiliar);
-      $tipo_auxiliar= $this->_getParam('tipo_auxiliar');
-      var_dump($tipo_auxiliar);
-      $program= $this->_getParam('program'); 
-      var_dump($program);
-      
-      $participante_objeto-> setnombre($aux);
-      $participante_objeto->setidentificacion($auxiliar);
-      $participante_objeto->settipo_participante($tipo_auxiliar);
-      $participante_objeto->setid_programa($this->em->getRepository('Application_Model_Programas')->find($program));
-      
-      //Recibo los parametros por ajax, para el participante asesor..
-      $ase= $this->_getParam('ase');
-      var_dump($ase);
-      $asesor= $this->_getParam('asesor');
-      var_dump($asesor);
-      $tipo_asesor= $this->_getParam('tipo_asesor');
-      var_dump($tipo_asesor);
-      $progra= $this->_getParam('progra');
-      var_dump($progra);
-      
-      $participante_objeto->setnombre($ase);
-      $participante_objeto->setidentificacion($asesor);
-      $participante_objeto->settipo_participante($tipo_asesor);
-      $participante_objeto->setid_programa($this->em->getRepository('Application_Model_Programas')->find($progra)); 
-      
+     
       
       
       //da la orden de guardar...
@@ -84,6 +55,12 @@ class ParticipantesController extends Zend_Controller_Action
      var_dump($participante_objeto);
      //Ejecuta la Orden de guardar..
      $this->em->flush(); 
+     //pasar en json a jquery
+     $json= array();
+     $json['id_participante']=$participante_objeto->getid_participante();
+     $json['nombre']=$nombre;
+     echo Zend_Json::encode($json);        
+     
          
      } catch (Exception $e) {
          echo $e->getMessage();

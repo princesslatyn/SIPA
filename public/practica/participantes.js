@@ -19,16 +19,24 @@ participantes.agregardocente = function(){
     // #facultad valor del input
     // facultad variable donde se guarda los datos
     
-    var doce= $('#doce').val();  
-    console.log(doce);
-    var docente= $('#docente').val();
-    var tipo_docente= ('docente');
+    var nombre= $('#doce').val();  
+    console.log(nombre);
+    var identificacion= $('#docente').val();
+    var tipo_participante= ('docente');
     var programa= $('#programa').val();
    
     //Metodo Para enviar los datos al controlador
-  var ajax= $.post('/Participantes/guardarparticipante', {doce:doce, docente:docente, tipo_docente:tipo_docente, programa:programa});
+  var ajax= $.post('/Participantes/guardarparticipante', {nombre:nombre, identificacion:identificacion, tipo_participante:tipo_participante, programa:programa});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
   ajax.done(function(){
+      //pintar una nueva opción
+      var html= "";
+      html= '<option value='+ id_participante +'>'+ nombre_participante +'</option>';
+      $(selector).append(html);
+      //Para que se pueda seleccionar el selector
+      $(selector).find('option[value='+ id_participante +']').attr('selected', true);
+      $(selector).triggerHandler('change');
+      
      // window.location='/facultades/listarfacultad';
   });
     
@@ -40,20 +48,20 @@ participantes.agregardocente = function(){
 participantes.agregarauxiliar = function(){
     //Validación de que los campos no se vayan vacios
     //on hace la asignación de un evento..
-    $('#agregar').on('click', function(){
+    $('#agrega').on('click', function(){
        // console.log('Hola')
     //val me devuelve el elemento que esta en el id de la función  (extrae el valor del input)
     // #facultad valor del input
     // facultad variable donde se guarda los datos
     
-    var aux= $('#aux').val();  
-    console.log(aux);
-   var auxiliar= $('#auxiliar').val();
-   var tipo_auxiliar= ('auxiliar');
-    var program= $('#program').val();
+    var nombre= $('#aux').val();  
+    console.log(nombre);
+   var identificacion= $('#auxiliar').val();
+   var tipo_participante= ('auxiliar');
+    var programa= $('#program').val();
    
     //Metodo Para enviar los datos al controlador
-  var ajax= $.post('/Participantes/guardarparticipante', {aux:aux, auxiliar:auxiliar, tipo_auxiliar:tipo_auxiliar, program:program});
+  var ajax= $.post('/Participantes/guardarparticipante', {nombre:nombre, identificacion:identificacion, tipo_participante:tipo_participante, programa:programa});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
   ajax.done(function(){
      // window.location='/facultades/listarfacultad';
@@ -67,22 +75,23 @@ participantes.agregarauxiliar = function(){
 participantes.agregarasesor = function(){
     //Validación de que los campos no se vayan vacios
     //on hace la asignación de un evento..
-    $('#agregar').on('click', function(){
+    $('#agre').on('click', function(){
        // console.log('Hola')
     //val me devuelve el elemento que esta en el id de la función  (extrae el valor del input)
     // #facultad valor del input
     // facultad variable donde se guarda los datos
     
-    var ase= $('#ase').val();  
-    console.log(ase);
-   var asesor= $('#asesor').val();
-   var tipo_asesor= ('asesor');
-   var progra= $('#progra').val();
+    var nombre= $('#ase').val();  
+    console.log(nombre);
+   var identificacion= $('#asesor').val();
+   var tipo_participante= ('asesor');
+   var programa= $('#progra').val();
    
     //Metodo Para enviar los datos al controlador
-  var ajax= $.post('/Participantes/guardarparticipante', {ase:ase, asesor:asesor, tipo_asesor:tipo_asesor, progra:progra});
+  var ajax= $.post('/Participantes/guardarparticipante', {nombre:nombre, identificacion:identificacion, tipo_participante:tipo_participante, programa:programa});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
   ajax.done(function(){
+      
      // window.location='/facultades/listarfacultad';
   });
     

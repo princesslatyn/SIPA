@@ -2,10 +2,15 @@
 
 class PracticasController extends Zend_Controller_Action
 {
+    // Entity Manager
+    private $em;
 
     public function init()
     {
         /* Initialize action controller here */
+        // Activar el Entity Manager
+        $registry = Zend_Registry::getInstance();
+        $this->em = $registry->entitymanager;
     }
 
     public function indexAction()

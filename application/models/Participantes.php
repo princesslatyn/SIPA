@@ -32,6 +32,9 @@ class Application_Model_Participantes {
    private $id_programa;
     
     //Metodo Público
+    public function getid_participante(){
+        return $this->id_participante;
+    }
     public function setidentificacion($ide){
         $this->identificacion =$ide;
     }
