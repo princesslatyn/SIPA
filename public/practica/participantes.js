@@ -24,18 +24,19 @@ participantes.agregardocente = function(){
     var identificacion= $('#docente').val();
     var tipo_participante= ('docente');
     var programa= $('#programa').val();
+    
    
     //Metodo Para enviar los datos al controlador
   var ajax= $.post('/Participantes/guardarparticipante', {nombre:nombre, identificacion:identificacion, tipo_participante:tipo_participante, programa:programa});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
-  ajax.done(function(){
+  ajax.done(function(data){
       //pintar una nueva opción
       var html= "";
-      html= '<option value='+ id_participante +'>'+ nombre_participante +'</option>';
-      $(selector).append(html);
+      html= '<option value='+ data.id_participante +'>'+ data.nombre_participante +'</option>';
+      $('#docen').append(html);
       //Para que se pueda seleccionar el selector
-      $(selector).find('option[value='+ id_participante +']').attr('selected', true);
-      $(selector).triggerHandler('change');
+      $('#docen').find('option[value='+ data.id_participante +']').attr('selected', true);
+      $('#docen').triggerHandler('change');
       
      // window.location='/facultades/listarfacultad';
   });

@@ -33,13 +33,10 @@ class ParticipantesController extends Zend_Controller_Action
      
      try {
      $nombre= $this->_getParam('nombre');
-     var_dump($nombre);
      $identificacion= $this->_getParam('identificacion');
-     var_dump($identificacion);
      $tipo_participante= $this->_getParam('tipo_participante');
-     var_dump($tipo_participante);
      $programa= $this->_getParam('programa');
-     var_dump($programa);
+   
      
       $participante_objeto = new Application_Model_Participantes();
       $participante_objeto->setnombre($nombre);
@@ -52,7 +49,7 @@ class ParticipantesController extends Zend_Controller_Action
       
       //da la orden de guardar...
      $this->em->persist($participante_objeto);
-     var_dump($participante_objeto);
+    // var_dump($participante_objeto);
      //Ejecuta la Orden de guardar..
      $this->em->flush(); 
      //pasar en json a jquery
