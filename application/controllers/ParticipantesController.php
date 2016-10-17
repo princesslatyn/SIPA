@@ -1,6 +1,6 @@
 <?php
 
-class FacultadesController extends Zend_Controller_Action
+class ParticipantesController extends Zend_Controller_Action
 {
     // Entity Manager
     private $em;
@@ -10,10 +10,7 @@ class FacultadesController extends Zend_Controller_Action
         // Activar el Entity Manager
         $registry = Zend_Registry::getInstance();
         $this->em = $registry->entitymanager;
-        
-         $this->_helper->layout->setLayout('admin');
-         $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
-         $this->view->headLink()->appendStylesheet('/css/facultad.css');
+       
         
     }
 
@@ -22,169 +19,88 @@ class FacultadesController extends Zend_Controller_Action
        // para que todo lo que este dentro de este metodo se ejecute en todas las Vistas..
     }
     
-    public function agregarfacultadAction()
-    { 
-     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
-     $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
-     $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
-     $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
-     $this->view->headLink()->appendStylesheet('/css/facultad.css');
-//     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.css.map');
-     $this->view->headScript()->appendFile('/js/fuelux.min.js');
-     $this->view->headScript()->appendFile('/js/wizard.js');
-     $this->view->headScript()->appendFile('/bootstrap/js/moment.min.js');   
-     $this->view->headScript()->appendFile('/bootstrap/js/bootstrap-datepicker.js');      
-     $this->view->headScript()->appendFile('/bootstrap/js/datepicker.es.min.js');
-     $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
-     $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
-     $this->view->headScript()->appendFile('/js/practica.js');
-     $this->view->headScript()->appendFile('/admin/facultades.js');
-     $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
-     $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
-     $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
-    }
-    public function listarfacultadAction()
-    { 
-       
+   
+   
+    public function guardarparticipanteAction(){
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+     $this->_helper->layout->disableLayout();
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+     $this->_helper->viewRenderer->setNoRender(TRUE);
+     
+      // Realizamos la consulta dql, para que se listen los Programas, en la vista Agregar Asignatura..
+     $dql ="select p from Application_Model_Programas p";
         
-        //Consulta dql para listar las facultades
-        $dql ="select f from Application_Model_Facultades f";
-        
-        // Ejecutar el Query, la variable query es donde se carga la consulta.
+         // Ejecutar el Query, la variable query es donde se carga la consulta.
         $query = $this->em->createQuery($dql);
         
         //Resultados de la consulta en un Vector, en este caso en Array
-        $facultades = $query->getArrayResult();
+        $programas = $query->getArrayResult();
         
-        //Imprimir en la pagina lo que esta en la variable en este caso facultades
-       // var_dump($facultades);
-        //Pasarle a la Vista la informción de la facultad
-        $this->view->facultades= $facultades;
-        
-      
-      $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
-      $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
-      $this->view->headLink()->appendStylesheet('/css/facultad.css');
-      $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
-      $this->view->headScript()->appendFile('/js/facultad.js');
-      $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
-      $this->view->headScript()->appendFile('/admin/facultades.js');
-      $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
-      $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
-      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
-      $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
-      
-    }
-    public function guardarfacultadAction(){
-     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
-     $this->_helper->layout->disableLayout();
-     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
-     $this->_helper->viewRenderer->setNoRender(TRUE);
+        // Pasarle la información de programas a la vista ..
+        $this->view->programas= $programas; 
+    
+     //Recibo los parametros por ajax, para participante Docente...
      
-     //$facultad recibe los datos que se les pasa por petición ajax
-     $facultad =$this->_getParam('facultad');  
-     //var_dump($facultad);
+     try {
+     $doce= $this->_getParam('doce');
+     var_dump($doce);
+     $docente= $this->_getParam('docente');
+     var_dump($docente);
+     $tipo_docente= $this->_getParam('tipo_docente');
+     var_dump($tipo_docente);
+     $programa= $this->_getParam('programa');
      
-     // Instancia del modelo Facultades. crea una facultad automatico..
-     $facultad_objeto = new Application_Model_Facultades();
-     //la instancia le asigna una facultad, hacer el nombre de la facultad..
-     $facultad_objeto->setnombre($facultad);
-     //da la orden de guardar...
-     $this->em->persist($facultad_objeto);
+      $participante_objeto = new Application_Model_Participantes();
+      $participante_objeto->setnombre($doce);
+      $participante_objeto-> setidentificacion($docente);
+      $participante_objeto-> settipo_participante($tipo_docente);
+      $participante_objeto->setid_programa($this->em->getRepository('Application_Model_Programas')->find($programa));
+      
+      //recibo los parametros por ajax, para participante Auxiliares..
+    /**  $aux= $this->_getParam('aux');
+      var_dump($aux);
+      $auxiliar= $this->_getParam('auxiliar');
+      var_dump($auxiliar);
+      $tipo_auxiliar= $this->_getParam('tipo_auxiliar');
+      var_dump($tipo_auxiliar);
+      $program= $this->_getParam('program'); 
+      
+      $participante_objeto-> setnombre($aux);
+      $participante_objeto->setidentificacion($auxiliar);
+      $participante_objeto->settipo_participante($tipo_auxiliar);
+      $participante_objeto->setid_programa($this->em->getRepository('Application_Model_Programas')->find($program));
+      
+      //Recibo los parametros por ajax, para el participante asesor..
+      $ase= $this->_getParam('ase');
+      var_dump($ase);
+      $asesor= $this->_getParam('asesor');
+      var_dump($asesor);
+      $tipo_asesor= $this->_getParam('tipo_asesor');
+      var_dump($tipo_asesor);
+      $progra= $this->_getParam('progra');
+      
+      $participante_objeto->setnombre($ase);
+      $participante_objeto->setidentificacion($asesor);
+      $participante_objeto->settipo_participante($tipo_asesor);
+      $participante_objeto->setid_programa($this->em->getRepository('Application_Model_Programas')->find($progra)); */
+      
+      
+      
+      //da la orden de guardar...
+     $this->em->persist($participante_objeto);
+     var_dump($participante_objeto);
      //Ejecuta la Orden de guardar..
-     $this->em->flush();   
-        
-        
-    }
-     public function editarfacultadAction() { 
-       
-         //capturo el id de la facultad
-         $facultad_id =$this->_getParam('id');
-         //Realizo la consulta para obtener el codigo de la facultad...
-         $dql= "select f from Application_Model_Facultades f where f.id_facultad=:facultad";
-         //Crear el query para que se guarde la consulta...
-         $query= $this->em->createQuery($dql);
-         //Se guarde el id de facultad..
-         $query->setParameter('facultad', $facultad_id);
-         //muestre el resultado en un array...
-         $facultad =$query->getArrayResult();
-        // var_dump($facultad);     
-      
-       /** try{  
+     $this->em->flush(); 
+         
      } catch (Exception $e) {
          echo $e->getMessage();
-     } */
-         //Se le pasa la variable a la vista...
-        $this->view->facultad= $facultad; 
-         
-     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
-     $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
-     $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
-     $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
-     $this->view->headLink()->appendStylesheet('/css/facultad.css');
-//     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.css.map');
-     $this->view->headScript()->appendFile('/js/fuelux.min.js');
-     $this->view->headScript()->appendFile('/js/wizard.js');
-     $this->view->headScript()->appendFile('/bootstrap/js/moment.min.js');   
-     $this->view->headScript()->appendFile('/bootstrap/js/bootstrap-datepicker.js');      
-     $this->view->headScript()->appendFile('/bootstrap/js/datepicker.es.min.js');
-     $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
-     $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
-     $this->view->headScript()->appendFile('/js/practica.js');
-     $this->view->headScript()->appendFile('/admin/facultades.js');
-     $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
-     $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
-     $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
-     $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
-    }
-    public function actualizarfacultadAction(){
-          //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
-     $this->_helper->layout->disableLayout();
-     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
-     $this->_helper->viewRenderer->setNoRender(TRUE);
-     
-     //Recibir id como parametro
-     $id= $this->_getParam('id');   
-     //Se hace un condicional que el id es mayor que cero
-     if($id>0){
-      //Proceso a editar
-       //$facultad recibe los datos que se les pasa por petición ajax
-     $facultad =$this->_getParam('facultad');  
-     //var_dump($facultad);
-     
-     // Almacena en el objecto la facultad que tiene el id..
-     $facultad_objeto = ($this->em->getRepository('Application_Model_Facultades')->find($id));
-     //la instancia le asigna una facultad, hacer el nombre de la facultad..
-     $facultad_objeto->setnombre($facultad);
-     //da la orden de guardar...
-     $this->em->persist($facultad_objeto);
-     //Ejecuta la Orden de guardar..
-     $this->em->flush();     
-     }      
-    }
-      public function eliminarfacultadAction(){
-          //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
-     $this->_helper->layout->disableLayout();
-     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
-     $this->_helper->viewRenderer->setNoRender(TRUE);
-     //Recibo el dato por ajax
-     try {
-     $facultad_id= $this->_getParam('facultad_id');  
-     
-     $facultad_objeto= ($this->em->getRepository('Application_Model_Facultades')->find($facultad_id));
-     
-     // da la orden de guardar
-     $this->em->remove($facultad_objeto);
-     
-     //Ejecuta la Orden de Guardar
-     $this->em->flush();
-         
-     } catch (Exception $ex) {
-     header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
          
      }
-           
+        
     }
+    
+   
+    
 }
 
 

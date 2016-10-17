@@ -5,7 +5,7 @@
  * @Table(name="calendario_practica")
  */
 
-class Application_Model_Calendario {
+class Application_Model_calendar {
     
     /**
      * @Id @Column(type="integer")
@@ -47,8 +47,7 @@ class Application_Model_Calendario {
     } 
     public function __construct() {
         // la variable now, se comporta como un objeto donde la fecha se haga automaticamente..
-        $this->fecha_inicio=new DateTime('now');
-        $this->fecha_fin =new DateTime('now');
+        
         $this->fecha_registro =new DateTime('now');
         
         

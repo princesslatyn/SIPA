@@ -1,6 +1,6 @@
 <?php
 
-class FacultadesController extends Zend_Controller_Action
+class ProgramacionController extends Zend_Controller_Action
 {
     // Entity Manager
     private $em;
@@ -22,7 +22,7 @@ class FacultadesController extends Zend_Controller_Action
        // para que todo lo que este dentro de este metodo se ejecute en todas las Vistas..
     }
     
-    public function agregarfacultadAction()
+    public function agregarprogramacionAction()
     { 
      $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
@@ -43,7 +43,7 @@ class FacultadesController extends Zend_Controller_Action
      $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
     }
-    public function listarfacultadAction()
+    public function listarprogramacionAction()
     { 
        
         
@@ -75,7 +75,7 @@ class FacultadesController extends Zend_Controller_Action
       $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
       
     }
-    public function guardarfacultadAction(){
+    public function guardarprogramacionAction(){
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
@@ -96,7 +96,7 @@ class FacultadesController extends Zend_Controller_Action
         
         
     }
-     public function editarfacultadAction() { 
+     public function editarprogramacionAction() { 
        
          //capturo el id de la facultad
          $facultad_id =$this->_getParam('id');
@@ -137,7 +137,7 @@ class FacultadesController extends Zend_Controller_Action
      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
      $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
     }
-    public function actualizarfacultadAction(){
+    public function actualizarprogramacionAction(){
           //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
@@ -162,7 +162,7 @@ class FacultadesController extends Zend_Controller_Action
      $this->em->flush();     
      }      
     }
-      public function eliminarfacultadAction(){
+      public function eliminarprogramacionAction(){
           //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información

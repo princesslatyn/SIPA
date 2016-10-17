@@ -11,13 +11,13 @@
    
  $(function(){
     $(document).ready(function() {
-    $('#example').dataTable();
+   // $('#example').dataTable();
   });      
  }); 
  // Para las multiples tablas
  $(function(){
    $(document).ready(function() {
-    $('table.display').dataTable();
+  //  $('table.display').dataTable();
 } );      
  });
 

@@ -1,15 +1,15 @@
 
-var calendario={};
-calendario.init = function(){
+var calendar={};
+calendar.init = function(){
  // console.log('Hola Kami'); 
- calendario.agregarcalendario();
- calendario.editarcalendario();
- calendario.eliminarcalendario();
+ calendar.agregarcalendar();
+ calendar.editarcalendar();
+ calendar.eliminarcalendar();
 }
-$(calendario.init);
+$(calendar.init);
 
 //Creo un Metodo de Agregar Facultad...
-calendario.agregarcalendario = function(){
+calendar.agregarcalendar = function(){
     //Validación de que los campos no se vayan vacios
   
   $( "#cale" ).validate({
@@ -42,17 +42,20 @@ calendario.agregarcalendario = function(){
     console.log(fin);
    // console.log(facultad);
     //Metodo Para enviar los datos al controlador
-  var ajax= $.post('/Calendario/guardarcalendario', {annio:annio, per:per, ini:ini, fin:fin});
+  var ajax= $.post('/calendar/guardarcalendar', {annio:annio, per:per, ini:ini, fin:fin});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
-  ajax.done(function(){
-    //  window.location='/Calendario/listarcalendario';
-  });
+    ajax.error(function(){
+      alert('Error, las Fechas Ingresadas Son Incorrectas');  
+    });
+    ajax.done(function(){
+    window.location='/calendar/listarcalendar';
+   });
     }
     
     });
     
 }
-calendario.editarcalendario = function(){
+calendar.editarcalendar = function(){
      //Validación de que los campos no se vayan vacios
     $( "#cale" ).validate({
   rules: {
@@ -78,46 +81,55 @@ calendario.editarcalendario = function(){
     // facultad variable donde se guarda los datos
     //Valido los campos
     if($('#cale').valid()){
-    var facultad= $('#facultad').val(); 
-    //Guardar el id de facultades
-    var id=$('#id_facultad').val();
+   var annio= $('#annio').val(); 
+   var per= $('#per').val();
+   var ini= $('#ini').val(); 
+   console.log(ini);
+   var fin= $('#fin').val();
+   console.log(fin);
+   var ide= $('#id').val();
+    //console.log(fin);
     
             
    // console.log(facultad);
     //Metodo Para enviar los datos al controlador
- var ajax=  $.post('/facultades/actualizarfacultad', {facultad:facultad, id:id});
-       //Actualizar Facultad
+ var ajax=  $.post('/calendar/actualizarcalendar', {annio:annio, per:per, ini:ini, fin:fin, ide:ide});
+      //Mensaje de error cuando las fechas son incorrectas
+      ajax.error(function(){
+      alert('Error, las Fechas Ingresadas Son Incorrectas');  
+       });
+      //Actualizar Calendario
         ajax.done(function(){
-      window.location='/facultades/listarfacultad';
+      window.location='/calendar/listarcalendar';
   });    
     }
     });
     
 }
-calendario.eliminarcalendario = function(){
+calendar.eliminarcalendar = function(){
+    console.log('eliminar');
 //Asignación de eventos por delegados
-$(document).on('click', '.eliminar_facultad', function(e){
+$(document).on('click', '.eliminar_calendario', function(e){
   //No se comporte por defecto viene, de mandarme a otra pagina  
   e.preventDefault(); 
    //Elemnto cliqueado
  var elementocliqueado= this;
  //console.log('HOla'); 
     bootbox.dialog({
-  message: "Esta Seguro de Borrar La Facultad",
-  title: "Confirmar Facultad",
+  message: "Esta Seguro de Borrar El Calendario",
+  title: "Confirmar Calendario Académico",
   buttons: {
     default: {
       label: "Aceptar",
       className: "btn-default",
       callback: function() {
        // Example.show("Se realizo con Exito");
-        var facultad_id=$(elementocliqueado).data('facultad');
-// console.log(facultad_id);
+        var calendario_id=$(elementocliqueado).data('calendario');
+        console.log(calendario_id);
 
- var ajax= $.post('/facultades/eliminarfacultad', {facultad_id:facultad_id});
- 
- ajax.error(function(){
-     alert('Error, No puede Borrar, Por que hay una llave foranea de programas a facultad');
+ var ajax= $.post('/calendar/eliminarcalendar', {calendario_id:calendario_id});
+  ajax.error(function(){
+     alert('Error, No puede Borrar.');
  });
  //Codigo para actualizar automaticamente la pagina..
  ajax.done(function(){

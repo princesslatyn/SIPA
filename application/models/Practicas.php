@@ -1,32 +1,102 @@
-<?php
+uno <?php
 
 /**
  * @Entity
- * @Table(name="facultad")
+ * @Table(name="practica")
  */
 
-class Application_Model_Facultades {
+class Application_Model_Practicas {
     
     /**
      * @Id @Column(type="integer")
      * @GeneratedValue
      */
-    private $id_facultad;
+    private $cod_practica;
     
-    /** @Column(type="string", length=50) */
+    /** @Column(type="string", length=100) */
     private $nombre;
-
+    
+    /** @Column(type="string", length=100) */
+    private $nom_participante;
+     
+     /** @Column(type="string", length=3000) */
+    private $justificacion;
+    
+     /** @Column(type="string", length=2000) */
+    private $objetivo;
+    
+     /** @Column(type="string", length=2000) */
+    private $actividad_doc;
+    
+     /** @Column(type="string", length=2000) */
+    private $actividad_est;
+    
+     /** @Column(type="string", length=300) */
+    private $tipo_practica;
+    
      /** @Column(type="datetime") */
-    private $fechacreacion;
+    private $fecha_registro;
+    
+     /** @Column(type="string", length=20) */
+    private $semestre;
+    
+     /** @Column(type="string", length=256) */
+    private $departamento;
+    
+     /**
+     * Bidirectional - Many users have Many favorite comments (OWNING SIDE)
+     *
+     * @ManyToOne(targetEntity="Application_Model_Asignaturas")
+     * @JoinColumn(name="cod_asignatura", referencedColumnName="cod_asignatura")
+     */
+    private $cod_asignatura;
     
     //Metodo Público
     public function setnombre($nom){
     $this->nombre =$nom;
         
     }
+     public function setnom_participante($par){
+    $this->nom_participante =$par;
+        
+    }
+    
+    public function setjustificacion($jus){
+        $this->justificacion= $jus;
+        
+    }
+    public function setobjetivo($obj){
+        $this->objetivo= $obj;
+        
+    }
+    public function setactividad_doc($doc){
+        $this->actividad_doc= $doc;
+        
+    }
+    public function setactividad_est($est){
+        $this->actividad_est= $est;
+        
+    }
+    public function settipo_practica($tipo){
+        $this->tipo_practica =$tipo;
+        
+    }
+    public function setsemestre($sem){
+        $this->semestre= $sem;
+        
+    }
+    public function setdepartamento($dep){
+        $this->departamento= $dep;
+        
+    }
+    public function setcod_asignatura($cod){
+        $this->cod_asignatura= $cod;
+        
+    }
+
     public function __construct() {
         // la variable now, se comporta como un objeto donde la fecha se haga automaticamente..
-        $this->fechacreacion =new DateTime('now');
+        $this->fecha_registro =new DateTime('now');
         
         
     }
