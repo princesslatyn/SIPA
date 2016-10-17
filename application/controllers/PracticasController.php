@@ -13,8 +13,19 @@ class PracticasController extends Zend_Controller_Action
        // para que todo lo que este dentro de este metodo se ejecute en todas las Vistas..
     }
     
-    public function agregarpracticaAction()
-    { 
+    public function agregarpracticaAction(){ 
+         // Realizamos la consulta dql, para que se listen los Programas, en la vista Agregar Asignatura..
+     $dql ="select p from Application_Model_Programas p";
+        
+         // Ejecutar el Query, la variable query es donde se carga la consulta.
+        $query = $this->em->createQuery($dql);
+        
+        //Resultados de la consulta en un Vector, en este caso en Array
+        $programas = $query->getArrayResult();
+        
+        // Pasarle la información de programas a la vista ..
+        $this->view->programas= $programas; 
+        
         
      $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 

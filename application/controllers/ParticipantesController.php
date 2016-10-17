@@ -27,17 +27,7 @@ class ParticipantesController extends Zend_Controller_Action
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->viewRenderer->setNoRender(TRUE);
      
-      // Realizamos la consulta dql, para que se listen los Programas, en la vista Agregar Asignatura..
-     $dql ="select p from Application_Model_Programas p";
-        
-         // Ejecutar el Query, la variable query es donde se carga la consulta.
-        $query = $this->em->createQuery($dql);
-        
-        //Resultados de la consulta en un Vector, en este caso en Array
-        $programas = $query->getArrayResult();
-        
-        // Pasarle la información de programas a la vista ..
-        $this->view->programas= $programas; 
+     
     
      //Recibo los parametros por ajax, para participante Docente...
      
@@ -49,6 +39,7 @@ class ParticipantesController extends Zend_Controller_Action
      $tipo_docente= $this->_getParam('tipo_docente');
      var_dump($tipo_docente);
      $programa= $this->_getParam('programa');
+     var_dump($programa);
      
       $participante_objeto = new Application_Model_Participantes();
       $participante_objeto->setnombre($doce);
@@ -57,13 +48,14 @@ class ParticipantesController extends Zend_Controller_Action
       $participante_objeto->setid_programa($this->em->getRepository('Application_Model_Programas')->find($programa));
       
       //recibo los parametros por ajax, para participante Auxiliares..
-    /**  $aux= $this->_getParam('aux');
+     $aux= $this->_getParam('aux');
       var_dump($aux);
       $auxiliar= $this->_getParam('auxiliar');
       var_dump($auxiliar);
       $tipo_auxiliar= $this->_getParam('tipo_auxiliar');
       var_dump($tipo_auxiliar);
       $program= $this->_getParam('program'); 
+      var_dump($program);
       
       $participante_objeto-> setnombre($aux);
       $participante_objeto->setidentificacion($auxiliar);
@@ -78,11 +70,12 @@ class ParticipantesController extends Zend_Controller_Action
       $tipo_asesor= $this->_getParam('tipo_asesor');
       var_dump($tipo_asesor);
       $progra= $this->_getParam('progra');
+      var_dump($progra);
       
       $participante_objeto->setnombre($ase);
       $participante_objeto->setidentificacion($asesor);
       $participante_objeto->settipo_participante($tipo_asesor);
-      $participante_objeto->setid_programa($this->em->getRepository('Application_Model_Programas')->find($progra)); */
+      $participante_objeto->setid_programa($this->em->getRepository('Application_Model_Programas')->find($progra)); 
       
       
       

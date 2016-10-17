@@ -49,7 +49,7 @@ participantes.agregarauxiliar = function(){
     var aux= $('#aux').val();  
     console.log(aux);
    var auxiliar= $('#auxiliar').val();
-   var tipo_auxiliar= $('#tipo_auxiliar').val();
+   var tipo_auxiliar= ('auxiliar');
     var program= $('#program').val();
    
     //Metodo Para enviar los datos al controlador
@@ -76,7 +76,7 @@ participantes.agregarasesor = function(){
     var ase= $('#ase').val();  
     console.log(ase);
    var asesor= $('#asesor').val();
-   var tipo_asesor= $('#tipo_asesor').val();
+   var tipo_asesor= ('asesor');
    var progra= $('#progra').val();
    
     //Metodo Para enviar los datos al controlador
