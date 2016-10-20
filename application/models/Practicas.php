@@ -133,6 +133,9 @@ class Application_Model_Practicas {
     public function setprogramaciones($prog){
         $this->programaciones=$prog;
     }
+    public function getprogramaciones(){
+        return $this->programaciones;
+    }
 
     public function __construct() {
         // la variable now, se comporta como un objeto donde la fecha se haga automaticamente..

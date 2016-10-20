@@ -67,13 +67,9 @@
         <div class="">
         <label class="form-group"> Facultad </label>
         <select class="form-control" name="fac" style="cursor:pointer;">
-        <option>Ingenieria</option>
-        <option>Medicina veterinaria Zootecnia</option>
-        <option>Ciencias Básicas</option>
-        <option>Ciencias Agrículas</option>
-        <option>Educación y Ciencias Humanas</option>
-        <option>Ciencias Económicas, Jurídicas y Administrativas</option>
-        <option>Ciencias de la Salud</option>
+         <?php foreach ($this->facultad as $facultad) {?>
+          <option  value="<?php echo $facultad['id_facultad'];?>"><?php echo $facultad['nombre']; ?></option>
+         <?php }?>
         </select>       
         </div>       
         </div>
@@ -81,13 +77,9 @@
         <div class="">
         <label class="form-group"> Departamento </label> 
         <select class="form-control" name="dep" style="cursor:pointer;">
-        <option>Ingenieria Ambiental</option>
-        <option>Medicina veterinaria Zootecnia</option>
-        <option>Ciencias Básicas</option>
-        <option>Ciencias Agrículas</option>
-        <option>Educación y Ciencias Humanas</option>
-        <option>Ciencias Económicas, Jurídicas y Administrativas</option>
-        <option>Ciencias de la Salud</option>
+         <?php foreach ($this->programas as $programas) {?>
+          <option  value="<?php echo $programas['id_programa'];?>"><?php echo $programas['nombre'];?></option>
+          <?php }?>
         </select>       
         </div>       
         </div> 
@@ -98,13 +90,9 @@
         <div class="">
         <label class="form-group"> Programa  </label>
         <select class="form-control" name="pro" style="cursor:pointer;">
-        <option>Ingenieria Ambiental</option>
-        <option>Medicina veterinaria Zootecnia</option>
-        <option>Ciencias Básicas</option>
-        <option>Ciencias Agrículas</option>
-        <option>Educación y Ciencias Humanas</option>
-        <option>Ciencias Económicas, Jurídicas y Administrativas</option>
-        <option>Ciencias de la Salud</option>
+         <?php foreach ($this->programas as $programas) {?>
+          <option  value="<?php echo $programas['id_programa'];?>"><?php echo $programas['nombre'];?></option>
+          <?php }?>
         </select>       
         </div>       
         </div>
@@ -132,13 +120,9 @@
         <div class="">
         <label class="form-group"> Asignatura </label>
         <select class="form-control" name="asigna" style="cursor:pointer;">
-        <option>Ecologia(Grupo1-Codigo 407236)</option>
-        <option>Medicina veterinaria Zootecnia</option>
-        <option>Ciencias Básicas</option>
-        <option>Ciencias Agrículas</option>
-        <option>Educación y Ciencias Humanas</option>
-        <option>Ciencias Económicas, Jurídicas y Administrativas</option>
-        <option>Ciencias de la Salud</option>
+         <?php foreach ($this->asignatura as $asignatura) {?>
+          <option  value="<?php echo $asignatura['cod_asignatura'];?>"><?php echo $asignatura['nombre'];?></option>
+          <?php }?>
         </select>       
         </div>       
         </div>

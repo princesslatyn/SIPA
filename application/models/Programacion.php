@@ -63,9 +63,19 @@ class Application_Model_Programacion {
      * @JoinColumn(name="cod_practica", referencedColumnName="cod_practica")
      */
     private $cod_practica;
-    
-  
-    
+      /**
+     * Bidirectional - Many users have Many favorite comments (OWNING SIDE)
+     *
+     * @ManyToOne(targetEntity="Application_Model_Participantes")
+     * @JoinColumn(name="id_participante", referencedColumnName="id_participante")
+     */
+    private $id_participante;
+
+
+
+
+
+
     //Metodo Público
     public function setnum_dias($num){
         $this->num_dias =$num;
@@ -115,6 +125,9 @@ class Application_Model_Programacion {
     }
     public function setcod_practica($pra){
         $this->cod_practica= $pra;
+    }
+    public function setid_participante($par){
+        $this->id_participante= $par;
     }
 
     public function __construct() {

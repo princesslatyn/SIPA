@@ -65,6 +65,25 @@ class PracticasController extends Zend_Controller_Action
         // Pasarle la información de programas a la vista..
         $this->view->participante= $participante;
         
+         //preparo la consulta de facultades
+        $dql4= "select fa from Application_Model_Facultades fa";
+        
+        $query4= $this->em->createQuery($dql4);
+        
+        $facultad =  $query4->getArrayResult();
+        
+        $this->view->facultad= $facultad;
+        
+        // Preparo la consulta de Asignaturas
+        $dql5= "select a from Application_Model_Asignaturas a";
+         // Ejecutamos la consulta con Query
+         $query5 = $this->em->createQuery($dql5);
+        
+       //Resultados de la consulta en un Vector, en este caso en Array
+       $asignatura = $query5->getArrayResult();
+       
+      // Pasarle la información de programas a la vista ..
+       $this->view->asignatura =$asignatura;
         
        
         
@@ -120,17 +139,45 @@ class PracticasController extends Zend_Controller_Action
      
      //encapsulo los parametros en un objeto
      $practica_objeto= new Application_Model_Practicas();
-     $practica_objeto->setnombre($datos['nom']);
-     $practica_objeto->setnum_estudiantes($datos['num']);
-     $practica_objeto->setnom_solicitante($datos['nombre']);
-     $practica_objeto->setjustificacion($datos['jus']);
-     $practica_objeto->setobjetivo($datos['obj']);
-     $practica_objeto->setactividad_doc($datos['adoc']);
-     $practica_objeto->setactividad_est($datos['est']);
-     $practica_objeto->settipo_practica($datos['tipo']);
-     $practica_objeto->setsemestre($datos['sem']);
-     $practica_objeto->setdepartamento($datos['dep']);
+     $practica_objeto->setnombre($output['nom']);
+     $practica_objeto->setnum_estudiantes($output['num']);
+     $practica_objeto->setnom_solicitante($output['nombre']);
+     $practica_objeto->setjustificacion($output['jus']);
+     $practica_objeto->setobjetivo($output['obj']);
+     $practica_objeto->setactividad_doc($output['adoc']);
+     $practica_objeto->setactividad_est($output['est']);
+     $practica_objeto->settipo_practica($output['tipo']);
+     $practica_objeto->setsemestre($output['sem']);
+     $practica_objeto->setdepartamento($output['dep']); 
+     $practica_objeto->setcod_asignatura($this->em->getRepository('Application_Model_Asignaturas')->find($output['asigna']));
+     $practica_objeto->setid_facultad($this->em->getRepository('Application_Model_Facultades')->find($output['fac']));
+     $practica_objeto->setid_programa($this->em->getRepository('Application_Model_Programas')->find($output['pro']));        
+     var_dump($practica_objeto);
      
+     //Hacer el ciclo para guardar las programaciones...
+     foreach ($programacion as $valor){
+         var_dump($valor);
+       $programacion_objeto= new Application_Model_Programacion();
+       $programacion_objeto->setnum_dias($valor['num']);
+       $programacion_objeto->setrecorrido($valor['reco']);
+       $programacion_objeto->setfecha_salida($valor['sal']);
+       $programacion_objeto->setlugar_encuentro($valor['lug']);
+       $programacion_objeto->setdias_pernoctados($valor['optionsRadios']);
+       $programacion_objeto->setfecha_llegada($valor['lle']);
+       $programacion_objeto->settipo($valor['tipo']);
+       $programacion_objeto->setvalor($valor['valor']);
+       $programacion_objeto->setobservaciones($valor['obs']);
+       $programacion_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar')->find($valor['cal']));
+       $programacion_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar')->find($valor['optradio']));
+      // $programacion_objeto->setcod_practica($this->em->getRepository('Application_Model_Practicas')->find($valor['cal']));
+      var_dump($programacion_objeto);
+       $practica_objeto->getprogramaciones()->add($programacion);
+       //da la orden de guardar...
+       $this->em->persist($programacion_objeto);
+       //Ejecuta la Orden de guardar..
+       $this->em->flush();
+       
+     }
    
      
      
