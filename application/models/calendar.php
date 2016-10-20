@@ -29,6 +29,9 @@ class Application_Model_calendar {
     private $fecha_registro;
     
     //Metodo Público
+    public function getid(){
+        return $this->id;   
+    }
     public function setannio($anni){
     $this->annio =$anni;
         

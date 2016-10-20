@@ -1,4 +1,5 @@
-uno <?php
+ <?php
+ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity
@@ -17,7 +18,10 @@ class Application_Model_Practicas {
     private $nombre;
     
     /** @Column(type="string", length=100) */
-    private $nom_participante;
+    private $num_estudiantes;
+    
+    /** @Column(type="string", length=100) */
+    private $nom_solicitante;
      
      /** @Column(type="string", length=3000) */
     private $justificacion;
@@ -43,6 +47,13 @@ class Application_Model_Practicas {
      /** @Column(type="string", length=256) */
     private $departamento;
     
+    /**
+     * @OneToMany(targetEntity="Application_Model_Programacion", mappedBy="cod_practica")
+     */
+
+     private $programaciones;
+      
+    
      /**
      * Bidirectional - Many users have Many favorite comments (OWNING SIDE)
      *
@@ -50,14 +61,34 @@ class Application_Model_Practicas {
      * @JoinColumn(name="cod_asignatura", referencedColumnName="cod_asignatura")
      */
     private $cod_asignatura;
-    
-    //Metodo Público
+     /**
+     * Bidirectional - Many users have Many favorite comments (OWNING SIDE)
+     *
+     * @ManyToOne(targetEntity="Application_Model_Facultades")
+     * @JoinColumn(name="id_facultad", referencedColumnName="id_facultad")
+     */
+     private $id_facultad;
+      /**
+     * Bidirectional - Many users have Many favorite comments (OWNING SIDE)
+     *
+     * @ManyToOne(targetEntity="Application_Model_Programas")
+     * @JoinColumn(name="id_programa", referencedColumnName="id_programa")
+     */
+    private  $id_programa;
+
+
+
+     //Metodo Público
     public function setnombre($nom){
     $this->nombre =$nom;
         
     }
-     public function setnom_participante($par){
-    $this->nom_participante =$par;
+    public function setnum_estudiantes($num){
+        $this->num_estudiantes= $num;
+    }
+
+    public function setnom_solicitante($sol){
+    $this->nom_solicitante =$sol;
         
     }
     
@@ -93,13 +124,24 @@ class Application_Model_Practicas {
         $this->cod_asignatura= $cod;
         
     }
+    public function setid_facultad($fac){
+        $this->id_facultad= $fac;
+    }
+    public function setid_programa($pro){
+        $this->id_programa=$pro;
+    }
+    public function setprogramaciones($prog){
+        $this->programaciones=$prog;
+    }
 
     public function __construct() {
         // la variable now, se comporta como un objeto donde la fecha se haga automaticamente..
         $this->fecha_registro =new DateTime('now');
+        $this->programaciones = new ArrayCollection();
         
         
     }
+    
     
     
 }

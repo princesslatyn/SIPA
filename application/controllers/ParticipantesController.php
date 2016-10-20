@@ -22,6 +22,8 @@ class ParticipantesController extends Zend_Controller_Action
    
    
     public function guardarparticipanteAction(){
+     //Interprete la respuesta Json
+     header('Content-Type: application/json');   
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información

@@ -5,6 +5,7 @@ calendar.init = function(){
  calendar.agregarcalendar();
  calendar.editarcalendar();
  calendar.eliminarcalendar();
+ calendar.agregarannio();
 }
 $(calendar.init);
 
@@ -49,12 +50,46 @@ calendar.agregarcalendar = function(){
     });
     ajax.done(function(){
     window.location='/calendar/listarcalendar';
+    //pintar una nueva opción
+    
    });
     }
     
     });
     
 }
+//metodo para pintar el select
+//Creo un Metodo de Agregar Facultad...
+calendar.agregarannio = function(){
+   
+    //on hace la asignación de un evento..
+    $('#agrega').on('click', function(){
+       // console.log('Hola')
+    //val me devuelve el elemento que esta en el id de la función  (extrae el valor del input)
+    
+    var annio= $('#annio').val();  
+    console.log(annio);
+   // console.log(facultad);
+    //Metodo Para enviar los datos al controlador
+  var ajax= $.post('/calendar/guardarcalendar', {annio:annio});
+   ajax.done(function(data){
+   // window.location='/calendar/listarcalendar';
+    //pintar una nueva opción
+      var html= "";
+      html= '<option value='+ data.id +'>'+ data.annio +'</option>';
+      console.log(html);
+      console.log(data);
+      $('#annio').append(html);
+      //Para que se pueda seleccionar el selector
+      $('#annio').find('option[value='+ data.id +']').attr('selected', true);
+      $('#annio').triggerHandler('change');
+   });
+   
+    
+    });
+    
+}
+
 calendar.editarcalendar = function(){
      //Validación de que los campos no se vayan vacios
     $( "#cale" ).validate({
@@ -107,7 +142,7 @@ calendar.editarcalendar = function(){
     
 }
 calendar.eliminarcalendar = function(){
-    console.log('eliminar');
+   // console.log('eliminar');
 //Asignación de eventos por delegados
 $(document).on('click', '.eliminar_calendario', function(e){
   //No se comporte por defecto viene, de mandarme a otra pagina  

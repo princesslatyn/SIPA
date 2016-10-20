@@ -16,7 +16,9 @@ $(practicas.init);
       // Para las multiples tablas
      // $('table.display').dataTable();
       $('#prog').on('click', function(){ 
-     // console.log('Hola');
+      //Se muestre por consola el resultado de este metodo    
+     // datatable.fnGetData();  
+     
       var num= $('#num').val(); 
       console.log(num);
       var reco= $('#reco').val();
@@ -33,18 +35,27 @@ $(practicas.init);
        console.log(tipo);
       var valor= $('#valor').val(); 
        console.log(valor);
-       var doce= $('#doce').val();
-       console.log(doce);
-        var aux= $('#aux').val();
-       console.log(aux);
-        var ase= $('#ase').val();
-       console.log(ase);
+       var docen= $('#docen option:selected').html();
+       console.log(docen);
+        var auxi= $('#auxi option:selected').html();
+       console.log(auxi);
+        var ases= $('#ases option:selected').html();
+       console.log(ases);
       var obs= $('#obs').val(); 
        console.log(obs);
        
+       //función para eliminar una fila
+      $(document).on( 'click', '.eliminar_practica', function (e) {
+          // Previene los comportamientos por defectos
+           e.preventDefault(); 
+    datatable
+        .row( $(this).parents('tr') )
+        .remove()
+        .draw();
+      });
          //Validación De campos Vacios
     var valid= true;
-    if(num > 0 && reco != "" && sal != "" && lug != ""  && dia != "" && lle != "" && tipo != "" && valor > 0 && doce != "" && aux != "" && ase != "" &&  obs != ""){
+    if(num > 0 && reco != "" && sal != "" && lug != ""  && dia != "" && lle != "" && tipo != "" && valor > 0 && docen != "" && auxi != "" && ases != "" &&  obs != ""){
        
         valid= true;
         datatable.row.add([
@@ -56,9 +67,9 @@ $(practicas.init);
          lle,
          tipo,
          valor,
-         doce,
-         aux,
-         ase,
+         docen +'<input type="hidden" value=' + $('#docen').val() + '>',
+         auxi +'<input type="hidden" value=' + $('#auxi').val() + '>',
+         ases +'<input type="hidden" value=' + $('#ases').val() + '>',
          obs,
          '<td><a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>'
            
@@ -72,12 +83,24 @@ $(practicas.init);
          
     //Validación de que los campos no se vayan vacios
     $( "#myWizard" ).on('finished.fu.wizard', function(){
-        console.log('Hola Kami');
+     datatable.rows().data();
+      console.log(datatable.data().toArray());
+      //declaro una variable para conocer la pocisión del vector a donde estan los id de participantes
+      var programacion= datatable.data().toArray();
+    
+      for(var i=0; i< programacion.length;i++){
+          programacion[i][8]= programacion[i][8].substring(programacion[i][8].indexOf('value=')+6).replace('>', "");
+          programacion[i][9]= programacion[i][9].substring(programacion[i][9].indexOf('value=')+6).replace('>', "");
+          programacion[i][10]= programacion[i][10].substring(programacion[i][10].indexOf('value=')+6).replace('>', "");
+          console.log(programacion);
+          
+      }
+       // console.log('Hola Kami');
         //Con esta variable le paso los datos del formulario en un vector
      var datos = $('#pra').serialize();
      alert(datos);  
      
-       var ajax= $.post('/practicas/guardarpractica', {datos:datos});
+       var ajax= $.post('/practicas/guardarpractica', {datos:datos, programacion:programacion});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
   ajax.done(function(){
     //  window.location='/facultades/listarfacultad';

@@ -39,6 +39,14 @@ class Application_Model_Programacion {
     
       /** @Column(type="string", length=100) */
     private $num_pasajeros;
+     /** @Column(type="string", length=256) */
+    private $tipo;
+    
+    /** @Column(type="string", length=3000) */
+    private $valor;
+    
+     /** @Column(type="string", length=256) */
+    private $observaciones;
     
      /**
      * Bidirectional - Many users have Many favorite comments (OWNING SIDE)
@@ -51,10 +59,12 @@ class Application_Model_Programacion {
     /**
      * Bidirectional - Many users have Many favorite comments (OWNING SIDE)
      *
-     * @ManyToOne(targetEntity="Application_Model_Practicas")
+     * @ManyToOne(targetEntity="Application_Model_Practicas", inversedBy="programaciones")
      * @JoinColumn(name="cod_practica", referencedColumnName="cod_practica")
      */
     private $cod_practica;
+    
+  
     
     //Metodo Público
     public function setnum_dias($num){
@@ -87,6 +97,18 @@ class Application_Model_Programacion {
         $this->num_pasajeros= $pas;
         
     }
+    public function settipo($ti){
+        $this->tipo= $ti;
+        
+    }
+    public function setvalor($va){
+        $this->valor= $va;
+    }
+    public function setobservaciones($obs){
+        $this->observaciones= $obs;
+    }
+
+    
     public function setid_calendario($cal){
         $this->id_calendario= $cal;
            

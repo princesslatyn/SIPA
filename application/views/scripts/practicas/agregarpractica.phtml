@@ -48,7 +48,7 @@
         <input type="radio" name="optradio"> I       
         </label>
         <label class="redio-inline">
-        <input type="radio" name="optradio"> II       
+        <input type="radio" name="optradio1"> II       
         </label>
         </label>       
         </div>       
@@ -276,7 +276,9 @@
         <div class="col-xs-6">
         <label class="form-group"> Docente Responsable </label>
         <select class="form-control" name="docen" id="docen" style="cursor:pointer;">
-        <option>Seleccione una opción</option>
+        <?php foreach ($this->participantes as $participantes) {?>    
+            <option value="<?php echo $participantes['id_participante'];?>"><?php echo $participantes['nombre'];?></option>
+         <?php }?>
         </select>       
         </div> 
         <div class="col-xs-3">
@@ -323,7 +325,9 @@
         <div class="col-xs-6">
         <label class="form-group"> Auxiliares </label>
         <select class="form-control" name="auxi" id="auxi" style="cursor:pointer;">
-        <option>Seleccione una opción</option>
+        <?php foreach ($this->participantess as $participantess) {?>    
+            <option value="<?php echo $participantess['id_participante'];?>"><?php echo $participantess['nombre'];?></option>
+         <?php }?>
         </select>       
         </div>
         <div class="col-xs-3">
@@ -371,7 +375,9 @@
         <div class="col-xs-6">
         <label class="form-group"> Asesores </label>
         <select class="form-control" name="ases" id="ases" style="cursor:pointer;">
-        <option>Seleccione una opción</option>
+         <?php foreach ($this->participante as $participante) {?>    
+            <option value="<?php echo $participante['id_participante'];?>"><?php echo $participante['nombre'];?></option>
+         <?php }?>
         </select>       
         </div> 
         <div class="col-xs-3">
