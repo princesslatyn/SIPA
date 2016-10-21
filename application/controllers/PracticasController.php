@@ -155,7 +155,8 @@ class PracticasController extends Zend_Controller_Action
      var_dump($practica_objeto);
      
      //Hacer el ciclo para guardar las programaciones...
-     foreach ($programacion as $valor){
+     try {
+         foreach ($programacion as $valor){
          var_dump($valor);
        $programacion_objeto= new Application_Model_Programacion();
        $programacion_objeto->setnum_dias($valor['num']);
@@ -167,8 +168,8 @@ class PracticasController extends Zend_Controller_Action
        $programacion_objeto->settipo($valor['tipo']);
        $programacion_objeto->setvalor($valor['valor']);
        $programacion_objeto->setobservaciones($valor['obs']);
-       $programacion_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar')->find($valor['cal']));
-       $programacion_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar')->find($valor['optradio']));
+      // $programacion_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar')->find($valor['cal']));
+       //$programacion_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar')->find($valor['optradio']));
       // $programacion_objeto->setcod_practica($this->em->getRepository('Application_Model_Practicas')->find($valor['cal']));
       var_dump($programacion_objeto);
        $practica_objeto->getprogramaciones()->add($programacion);
@@ -177,16 +178,12 @@ class PracticasController extends Zend_Controller_Action
        //Ejecuta la Orden de guardar..
        $this->em->flush();
        
+        }  
+     } catch (Exception $ex) {
+         echo $ex->getMessage();  
+     
      }
-   
-     
-     
-     
-    
-     
-     
-     
-     
+
     }
 
 }
