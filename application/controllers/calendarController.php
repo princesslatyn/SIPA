@@ -91,7 +91,7 @@ class calendarController extends Zend_Controller_Action
       
     }
     public function guardarcalendarAction(){
-      header('Content-Type: application/json');    
+    //  header('Content-Type: application/json');    
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
@@ -136,11 +136,11 @@ class calendarController extends Zend_Controller_Action
         //Ejecuta la Orden de guardar..
         $this->em->flush(); 
         
-        $json= array();
+    /**    $json= array();
         $json['id']=$calendario_objeto->getid();
         $json['annio']=$annio;
         //var_dump($json);
-         echo Zend_Json::encode($json); 
+         echo Zend_Json::encode($json); */
            
                 
         }  else {

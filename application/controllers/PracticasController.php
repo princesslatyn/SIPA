@@ -84,6 +84,17 @@ class PracticasController extends Zend_Controller_Action
        
       // Pasarle la información de programas a la vista ..
        $this->view->asignatura =$asignatura;
+       
+       //Preparo la consulta dql
+       $dql6= "select c from Application_Model_calendar c";
+       
+       $query6 = $this->em->createQuery($dql6);
+       
+       //muestre el resultado en un array...
+      $calendario =$query6->getArrayResult();
+      
+      //Pasarle a la Vista la informción de la Calendario
+      $this->view->calendario= $calendario;
         
        
         
@@ -135,7 +146,7 @@ class PracticasController extends Zend_Controller_Action
      var_dump($output);
      $programacion= $this->_getParam('programacion');
      var_dump($programacion);
-     
+      try {
      
      //encapsulo los parametros en un objeto
      $practica_objeto= new Application_Model_Practicas();
@@ -149,13 +160,19 @@ class PracticasController extends Zend_Controller_Action
      $practica_objeto->settipo_practica($output['tipo']);
      $practica_objeto->setsemestre($output['sem']);
      $practica_objeto->setdepartamento($output['dep']); 
+     $practica_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar ')->find($output['optradio']));
      $practica_objeto->setcod_asignatura($this->em->getRepository('Application_Model_Asignaturas')->find($output['asigna']));
      $practica_objeto->setid_facultad($this->em->getRepository('Application_Model_Facultades')->find($output['fac']));
      $practica_objeto->setid_programa($this->em->getRepository('Application_Model_Programas')->find($output['pro']));        
      var_dump($practica_objeto);
      
+      } catch (Exception $ex) {
+         echo $ex->getMessage();  
+     
+     }
+     
      //Hacer el ciclo para guardar las programaciones...
-     try {
+    
          foreach ($programacion as $valor){
          var_dump($valor);
        $programacion_objeto= new Application_Model_Programacion();
@@ -174,16 +191,13 @@ class PracticasController extends Zend_Controller_Action
       var_dump($programacion_objeto);
        $practica_objeto->getprogramaciones()->add($programacion);
        //da la orden de guardar...
-       $this->em->persist($programacion_objeto);
-       //Ejecuta la Orden de guardar..
-       $this->em->flush();
+      
        
         }  
-     } catch (Exception $ex) {
-         echo $ex->getMessage();  
-     
-     }
-
+    
+      $this->em->persist($practica_objeto);
+       //Ejecuta la Orden de guardar..
+       $this->em->flush();
     }
 
 }
