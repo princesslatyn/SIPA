@@ -160,7 +160,7 @@ class PracticasController extends Zend_Controller_Action
      $practica_objeto->settipo_practica($output['tipo']);
      $practica_objeto->setsemestre($output['sem']);
      $practica_objeto->setdepartamento($output['dep']); 
-     $practica_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar ')->find($output['optradio']));
+     $practica_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar')->find($output['optradio']));
      $practica_objeto->setcod_asignatura($this->em->getRepository('Application_Model_Asignaturas')->find($output['asigna']));
      $practica_objeto->setid_facultad($this->em->getRepository('Application_Model_Facultades')->find($output['fac']));
      $practica_objeto->setid_programa($this->em->getRepository('Application_Model_Programas')->find($output['pro']));        
@@ -175,29 +175,32 @@ class PracticasController extends Zend_Controller_Action
     
          foreach ($programacion as $valor){
          var_dump($valor);
-       $programacion_objeto= new Application_Model_Programacion();
-       $programacion_objeto->setnum_dias($valor['num']);
-       $programacion_objeto->setrecorrido($valor['reco']);
-       $programacion_objeto->setfecha_salida($valor['sal']);
-       $programacion_objeto->setlugar_encuentro($valor['lug']);
-       $programacion_objeto->setdias_pernoctados($valor['optionsRadios']);
-       $programacion_objeto->setfecha_llegada($valor['lle']);
-       $programacion_objeto->settipo($valor['tipo']);
-       $programacion_objeto->setvalor($valor['valor']);
-       $programacion_objeto->setobservaciones($valor['obs']);
-      // $programacion_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar')->find($valor['cal']));
-       //$programacion_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar')->find($valor['optradio']));
-      // $programacion_objeto->setcod_practica($this->em->getRepository('Application_Model_Practicas')->find($valor['cal']));
-      var_dump($programacion_objeto);
-       $practica_objeto->getprogramaciones()->add($programacion);
-       //da la orden de guardar...
+         $programacion_objeto= new Application_Model_Programacion();
+         $programacion_objeto->setnum_dias($valor['0']);
+         $programacion_objeto->setrecorrido($valor['1']);
+         $programacion_objeto->setfecha_salida($valor['2']);
+         $programacion_objeto->setlugar_encuentro($valor['3']);
+         $programacion_objeto->setdias_pernoctados($valor['4']);
+         $programacion_objeto->setfecha_llegada($valor['5']);
+         $programacion_objeto->settipo($valor['6']);
+         $programacion_objeto->setvalor($valor['7']);
+         $programacion_objeto->setid_participante($valor['8']);
+         $programacion_objeto->setid_participante($valor['9']);
+         $programacion_objeto->setid_participante($valor['10']);
+         $programacion_objeto->setobservaciones($valor['11']);
+        
+         var_dump($valor);
+         var_dump($programacion);
+         $practica_objeto->getprogramaciones()->add($programacion);
+         $programacion_objeto->getparticipantes()->add($programacion);
+         //da la orden de guardar...
       
        
         }  
     
-      $this->em->persist($practica_objeto);
+    //  $this->em->persist($practica_objeto);
        //Ejecuta la Orden de guardar..
-       $this->em->flush();
+     //  $this->em->flush();
     }
 
 }

@@ -1,4 +1,5 @@
 <?php
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity
@@ -70,8 +71,15 @@ class Application_Model_Programacion {
      * @JoinColumn(name="id_participante", referencedColumnName="id_participante")
      */
     private $id_participante;
+    /**
+     * @ManyToMany(targetEntity="participantes")
+     * @JoinTable(name="participante_responsable",
+     *      joinColumns={@JoinColumn(name="codigo_prog", referencedColumnName="codigo_prog")},
+     *      inverseJoinColumns={@JoinColumn(name="id_participante", referencedColumnName="id_participante")}
+     *      )
+     */
 
-
+    private $participantes;
 
 
 
@@ -129,11 +137,17 @@ class Application_Model_Programacion {
     public function setid_participante($par){
         $this->id_participante= $par;
     }
+    public function setparticipantes($parti){
+        $this->participantes= $parti;
+    }
+    public function getparticipantes(){
+        return $this->participantes;
+    }
 
     public function __construct() {
         // la variable now, se comporta como un objeto donde la fecha se haga automaticamente..
         $this->fecha_registro =new DateTime('now');
-        
+         $this->participantes = new ArrayCollection();
         
     }
     
