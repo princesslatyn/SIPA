@@ -27,7 +27,7 @@ $(practicas.init);
        console.log(sal);
       var lug= $('#lug').val(); 
        console.log(lug);
-      var dia= $('input[name="optionsRadios"]:checked').val(); 
+      var dia= $('#per').val(); 
        console.log(dia);
       var lle= $('#lle').val(); 
        console.log(lle);
