@@ -73,7 +73,7 @@ class Application_Model_Programacion {
     private $id_participante;
     /**
      * @ManyToMany(targetEntity="participantes")
-     * @JoinTable(name="participante_responsable",
+     * @JoinTable(name="programacion_participante",
      *      joinColumns={@JoinColumn(name="codigo_prog", referencedColumnName="codigo_prog")},
      *      inverseJoinColumns={@JoinColumn(name="id_participante", referencedColumnName="id_participante")}
      *      )

@@ -60,17 +60,23 @@
       </div>    
       </div> 
     </div>
+    <div class="row">
+        <br>
+     <label class="center-block" align="center">Recursos Especiales</label>   
+    </div>
      <div class="row">
          <br>
         <div class="col-xs-6">
-        <label class="center-block" align="center">Recursos Especiales</label>
-        <label class="form-group"> Tipo</label>
-        <input class="form-control" id="tipo" type="text">
+        <div class="form-group">
+        <label> Tipo</label>
+        <input class="form-control" id="tipo" type="text">        
+        </div>
         </div>
         <div class="col-xs-6">
-        <br>
-        <label class="form-group"> valor($)</label>
-        <input class="form-control" id="valor" type="text">    
+        <div class="form-group">
+        <label> valor($)</label>
+        <input class="form-control" id="valor" type="text">         
+        </div>
         </div>    
         </div>
     <div class="row">
@@ -84,16 +90,9 @@
     </div>
      <div class="row"> 
         <br>
+      <div class="col-md-4"> 
       <div class="form-group">
-      <div class="col-lg-6">    
-      <label for="input" class="" align="center">Liquidar Docente</label>          
-      </div>    
-      </div> 
-    </div>
-    <div class="row">
-         
-      <div class="form-group">
-      <div class="col-xs-3">
+      <label for="input" class="" align="center">Liquidar Docente</label> 
       <div class="">
         <input type='button' class="button btn btn-default"  value='Calcular Viatico' data-toggle="modal" data-target="#myModal1" onclick=""/>
         <!-- Modal --> 
@@ -229,63 +228,130 @@
         </div>
         </div>
         </div>         
+      </div>
       </div>    
-      </div>    
-       </div>
-       <div class="col-xs-6">
-        <br>
+      </div> 
+    <div class="row">
+     <div class="col-md-5">
         <div class="text-right">
-            <div class="row">
-        <label for="input" class="" align="right">Liquidar Estudiante</label>        
-        </div> 
-        <input type='button' class="button btn btn-default"  value='Agregar Auxiliar' data-toggle="modal" data-target="#myModal2" onclick=""/>
+        <div class="list-inline">
+        <label>Liquidar Estudiante</label>          
+        </div>      
+        <input type='button' class="button btn btn-default"  value='Calcular Viatico' data-toggle="modal" data-target="#myModal2" onclick=""/>
         <!-- Modal --> 
         <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" style="display: none;">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header" style="text-align: center">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel2">Digite el Nombre y la Cedula del Auxiliar,  </h4>
+        <h4 class="modal-title" id="myModalLabel2">Digite los datos, Para liquidar a los estudiantes  </h4>
          </div>
         <div class="modal-body" style="text-align: center">
         <div class="form-group">
-         <input type='text'  placeholder="Digite el Nombre" id="aux" name="aux"/> 
+        <div class="list-inline">
+         <label class=""> Numero de Estudiantes </label>        
+         </div>
+         <input type='text'  placeholder="Digite el Campo " id="es" name="es"/> 
          <br>
          <br>
-         <input type='text' placeholder="Digite la Cedula" id="auxiliar" name="auxiliar"/> 
+          <label class=""> Días Pernoctados </label> 
+        <select class="form-control" name="perno" id="perno" style="cursor:pointer;">
+        <option>0</option>
+        <option>0.5</option>
+        <option>1.0</option>
+        <option>1.5</option>
+        <option>2.0</option>
+        <option>2.5</option>
+        <option>3.0</option>
+        <option>3.5</option>
+        <option>4.0</option>
+        <option>4.5</option>
+        <option>5.0</option>
+        <option>5.5</option>
+        <option>6.0</option>
+        <option>6.5</option>
+        <option>7.0</option>
+        <option>7.5</option>
+        <option>8.0</option>
+        <option>8.5</option>
+        <option>9.0</option>
+        <option>9.5</option>
+        <option>10</option>
+        <option>10.5</option>
+        <option>11.0</option>
+        <option>11.5</option>
+        <option>12.0</option>
+        <option>12.5</option>
+        <option>13.0</option>
+        <option>13.5</option>
+        <option>14.0</option>
+        <option>14.5</option>
+        <option>15.0</option>
+        <option>15.5</option>
+        <option>16.0</option>
+        <option>16.5</option>
+        <option>17.0</option>
+        <option>17.5</option>
+        <option>18.0</option>
+        <option>18.5</option>
+        <option>19.0</option>
+        <option>19.5</option>
+        <option>20.0</option>
+        <option>20.5</option>
+        <option>21.0</option>
+        <option>21.5</option>
+        <option>22.0</option>
+        <option>22.5</option>
+        <option>23.0</option>
+        <option>23.5</option>
+        <option>24.0</option>
+        <option>25.5</option>
+        <option>26.0</option>
+        <option>26.5</option>
+        <option>27.0</option>
+        <option>27.5</option>
+        <option>28.0</option>
+        <option>28.5</option>
+        <option>29.0</option>
+        <option>29.5</option>
+        <option>30.0</option>
+        <option>30.5</option>
+        </select>    
          <br>
          <br> 
-      <label>Nombre del Programa</label>    
-      <select class="form-control" id="program" name="program" style="cursor:pointer;">
-          <?php foreach ($this->programas as $programas) {?>
-          <option  value="<?php echo $programas['id_programa'];?>"><?php echo $programas['nombre'];?></option>
-          <?php }?>
-       </select>
+      <label class="form-group"> Auxilio Estudiante </label>
+        <select id="equiva" name="equiva" class="form-control"  style="cursor:pointer;">
+        <option>31.025</option>  
+        
+        </select>
         </div>
-         Esta Seguro de Agregar el Auxiliar
+         Esta Seguro de Calcular el Viatico del Estudiante
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal"> Cerrar </button>
-        <button type="button" id="agrega" data-dismiss="modal" class="btn btn-default"> Aceptar </button>
+        <button type="button" id="agrega" data-dismiss="modal" class="btn btn-default"> Calcular </button>
         </div>
         </div>
         </div>
         </div>
         </div>         
-        </div>  
-      </div>
-        <br>
-        <br>
+        </div>        
+    </div>   
+    </div>
       <div class="row">
+      <div class="col-xs-6">     
       <div class="form-group">
-      <div class="col-xs-6">      
       <label for="input">Viatico del Docente</label> 
-      <input  type="text" class="form-control" id="via" name="via">        
+      <input  type="text" class="form-control" id="doc" name="doc">        
       </div>    
-      </div>        
       </div>
-        
-
+      <div class="col-xs-6">    
+      <div class="form-group">
+      <label for="input">Viatico del Estudiante</label> 
+      <input  type="text" class="form-control" id="est" name="est">        
+      </div>    
+      </div>     
+      </div>
 </form>   
 </div>
 </div>    

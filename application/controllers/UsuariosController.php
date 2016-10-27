@@ -11,9 +11,10 @@ class UsuariosController extends Zend_Controller_Action
         $registry = Zend_Registry::getInstance();
         $this->em = $registry->entitymanager;
         
-         $this->_helper->layout->setLayout('admin');
+        $this->_helper->layout->setLayout('admin');
      //  $this->_helper->layout->setLayout('prueba'); 
-         $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
+        $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
+        $this->view->headLink()->appendStylesheet('/css/facultad.css');
         
         
         

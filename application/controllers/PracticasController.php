@@ -143,9 +143,9 @@ class PracticasController extends Zend_Controller_Action
      //Recibo los parametros por petición ajax
      $datos= $this->_getParam('datos');
      parse_str($datos, $output);
-     var_dump($output);
+    // var_dump($output);
      $programacion= $this->_getParam('programacion');
-     var_dump($programacion);
+    // var_dump($programacion);
       try {
      
      //encapsulo los parametros en un objeto
@@ -160,21 +160,13 @@ class PracticasController extends Zend_Controller_Action
      $practica_objeto->settipo_practica($output['tipo']);
      $practica_objeto->setsemestre($output['sem']);
      $practica_objeto->setdepartamento($output['dep']); 
-     $practica_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar')->find($output['optradio']));
+     $practica_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar')->find($output['per']));
      $practica_objeto->setcod_asignatura($this->em->getRepository('Application_Model_Asignaturas')->find($output['asigna']));
      $practica_objeto->setid_facultad($this->em->getRepository('Application_Model_Facultades')->find($output['fac']));
      $practica_objeto->setid_programa($this->em->getRepository('Application_Model_Programas')->find($output['pro']));        
-     var_dump($practica_objeto);
-     
-      } catch (Exception $ex) {
-         echo $ex->getMessage();  
-     
-     }
-     
-     //Hacer el ciclo para guardar las programaciones...
-    
-         foreach ($programacion as $valor){
-         var_dump($valor);
+    // var_dump($practica_objeto);
+     foreach ($programacion as $valor){
+        // var_dump($valor);
          $programacion_objeto= new Application_Model_Programacion();
          $programacion_objeto->setnum_dias($valor['0']);
          $programacion_objeto->setrecorrido($valor['1']);
@@ -189,18 +181,27 @@ class PracticasController extends Zend_Controller_Action
          $programacion_objeto->setid_participante($valor['10']);
          $programacion_objeto->setobservaciones($valor['11']);
         
-         var_dump($valor);
-         var_dump($programacion);
+        // var_dump($valor);
+        // var_dump($programacion);
          $practica_objeto->getprogramaciones()->add($programacion);
          $programacion_objeto->getparticipantes()->add($programacion);
          //da la orden de guardar...
-      
+            $this->em->persist($practica_objeto);
+       //Ejecuta la Orden de guardar..
+           $this->em->flush();
        
         }  
+     
+      } catch (Exception $ex) {
+         echo $ex->getMessage();  
+     
+     }
+     
+     //Hacer el ciclo para guardar las programaciones...
     
-    //  $this->em->persist($practica_objeto);
-       //Ejecuta la Orden de guardar..
-     //  $this->em->flush();
+         
+    
+   
     }
 
 }
