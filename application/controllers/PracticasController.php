@@ -119,8 +119,62 @@ class PracticasController extends Zend_Controller_Action
      $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
     }
-    public function listarpracticaAction()
-    { 
+    public function listarpracticaAction(){ 
+    //preparo la consulta, para extraer la información de la tabla práctica..
+        $dql= "select p, pro, pa, cal, asigna from Application_Model_Practicas p join p.programaciones pro join pro.participantes pa join p.id_calendario cal join p.cod_asignatura asigna";
+        
+        $query = $this->em->createQuery($dql);
+        
+        //Resultados de la consulta en un Vector, en este caso en Array
+        $practicas = $query->getArrayResult();   
+        //Pasarle a la Vista la informción a listar práctica
+        $this->view->practicas= $practicas;
+        
+     //preparo la consulta, para extraer la información de la tabla práctica..
+        $dql1= "select pro from Application_Model_Programacion pro";
+        
+        $query1 = $this->em->createQuery($dql1);
+        
+        //Resultados de la consulta en un Vector, en este caso en Array
+        $programacion = $query1->getArrayResult();   
+        //Pasarle a la Vista la informción a listar programacion
+        $this->view->programacion= $programacion;  
+        
+        $dql2= "select p from Application_Model_Participantes p where p.tipo_participante=:docente";
+         
+         // Ejecutar el Query, la variable query es donde se carga la consulta.
+        $query2 = $this->em->createQuery($dql2);
+        $query2->setParameter('docente', 'docente'); 
+        //Resultados de la consulta en un Vector, en este caso en Array
+         $participantes = $query2->getArrayResult();
+       // var_dump($participantes);
+        // Pasarle la información de programas a la vista..
+        $this->view->participantes= $participantes;
+        
+        
+        //realizamos una consulta dql, para que se listen los participantes auxiliares
+        $dql3= "select p from Application_Model_Participantes p where p.tipo_participante=:auxiliar";
+         // Ejecutar el Query, la variable query es donde se carga la consulta.
+        $query3 = $this->em->createQuery($dql3);
+        $query3->setParameter('auxiliar', 'auxiliar'); 
+        //Resultados de la consulta en un Vector, en este caso en Array
+         $participantess = $query3->getArrayResult();
+       // var_dump($participantes);
+        // Pasarle la información de programas a la vista..
+        $this->view->participantess= $participantess;
+        
+         //Realizamos Una Consulta dql, Para que listen los participantes Asesores
+         $dql4= "select p from Application_Model_Participantes p where p.tipo_participante=:asesor";
+         // Ejecutar el Query, la variable query es donde se carga la consulta.
+        $query4 = $this->em->createQuery($dql4);
+        $query4->setParameter('asesor', 'asesor'); 
+        //Resultados de la consulta en un Vector, en este caso en Array
+         $participante = $query4->getArrayResult();
+       // var_dump($participantes);
+        // Pasarle la información de programas a la vista..
+        $this->view->participante= $participante;
+        
+                
      
      
      $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
@@ -160,7 +214,7 @@ class PracticasController extends Zend_Controller_Action
      $practica_objeto->settipo_practica($output['tipo']);
      $practica_objeto->setsemestre($output['sem']);
      $practica_objeto->setdepartamento($output['dep']); 
-     $practica_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar')->find($output['per']));
+     $practica_objeto->setid_calendario($this->em->getRepository('Application_Model_calendar')->find($output['cal']));
      $practica_objeto->setcod_asignatura($this->em->getRepository('Application_Model_Asignaturas')->find($output['asigna']));
      $practica_objeto->setid_facultad($this->em->getRepository('Application_Model_Facultades')->find($output['fac']));
      $practica_objeto->setid_programa($this->em->getRepository('Application_Model_Programas')->find($output['pro']));        
@@ -168,23 +222,27 @@ class PracticasController extends Zend_Controller_Action
      foreach ($programacion as $valor){
         // var_dump($valor);
          $programacion_objeto= new Application_Model_Programacion();
+         $programacion_objeto->setcod_practica($practica_objeto);
          $programacion_objeto->setnum_dias($valor['0']);
          $programacion_objeto->setrecorrido($valor['1']);
-         $programacion_objeto->setfecha_salida($valor['2']);
+         $fecha_salida= DateTime::createFromFormat('d/m/Y', $valor['2']);
+         var_dump($valor['2']);
+         $programacion_objeto->setfecha_salida($fecha_salida);
          $programacion_objeto->setlugar_encuentro($valor['3']);
          $programacion_objeto->setdias_pernoctados($valor['4']);
-         $programacion_objeto->setfecha_llegada($valor['5']);
+         $fecha_llegada= DateTime::createFromFormat('d/m/Y', $valor['5']);
+         $programacion_objeto->setfecha_llegada($fecha_llegada);
          $programacion_objeto->settipo($valor['6']);
          $programacion_objeto->setvalor($valor['7']);
-         $programacion_objeto->setid_participante($valor['8']);
-         $programacion_objeto->setid_participante($valor['9']);
-         $programacion_objeto->setid_participante($valor['10']);
          $programacion_objeto->setobservaciones($valor['11']);
         
         // var_dump($valor);
         // var_dump($programacion);
-         $practica_objeto->getprogramaciones()->add($programacion);
-         $programacion_objeto->getparticipantes()->add($programacion);
+         
+         $programacion_objeto->getparticipantes()->add($this->em->getRepository('Application_Model_Participantes')->find($valor['8']));
+         $programacion_objeto->getparticipantes()->add($this->em->getRepository('Application_Model_Participantes')->find($valor['9']));
+         $programacion_objeto->getparticipantes()->add($this->em->getRepository('Application_Model_Participantes')->find($valor['10']));
+         $practica_objeto->getprogramaciones()->add($programacion_objeto);
          //da la orden de guardar...
             $this->em->persist($practica_objeto);
        //Ejecuta la Orden de guardar..

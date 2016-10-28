@@ -3,234 +3,63 @@
 <br>
 <h2>LISTADO DE PRÁCTICAS ACADÉMICAS</h2>
 <div class="tabla_datos">
-                <div class="panel panel-default item-tabla item-tabla-61">
-                    <div class="panel-body">  
+                
+                      <?php foreach ($this->practicas as $practicas) {?>
+                      <div class="panel panel-default item-tabla item-tabla-61">
+                      <div class="panel-body">  
                       <table class="table">
-                          <tr>
+                      <tr>
                               <td colspan="2" style="text-align: right">
                                   <a href="#" class="btn btn-primary btn-xs editar-tabla-datos" data-id="61"  data-tipo="1">Editar</a> <a href="#"  data-id="61"  data-tipo="1" class="btn btn-danger btn-xs eliminar-tabla-datos">Clonar</a> <a href="#"  data-id="44"  data-tipo="1" class="btn btn-default btn-xs eliminar-tabla-datos">Imprimir</a>
                               </td>
                           </tr>
                            <tr>
-                              <td>Nombre Práctica</td>
-                              <td class="anio">Estudio Biologia</td>
+                              <td>Codigo Práctica</td>
+                              <td class="cal"><?php echo $practicas['cod_practica']; ?></td>
                           </tr>
                           <tr>
-                              <td>Objetivos </td>
-                              <td class="campo_a">Estudiar, comprender los ecosistemas</td>
+                              <td>Calendario Académico</td>
+                              <td class="cal"><?php echo $practicas['id_calendario']['annio']; ?> <?php echo $practicas['id_calendario']['periodo']; ?></td>
                           </tr>
-                          <tr>
-                              <td>Justificación </td>
-                              <td class="campo_b">Los Estudiantes del Programa Biologia</td>
-                          </tr>
-                          <tr>
-                              <td>Actividades Docente</td>
-                              <td class="campo_c">Elaborar la Guia</td>
-                          </tr>
-                          <tr>
-                              <td>Actividades Estudiantes</td>
-                              <td class="campo_d">Realizar Observaciones</td>
-                          </tr>
-                          <tr>
-                              <td>Tipo Práctica</td>
-                              <td class="campo_e">Práctica de campo</td>
-                          </tr>
-                          <tr>
-                              <td>Asignatura</td>
-                              <td class="campo_f">Ecologia Basica(Grupo1-Codigo 407124)</td>
-                          </tr>
-                          <tr>
-                              <td>No Días</td>
-                              <td class="campo_g">1</td>
-                          </tr>
-                          <tr>
-                              <td>Recorrido</td>
-                              <td class="campo_h">Mtr-Lorica-Cipata-S.Antero</td>
-                          </tr>
-                          <tr>
-                              <td>Fecha Salida</td>
-                              <td class="campo_i">30/11/2016 07:00</td>
-                          </tr>
-                          <tr>
-                              <td>Lugar Encuentro</td>
-                              <td class="campo_j">Unicor</td>
-                          </tr>
-                          <tr>
-                              <td>Días Pernoc</td>
-                              <td class="campo_k">Si</td>
-                          </tr>
-                          <tr>
-                              <td>Fecha Llegada</td>
-                              <td class="campo_l">04/12/2016 06:00</td>
-                          </tr>
-                          <tr>
-                              <td>Tipo</td>
-                              <td class="campo_m">Material Campo</td>
-                          </tr>
-                          <tr>
-                              <td>Valor($)</td>
-                              <td class="campo_n">$ 250.000</td>
-                          </tr>
-                          <tr>
-                              <td>Observaciones</td>
-                              <td class="campo_ñ">Transporte Lancha</td>
-                          </tr>
-                          <tr>
+                           <tr>
                               <td>Nombre del docente solicitante</td>
-                              <td class="campo_o">Juan Andres Pérez</td>
+                              <td class="campo_o"><?php echo $practicas['nom_solicitante']?></td>
                           </tr>
-                          <tr>
-                              <td>Nombre del Jefe de Departamento</td>
-                              <td class="campo_p">Jose Maria Fuentes</td>
-                          </tr>
-                          <tr>
-                              <td>Nombre del Decano de la Facultad</td>
-                              <td class="campo_q">Gabriela Maria Tordecilla</td>
-                          </tr>
-                          <tr>
-                              <td>Nombre del Vicerrector Académico</td>
-                              <td class="campo_r">Fernando Gabiel Galán</td>
-                          </tr>
-                      </table>
-                        
-                      </div>
-                    </div>
-              
-    
-                <div class="panel panel-default item-tabla item-tabla-44">
-                    <div class="panel-body">  
-                      <table class="table">
-                          <tr>
-                              <td colspan="2" style="text-align: right">
-                                  <a href="#" class="btn btn-primary btn-xs editar-tabla-datos" data-id="44"  data-tipo="1">Editar</a> <a href="#"  data-id="44"  data-tipo="1" class="btn btn-danger btn-xs eliminar-tabla-datos">Clonar</a> <a href="#"  data-id="44"  data-tipo="1" class="btn btn-default btn-xs eliminar-tabla-datos">Imprimir</a>
-                              </td>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>Nombre Práctica</td>
-                              <td class="anio">Estudio Biologia</td>
-                          </tr>
-                          <tr>
-                              <td>Objetivos </td>
-                              <td class="campo_a">Estudiar, comprender los ecosistemas</td>
-                          </tr>
-                          <tr>
-                              <td>Justificación </td>
-                              <td class="campo_b">Los Estudiantes del Programa Biologia</td>
-                          </tr>
-                          <tr>
-                              <td>Actividades Docente</td>
-                              <td class="campo_c">Elaborar la Guia</td>
-                          </tr>
-                          <tr>
-                              <td>Actividades Estudiantes</td>
-                              <td class="campo_d">Realizar Observaciones</td>
-                          </tr>
-                          <tr>
-                              <td>Tipo Práctica</td>
-                              <td class="campo_e">Práctica de campo</td>
-                          </tr>
-                          <tr>
+                           <tr>
                               <td>Asignatura</td>
-                              <td class="campo_f">Ecologia Basica(Grupo1-Codigo 407124)</td>
+                              <td class="campo_f"><?php echo $practicas['cod_asignatura']['nombre']?></td>
                           </tr>
-                          <tr>
-                              <td>No Días</td>
-                              <td class="campo_g">1</td>
-                          </tr>
-                          <tr>
-                              <td>Recorrido</td>
-                              <td class="campo_h">Mtr-Lorica-Cipata-S.Antero</td>
-                          </tr>
-                          <tr>
-                              <td>Fecha Salida</td>
-                              <td class="campo_i">30/11/2016 07:00</td>
-                          </tr>
-                          <tr>
-                              <td>Lugar Encuentro</td>
-                              <td class="campo_j">Unicor</td>
-                          </tr>
-                          <tr>
-                              <td>Días Pernoc</td>
-                              <td class="campo_k">Si</td>
-                          </tr>
-                          <tr>
-                              <td>Fecha Llegada</td>
-                              <td class="campo_l">04/12/2016 06:00</td>
-                          </tr>
-                          <tr>
-                              <td>Tipo</td>
-                              <td class="campo_m">Material Campo</td>
-                          </tr>
-                          <tr>
-                              <td>Valor($)</td>
-                              <td class="campo_n">$ 250.000</td>
-                          </tr>
-                          <tr>
-                              <td>Observaciones</td>
-                              <td class="campo_ñ">Transporte Lancha</td>
-                          </tr>
-                          <tr>
-                              <td>Nombre del docente solicitante</td>
-                              <td class="campo_o">Juan Andres Pérez</td>
-                          </tr>
-                          <tr>
-                              <td>Nombre del Jefe de Departamento</td>
-                              <td class="campo_p">Jose Maria Fuentes</td>
-                          </tr>
-                          <tr>
-                              <td>Nombre del Decano de la Facultad</td>
-                              <td class="campo_q">Gabriela Maria Tordecilla</td>
-                          </tr>
-                          <tr>
-                              <td>Nombre del Vicerrector Académico</td>
-                              <td class="campo_r">Fernando Gabiel Galán</td>
-                          </tr>
-                      </table>
-                        
-                      </div>
-                    </div>
-              
-    
-                <div class="panel panel-default item-tabla item-tabla-71">
-                    <div class="panel-body">  
-                      <table class="table">
-                          <tr>
-                              <td colspan="2" style="text-align: right">
-                                  <a href="#" class="btn btn-primary btn-xs editar-tabla-datos" data-id="71"  data-tipo="1">Editar</a> <a href="#"  data-id="71"  data-tipo="1" class="btn btn-danger btn-xs eliminar-tabla-datos">Clonar</a> <a href="#"  data-id="44"  data-tipo="1" class="btn btn-default btn-xs eliminar-tabla-datos">Imprimir</a>
-                              </td>
+                           <tr>
+                              <td>Número Estudiantes</td>
+                              <td class="campo_f"><?php echo $practicas['num_estudiantes']?></td>
                           </tr>
                            <tr>
                               <td>Nombre Práctica</td>
-                              <td class="anio">Estudio Biologia</td>
+                              <td class="campo_w"><?php echo $practicas['nombre']?></td>
                           </tr>
                           <tr>
                               <td>Objetivos </td>
-                              <td class="campo_a">Estudiar, comprender los ecosistemas</td>
+                              <td class="campo_a"><?php echo $practicas['objetivo']?></td>
                           </tr>
                           <tr>
                               <td>Justificación </td>
-                              <td class="campo_b">Los Estudiantes del Programa Biologia</td>
+                              <td class="campo_b"><?php echo $practicas['justificacion']?></td>
                           </tr>
                           <tr>
                               <td>Actividades Docente</td>
-                              <td class="campo_c">Elaborar la Guia</td>
+                              <td class="campo_c"><?php echo $practicas['actividad_doc']?></td>
                           </tr>
                           <tr>
                               <td>Actividades Estudiantes</td>
-                              <td class="campo_d">Realizar Observaciones</td>
+                              <td class="campo_d"><?php echo $practicas['actividad_est']?></td>
                           </tr>
                           <tr>
                               <td>Tipo Práctica</td>
-                              <td class="campo_e">Práctica de campo</td>
-                          </tr>
-                          <tr>
-                              <td>Asignatura</td>
-                              <td class="campo_f">Ecologia Basica(Grupo1-Codigo 407124)</td>
+                              <td class="campo_e"><?php echo $practicas['tipo_practica']?></td>
                           </tr>
                           <tr>
                               <td>No Días</td>
-                              <td class="campo_g">1</td>
+                              <td class="campo_g"><?php echo $practicas['programaciones']['num_dias']?></td>
                           </tr>
                           <tr>
                               <td>Recorrido</td>
@@ -264,27 +93,24 @@
                               <td>Observaciones</td>
                               <td class="campo_ñ">Transporte Lancha</td>
                           </tr>
-                          <tr>
-                              <td>Nombre del docente solicitante</td>
-                              <td class="campo_o">Juan Andres Pérez</td>
-                          </tr>
-                          <tr>
-                              <td>Nombre del Jefe de Departamento</td>
+                           <tr>
+                              <td>Docente Responsable</td>
                               <td class="campo_p">Jose Maria Fuentes</td>
                           </tr>
                           <tr>
-                              <td>Nombre del Decano de la Facultad</td>
+                              <td>Auxiliar</td>
                               <td class="campo_q">Gabriela Maria Tordecilla</td>
                           </tr>
                           <tr>
-                              <td>Nombre del Vicerrector Académico</td>
+                              <td>Asesor</td>
                               <td class="campo_r">Fernando Gabiel Galán</td>
-                          </tr>
+                          </tr>        
+                      
+                       
                       </table>
-                        
-                      </div>
+                        </div>
+                          
                     </div>
-              
-    
+                   <?php }?>  
  
 </div>

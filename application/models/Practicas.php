@@ -48,9 +48,9 @@ class Application_Model_Practicas {
     private $departamento;
     
     /**
-     * @OneToMany(targetEntity="Application_Model_Programacion", mappedBy="cod_practica")
+     * @OneToMany(targetEntity="Application_Model_Programacion", mappedBy="cod_practica", cascade={"persist"})
      */
-
+   
      private $programaciones;
       
     
