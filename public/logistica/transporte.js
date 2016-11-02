@@ -1,80 +1,80 @@
 
-var conductor={};
-conductor.init = function(){
+var transporte={};
+transporte.init = function(){
  // console.log('Hola Kami'); 
- conductor.agregarconductor();
- conductor.editarconductor();
- conductor.eliminarconductor();
+ transporte.agregartransporte();
+ transporte.editartransporte();
+ transporte.eliminartransporte();
 }
-$(conductor.init);
+$(transporte.init);
 
 //Creo un Metodo de Agregar Conductor...
-conductor.agregarconductor = function(){
+transporte.agregartransporte = function(){
   //Validación de que los campos no se vayan vacios
-    $( "#con" ).validate({
+    $( "#tra" ).validate({
   rules: {
-    nom: {
+    placa: {
       required: true
        },
-       ape: {
+       descri: {
       required: true
        },
-       ide: {
+       vehi: {
       required: true
        },
-       tele: {
+       estado: {
       required: true
        },
-       dir: {
+       pasa: {
       required: true
        }
       }
    });
     //on hace la asignación de un evento..
     $('#agregar').on('click', function(){
-       console.log('Hola')
+      // console.log('Hola')
     //val me devuelve el elemento que esta en el id de la función  (extrae el valor del input)
     // #facultad valor del input
     // facultad variable donde se guarda los datos
-    if($('#con').valid()){
-    var nom= $('#nom').val(); 
-    console.log(nom);
-    var ape= $('#ape').val();
-    console.log(ape);
-    var ide= $('#ide').val();
-    console.log(ide);
-    var tele= $('#tele').val();
-    console.log(tele);
-    var dir= $('#dir').val();
-    console.log(dir);
+    if($('#tra').valid()){
+    var placa= $('#placa').val(); 
+    console.log(placa);
+    var descripcion= $('#descri').val();
+    console.log(descripcion);
+    var vehiculo= $('#vehi').val();
+    console.log(vehiculo);
+    var estado= $('#estado').val();
+    console.log(estado);
+    var pasajero= $('#pasa').val();
+    console.log(pasajero);
     //Metodo Para enviar los datos al controlador
-  var ajax= $.post('/conductor/guardarconductor', {nom:nom, ape:ape, ide:ide, tele:tele, dir:dir});
-  // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
-  ajax.done(function(){
-   window.location='/conductor/listarconductor';
+   var ajax= $.post('/transporte/guardartransporte', {placa:placa, descripcion:descripcion, vehiculo:vehiculo, estado:estado, pasajero:pasajero});
+  // Codigo para actualizar la facultad cuando se agrega una nuevo vehiculo..
+   ajax.done(function(){
+    window.location='/transporte/listartransporte';
   });
     }
     
     });
     
 }
-conductor.editarconductor = function(){
+transporte.editartransporte = function(){
      //Validación de que los campos no se vayan vacios
-    $( "#con" ).validate({
+    $( "#tra" ).validate({
   rules: {
-     nom: {
+     placa: {
       required: true
        },
-       ape: {
+       descri: {
       required: true
        },
-       ide: {
+       vehi: {
       required: true
        },
-       tele: {
+       estado: {
       required: true
        },
-       dir: {
+       pasa: {
       required: true
        }
       }
@@ -86,56 +86,56 @@ conductor.editarconductor = function(){
     // #facultad valor del input
     // facultad variable donde se guarda los datos
     //Valido los campos
-    if($('#con').valid()){
-    var nombre= $('#nom').val(); 
-    //console.log(nom);
-    var apellido= $('#ape').val();
-   // console.log(ape);
-    var identificacion= $('#ide').val();
-   // console.log(ide);
-    var telefono= $('#tele').val();
-    //console.log(tele);
-    var direccion= $('#dir').val();
+    if($('#tra').valid()){
+    var placa= $('#placa').val(); 
+   // console.log(placa);
+    var descripcion= $('#descri').val();
+   // console.log(descripcion);
+    var vehiculo= $('#vehi').val();
+   // console.log(vehiculo);
+    var estado= $('#estado').val();
+   // console.log(estado);
+    var pasajero= $('#pasa').val();
     //console.log(dir);
     //Guardar el id de facultades
-    var id=$('#id_conductor').val();
+    var id=$('#cod_transporte').val();
     
             
    // console.log(facultad);
     //Metodo Para enviar los datos al controlador
- var ajax=  $.post('/conductor/actualizarconductor', {nombre:nombre, apellido:apellido, identificacion:identificacion, telefono:telefono, direccion:direccion, id:id});
+ var ajax=  $.post('/transporte/actualizartransporte', {placa:placa, descripcion:descripcion, vehiculo:vehiculo, estado:estado, pasajero:pasajero, id:id});
        //Actualizar Facultad
         ajax.done(function(){
-        window.location='/conductor/listarconductor';
+        window.location='/transporte/listartransporte';
   });    
     }
     });
     
 }
-conductor.eliminarconductor = function(){
+transporte.eliminartransporte = function(){
 //Asignación de eventos por delegados
-$(document).on('click', '.eliminar_conductor', function(e){
+$(document).on('click', '.eliminar_transporte', function(e){
   //No se comporte por defecto viene, de mandarme a otra pagina  
   e.preventDefault(); 
    //Elemnto cliqueado
  var elementocliqueado= this;
  //console.log('HOla'); 
     bootbox.dialog({
-  message: "Esta Seguro de Borrar el conductor",
-  title: "Confirmar Facultad",
+  message: "Esta Seguro de Borrar el Vehiculo",
+  title: "Confirmar Vehiculo",
   buttons: {
     default: {
       label: "Aceptar",
       className: "btn-default",
       callback: function() {
        // Example.show("Se realizo con Exito");
-        var conductor_id=$(elementocliqueado).data('conductor');
+        var transporte_id=$(elementocliqueado).data('transporte');
 // console.log(facultad_id);
 
- var ajax= $.post('/conductor/eliminarconductor', {conductor_id:conductor_id});
+ var ajax= $.post('/transporte/eliminartransporte', {transporte_id:transporte_id});
  
  ajax.error(function(){
-     alert('Error, No puede Borrar, Por que hay una llave foranea de programas a facultad');
+     alert('Error, No puede Borrar, el Vehiculo');
  });
  //Codigo para actualizar automaticamente la pagina..
  ajax.done(function(){

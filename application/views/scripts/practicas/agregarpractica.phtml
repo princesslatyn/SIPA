@@ -24,7 +24,7 @@
 <div class="actions">
 	<button type="button" class="btn btn-default btn-prev">
 		<span class="glyphicon glyphicon-arrow-left"></span>Atrás</button>
-	<button type="button" class="btn btn-primary btn-next" data-last="Finalizar">Siguiente
+    <button type="button" class="btn btn-primary btn-next" id="final" data-last="Finalizar">Siguiente
 		<span class="glyphicon glyphicon-arrow-right"></span>
 	</button>
 </div>
@@ -189,10 +189,20 @@
         <div class="row">
         <div class="form-group">
         <label for="">Recorrido por dia de la Práctica</label>
-        <textarea class="form-control" id="reco" rows="3"></textarea>
-        <small id="emailHelp" class="form-text text-muted">Diligencie los campos.</small>
+        <select class="form-control" id="reco" name="reco" style="cursor:pointer;">
+         <?php foreach ($this->rutas as $rutas) {?>
+          <option  value="<?php echo $rutas['cod_ruta'];?>"><?php echo $rutas['ruta'];?></option>
+          <?php }?>
+        </select>  
         </div>    
         </div>
+         <div class="row">
+        <div class="form-group">
+        <label for="">Desplazamiento</label>
+        <input type="text" id="despla" class="form-control">
+        <small id="emailHelp" class="form-text text-muted">Diligencie los campos.</small>
+        </div> 
+        </div>    
         <div class="row">
         <div class="form-group">
         <label for="">Fecha de Salida</label>    
@@ -292,16 +302,45 @@
         <div class="col-xs-6">
         <label class="center-block">Recursos Especiales</label>
         <label class="form-group"> Tipo</label>
-        <input class="form-control" id="tipo" type="text">
-        <small id="emailHelp" class="form-text text-muted">Diligencie los campos.</small>     
+        <select class="form-control" id="tipo"  style="cursor:pointer;">
+         <?php foreach ($this->recursos as $recursos) {?>
+          <option  value="<?php echo $recursos['id_recursos'];?>"><?php echo $recursos['nombre'];?></option>
+          <?php }?>
+        </select>    
         </div>
         <div class="col-xs-6">
          <br>
         <label class="form-group"> valor($)</label>
         <input class="form-control" id="valor" type="text">
-        <small id="emailHelp" class="form-text text-muted">Diligencie los campos.</small>     
+        <small id="emailHelp" class="form-text text-muted"></small>     
         </div>    
         </div>
+            <br>    
+        <div class="text-right">
+         <input type='button' class="button btn btn-default" id="rec" value='Agregar Recurso'  />        
+        </div>
+        <br>    
+        <div class="row">
+        <table id="examplee" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Tipo de Recurso</th>
+                <th>Valor</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Tipo de Recurso</th>
+                <th>Valor</th>
+                <th>Accion</th>
+            </tr>
+        </tfoot>
+        <tbody>
+           
+        </tbody>
+    </table>    
+        </div>  
         <div class="row">
              <br>
         <div class="col-xs-6">
@@ -484,36 +523,38 @@
         <table id="example" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>No Días</th>
-                <th>Recorrido</th>
-                <th>Fecha Salida</th>
+                <th>NoDías</th>
+                <th>Recor</th>
+            <!-- <th>De</th> -->
+                <th>Fecha Sal</th>
                 <th>Lugar</th>
-                <th>Días Pern</th>
-                <th>Fecha Llegada</th>
+                <th>DíasPern</th>
+                <th>FechaLleg</th>
                 <th>Tipo</th>
                 <th>Valor($)</th>
-                <th>Doce.Res</th>
+                <th>Doce.R</th>
                 <th>Aux</th>
-                <th>Asesor</th>
-                <th>Observ</th>
-                <th>Acciones</th>
+                <th>Ases</th>
+                <th>Obs</th>
+                <th>Accion</th>
             </tr>
         </thead>
         <tfoot>
             <tr>
-                <th>No Días</th>
-                <th>Recorrido</th>
-                <th>Fecha Salida</th>
+                <th>NoDías</th>
+                <th>Recor</th>
+             <!-- <th>De</th> -->
+                <th>Fecha Sal</th>
                 <th>Lugar</th>
-                <th>Días Pern</th>
-                <th>Fecha Llegada</th>
+                <th>DíasPern</th>
+                <th>FechaLleg</th>
                 <th>Tipo</th>
                 <th>Valor($)</th>
-                <th>Doce.Res</th>
+                <th>Doce.R</th>
                 <th>Aux</th>
-                <th>Asesor</th>
-                <th>Observ</th>
-                <th>Acciones</th>
+                <th>Ases</th>
+                <th>Obs</th>
+                <th>Accion</th>
             </tr>
         </tfoot>
         <tbody>

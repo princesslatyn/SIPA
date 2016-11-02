@@ -1,0 +1,41 @@
+<div class="row col-sm-4 col-md-6 col-lg-9" style="margin-top: 10px;">
+    <h3>Listar Los Vehiculos</h3>
+    <br>
+        <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+              
+                <th>Placa</th>
+                <th>Descripción</th>
+                <th>tipo_vehiculo</th>
+                <th>Estado Vehiculo</th>
+                <th>Capacidad de Pasajeros</th>
+                <th>Acciones</th>
+                
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+            
+                <th>Placa</th>
+                <th>Descripción</th>
+                <th>tipo_vehiculo</th>
+                <th>Estado Vehiculo</th>
+                <th>Capacidad de Pasajeros</th>
+                <th>Acciones</th>
+            </tr>
+        </tfoot>
+        <tbody>
+           <?php foreach ($this->transporte as $transporte) {?> 
+            <tr>
+                <td><?php echo $transporte ['placa'];?></td>
+                <td><?php echo $transporte ['descripcion'];?></td>
+                <td><?php echo $transporte ['tipo_vehiculo'];?></td>
+                <td><?php echo $transporte ['estado_vehiculo'];?></td>
+                <td><?php echo $transporte ['capacidad_pasajeros'];?></td>
+                <td><a href="/transporte/editartransporte/id/<?php echo $transporte['cod_transporte'];?> "><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a>&nbsp;<a class="eliminar_transporte" data-transporte="<?php echo $transporte['cod_transporte'];?>" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>
+            </tr> 
+            <?php }?>
+        </tbody>
+    </table>    
+        </div> 

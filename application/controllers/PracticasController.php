@@ -95,6 +95,28 @@ class PracticasController extends Zend_Controller_Action
       
       //Pasarle a la Vista la informción de la Calendario
       $this->view->calendario= $calendario;
+      
+        //Preparo la consulta dql
+      $dql7= "select r from Application_Model_Rutas r";
+       
+       $query7 = $this->em->createQuery($dql7);
+       
+       //muestre el resultado en un array...
+      $rutas =$query7->getArrayResult();
+      
+      //Pasarle a la Vista la informción de la Calendario
+      $this->view->rutas= $rutas; 
+      
+        //Preparo la consulta dql
+      $dql8= "select r from Application_Model_Recurespeciales r";
+       
+       $query8 = $this->em->createQuery($dql8);
+       
+       //muestre el resultado en un array...
+      $recursos =$query8->getArrayResult();
+      
+      //Pasarle a la Vista la informción de la Calendario
+      $this->view->recursos= $recursos; 
         
        
         
@@ -118,10 +140,12 @@ class PracticasController extends Zend_Controller_Action
      $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
      $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
+     $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
+    
     }
     public function listarpracticaAction(){ 
     //preparo la consulta, para extraer la información de la tabla práctica..
-        $dql= "select p, pro, pa, cal, asigna from Application_Model_Practicas p join p.programaciones pro join pro.participantes pa join p.id_calendario cal join p.cod_asignatura asigna";
+        $dql= "select p, pro, pa, cal, asigna from Application_Model_Practicas p join p.programaciones pro join pro.participantes pa join p.id_calendario cal join p.cod_asignatura asigna order by p.cod_practica";
         
         $query = $this->em->createQuery($dql);
         
@@ -187,6 +211,8 @@ class PracticasController extends Zend_Controller_Action
      $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
      $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
+     $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
+    
     }
     public function guardarpracticaAction(){
     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
@@ -232,13 +258,14 @@ class PracticasController extends Zend_Controller_Action
          $programacion_objeto->setdias_pernoctados($valor['4']);
          $fecha_llegada= DateTime::createFromFormat('d/m/Y', $valor['5']);
          $programacion_objeto->setfecha_llegada($fecha_llegada);
-         $programacion_objeto->settipo($valor['6']);
-         $programacion_objeto->setvalor($valor['7']);
+       //  $programacion_objeto->settipo($valor['6']);
+        // $programacion_objeto->setvalor($valor['7']);
          $programacion_objeto->setobservaciones($valor['11']);
         
         // var_dump($valor);
         // var_dump($programacion);
-         
+         $programacion_objeto->getrecursos()->add($this->em->getRepository('Application_Model_Recurespeciales')->find($valor['6']));
+         $programacion_objeto->getrecursos()->add($this->em->getRepository('')->find($valor['7']));
          $programacion_objeto->getparticipantes()->add($this->em->getRepository('Application_Model_Participantes')->find($valor['8']));
          $programacion_objeto->getparticipantes()->add($this->em->getRepository('Application_Model_Participantes')->find($valor['9']));
          $programacion_objeto->getparticipantes()->add($this->em->getRepository('Application_Model_Participantes')->find($valor['10']));

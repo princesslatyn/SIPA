@@ -80,11 +80,20 @@ class Application_Model_Programacion {
      */
 
     private $participantes;
+    
+     /**
+     * @ManyToMany(targetEntity="Application_Model_Recurespeciales ")
+     * @JoinTable(name="programacion_recursos",
+     *      joinColumns={@JoinColumn(name="codigo_prog", referencedColumnName="codigo_prog")},
+     *      inverseJoinColumns={@JoinColumn(name="id_recursos", referencedColumnName="id_recursos")}
+     *      )
+     */
+     private $recursos;   
 
 
 
 
-    //Metodo Público
+     //Metodo Público
   
     public function setnum_dias($num){
         $this->num_dias =$num;
@@ -141,14 +150,22 @@ class Application_Model_Programacion {
     public function setparticipantes($parti){
         $this->participantes= $parti;
     }
+    public function setrecursos($recur){
+        $this->recursos=$recur;
+    }
+
     public function getparticipantes(){
         return $this->participantes;
+    }
+    public function getrecursos(){
+        return $this->recursos;
     }
 
     public function __construct() {
         // la variable now, se comporta como un objeto donde la fecha se haga automaticamente..
         $this->fecha_registro =new DateTime('now');
-         $this->participantes = new ArrayCollection();
+        $this->participantes = new ArrayCollection();
+        $this->recursos = new ArrayCollection();
         
     }
     

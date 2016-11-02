@@ -11,6 +11,38 @@ $(practicas.init);
 //Creo un Metodo de Agregar Facultad...
  practicas.agregarpractica = function(){
   
+  var table=$('#examplee').DataTable();
+     $(document).on('click', '#rec', function(e){
+  //No se comporte por defecto viene, de mandarme a otra pagina  
+  e.preventDefault(); 
+   //Elemnto cliqueado
+ var elementocliqueado= this;
+ //console.log('HOla'); 
+    bootbox.dialog({
+  message: "agregar recurso especial",
+  title: "Confirmar Recurso",
+  buttons: {
+    default: {
+      label: "Aceptar",
+      className: "btn-default",
+      callback: function() {
+       // Example.show("Se realizo con Exito"); 
+ //Codigo para actualizar automaticamente la pagina.
+      }
+    },
+    danger: {
+      label: "Cancelar",
+      className: "btn-danger",
+      callback: function() {
+       // Example.show("oh, Error!");
+      }
+    }
+    
+  }
+});
+ 
+ });     
+  
      //Evento en el Boton
    var datatable= $('#example').DataTable();
       // Para las multiples tablas
@@ -23,6 +55,7 @@ $(practicas.init);
       console.log(num);
       var reco= $('#reco').val();
        console.log(reco);
+     // var despla= $('#despla').val();
       var sal= $('#sal').val(); 
        console.log(sal);
       var lug= $('#lug').val(); 
@@ -53,6 +86,7 @@ $(practicas.init);
         .remove()
         .draw();
       });
+      
          //Validación De campos Vacios
     var valid= true;
     if(num > 0 && reco != "" && sal != "" && lug != ""  && dia != "" && lle != "" && tipo != "" && valor > 0 && docen != "" && auxi != "" && ases != "" &&  obs != ""){
@@ -74,6 +108,21 @@ $(practicas.init);
          '<td><a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>'
            
       ]).draw();
+      //Para que se limpie el formulario
+      var num= $('#num').val("");
+      var reco= $('#reco').val("");
+     // var despla= $('#reco').val("");
+      var sal= $('#sal').val(""); 
+      var lug= $('#lug').val(""); 
+      var dia= $('#per').val("");
+      var lle= $('#lle').val(""); 
+      var tipo= $('#tipo').val("");
+      var valor= $('#valor').val(""); 
+      var docen= $('#docen option:selected').val("");
+      var auxi= $('#auxi option:selected').val("");
+      var ases= $('#ases option:selected').val("");
+      var obs= $('#obs').val(""); 
+       
        // alert('Los Datos Son Correctos');
     }else{
         valid = false;
@@ -83,8 +132,10 @@ $(practicas.init);
          
     //Validación de que los campos no se vayan vacios
     $( "#myWizard" ).on('finished.fu.wizard', function(){
+     
      datatable.rows().data();
-      console.log(datatable.data().toArray());
+    
+     // console.log(datatable.data().toArray());
       //declaro una variable para conocer la pocisión del vector a donde estan los id de participantes
       var programacion= datatable.data().toArray();
     
@@ -98,14 +149,49 @@ $(practicas.init);
        // console.log('Hola Kami');
         //Con esta variable le paso los datos del formulario en un vector
      var datos = $('#pra').serialize();
-     alert(datos);  
-     
-       var ajax= $.post('/practicas/guardarpractica', {datos:datos, programacion:programacion});
+    // alert(datos); 
+    //Mensaje de Confirmación 
+    $(document).on('click', '#final', function(e){
+  //No se comporte por defecto viene, de mandarme a otra pagina  
+  e.preventDefault(); 
+   //Elemnto cliqueado
+ var elementocliqueado= this;
+ //console.log('HOla'); 
+    bootbox.dialog({
+  message: "La Práctica se envió a la Logística",
+  title: "Práctica se guardo con exito",
+  buttons: {
+    default: {
+      label: "Aceptar",
+      className: "btn-default",
+      callback: function() {
+       // Example.show("Se realizo con Exito");
+       
+// console.log(facultad_id);
+
+ var ajax= $.post('/practicas/guardarpractica', {datos:datos, programacion:programacion});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
   ajax.done(function(){
-    //  window.location='/facultades/listarfacultad';
+    //  alert('la Práctica se Guardo Con Exito');
+     window.location='/practicas/listarpractica';
   });
-   
+ 
+ //Codigo para actualizar automaticamente la pagina.
+      }
+    },
+    danger: {
+      label: "Cancelar",
+      className: "btn-danger",
+      callback: function() {
+       // Example.show("oh, Error!");
+      }
+    }
+    
+  }
+});
+ 
+ });  
+    
    });
  
   
