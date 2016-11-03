@@ -135,6 +135,7 @@ class PracticasController extends Zend_Controller_Action
      $this->view->headScript()->appendFile('/js/practica.js');
      $this->view->headScript()->appendFile('/admin/practicas.js');
      $this->view->headScript()->appendFile('/practica/participantes.js');
+     $this->view->headScript()->appendFile('/practica/progrecurso.js');
      $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
      $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
      $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
@@ -265,11 +266,12 @@ class PracticasController extends Zend_Controller_Action
         // var_dump($valor);
         // var_dump($programacion);
          $programacion_objeto->getrecursos()->add($this->em->getRepository('Application_Model_Recurespeciales')->find($valor['6']));
-         $programacion_objeto->getrecursos()->add($this->em->getRepository('')->find($valor['7']));
+        $programacion_objeto->getrecursos()->add($this->em->getRepository('Application_Model_Progrecursos')->find($valor['7']));
          $programacion_objeto->getparticipantes()->add($this->em->getRepository('Application_Model_Participantes')->find($valor['8']));
          $programacion_objeto->getparticipantes()->add($this->em->getRepository('Application_Model_Participantes')->find($valor['9']));
          $programacion_objeto->getparticipantes()->add($this->em->getRepository('Application_Model_Participantes')->find($valor['10']));
          $practica_objeto->getprogramaciones()->add($programacion_objeto);
+         
          //da la orden de guardar...
             $this->em->persist($practica_objeto);
        //Ejecuta la Orden de guardar..

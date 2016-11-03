@@ -40,11 +40,6 @@ class Application_Model_Programacion {
     
       /** @Column(type="string", length=100) */
     private $num_pasajeros;
-     /** @Column(type="string", length=256) */
-    private $tipo;
-    
-    /** @Column(type="string", length=3000) */
-    private $valor;
     
      /** @Column(type="string", length=256) */
     private $observaciones;
@@ -82,10 +77,10 @@ class Application_Model_Programacion {
     private $participantes;
     
      /**
-     * @ManyToMany(targetEntity="Application_Model_Recurespeciales ")
-     * @JoinTable(name="programacion_recursos",
+     * @ManyToMany(targetEntity="Application_Model_Progrecursos")
+     * @JoinTable(name="recursos_programados",
      *      joinColumns={@JoinColumn(name="codigo_prog", referencedColumnName="codigo_prog")},
-     *      inverseJoinColumns={@JoinColumn(name="id_recursos", referencedColumnName="id_recursos")}
+     *      inverseJoinColumns={@JoinColumn(name="id_pro", referencedColumnName="id_pro")}
      *      )
      */
      private $recursos;   
@@ -125,13 +120,7 @@ class Application_Model_Programacion {
         $this->num_pasajeros= $pas;
         
     }
-    public function settipo($ti){
-        $this->tipo= $ti;
-        
-    }
-    public function setvalor($va){
-        $this->valor= $va;
-    }
+   
     public function setobservaciones($obs){
         $this->observaciones= $obs;
     }

@@ -12,6 +12,9 @@ $(practicas.init);
  practicas.agregarpractica = function(){
   
   var table=$('#examplee').DataTable();
+  
+ 
+  
      $(document).on('click', '#rec', function(e){
   //No se comporte por defecto viene, de mandarme a otra pagina  
   e.preventDefault(); 
@@ -26,8 +29,28 @@ $(practicas.init);
       label: "Aceptar",
       className: "btn-default",
       callback: function() {
-       // Example.show("Se realizo con Exito"); 
- //Codigo para actualizar automaticamente la pagina.
+        
+     var tipo= $('#tipo option:selected').html();
+      // console.log(tipo);
+     var valor= $('#valor').val(); 
+      // console.log(valor);
+       
+   //función para eliminar una fila
+      $(document).on( 'click', '.eliminar_practicaa', function (e) {
+          // Previene los comportamientos por defectos
+           e.preventDefault(); 
+    table
+        .row( $(this).parents('tr') )
+        .remove()
+        .draw();
+      });
+       table.row.add([
+         tipo,
+         valor,
+         '<td><a class="eliminar_practicaa" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>'
+           
+      ]).draw();
+
       }
     },
     danger: {
@@ -53,7 +76,7 @@ $(practicas.init);
      
       var num= $('#num').val(); 
       console.log(num);
-      var reco= $('#reco').val();
+      var reco= $('#reco option:selected').html();
        console.log(reco);
      // var despla= $('#despla').val();
       var sal= $('#sal').val(); 
@@ -64,10 +87,6 @@ $(practicas.init);
        console.log(dia);
       var lle= $('#lle').val(); 
        console.log(lle);
-      var tipo= $('#tipo').val();
-       console.log(tipo);
-      var valor= $('#valor').val(); 
-       console.log(valor);
        var docen= $('#docen option:selected').html();
        console.log(docen);
         var auxi= $('#auxi option:selected').html();
@@ -89,7 +108,7 @@ $(practicas.init);
       
          //Validación De campos Vacios
     var valid= true;
-    if(num > 0 && reco != "" && sal != "" && lug != ""  && dia != "" && lle != "" && tipo != "" && valor > 0 && docen != "" && auxi != "" && ases != "" &&  obs != ""){
+    if(num > 0 && reco != "" && sal != "" && lug != ""  && dia != "" && lle != "" && docen != "" && auxi != "" && ases != "" &&  obs != ""){
        
         valid= true;
         datatable.row.add([
@@ -99,8 +118,6 @@ $(practicas.init);
          lug,
          dia,
          lle,
-         tipo,
-         valor,
          docen +'<input type="hidden" value=' + $('#docen').val() + '>',
          auxi +'<input type="hidden" value=' + $('#auxi').val() + '>',
          ases +'<input type="hidden" value=' + $('#ases').val() + '>',
@@ -173,7 +190,7 @@ $(practicas.init);
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
   ajax.done(function(){
     //  alert('la Práctica se Guardo Con Exito');
-     window.location='/practicas/listarpractica';
+    // window.location='/practicas/listarpractica';
   });
  
  //Codigo para actualizar automaticamente la pagina.
