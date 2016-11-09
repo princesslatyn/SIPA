@@ -192,22 +192,9 @@ $(practicas.init);
    var datos = $('#pra').serialize();
     // alert(datos); 
     //Mensaje de Confirmación 
-    $(document).on('click', '#final', function(e){
-  //No se comporte por defecto viene, de mandarme a otra pagina  
-  e.preventDefault(); 
-   //Elemnto cliqueado
- var elementocliqueado= this;
- //console.log('HOla'); 
-    bootbox.dialog({
-  message: "La Práctica se envió a la Logística",
-  title: "Práctica se guardo con exito",
-  buttons: {
-    default: {
-      label: "Aceptar",
-      className: "btn-default",
-      callback: function() {
-       // Example.show("Se realizo con Exito");
-       var id=$('#cod_practica').val();
+     $('#final').on('click', function(){
+     
+     var id=$('#cod_practica').val();
 // console.log(facultad_id);
 
  var ajax= $.post('/practicas/actualizarpractica', {datos:datos, programacion:programacion, id:id});
@@ -217,24 +204,15 @@ $(practicas.init);
     // window.location='/practicas/listarpractica';
   });
  
- //Codigo para actualizar automaticamente la pagina.
-      }
-    },
-    danger: {
-      label: "Cancelar",
-      className: "btn-danger",
-      callback: function() {
-       // Example.show("oh, Error!");
-      }
-    }
-    
-  }
-});
- 
- });     
-    
    
-    
+    });
+ 
+ //console.log('HOla'); 
+  
+       // Example.show("Se realizo con Exito");
+      
+ //Codigo para actualizar automaticamente la pagina.
+      
 }
 practicas.eliminarpractica = function(){
 //Asignación de eventos por delegados

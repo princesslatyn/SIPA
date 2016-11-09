@@ -24,11 +24,11 @@ class AutorizarController extends Zend_Controller_Action{
   // var_dump($authNamespace->usuarios[0]['id_rol']['id_rol']);
     switch ($authNamespace->usuarios[0]['id_rol']['id_rol']){
         case "1": 
-            $this->_redirect('/admin/index');
+            $this->_redirect('/inicio/admin');
             break;
         case "2": 
             echo "hola";
-            $this->_redirect('/application/confirm/');
+            $this->_redirect('/inicio/logistica');
             break;
         case "4":
             $this->_redirect('/inicio/departamento');

@@ -7,9 +7,8 @@
 <div class="panel-body">  
 <form id="res">
 <div class="row"> 
-    
+      <div class="col-lg-6"> 
       <div class="form-group">
-      <div class="col-lg-6">    
       <label for="input" class="">Nombre completo del docente</label>           
       <select class="form-control" id="do" name="do" style="cursor:pointer;">
           <?php foreach ($this->participantes as $participantes) {?>
@@ -18,12 +17,9 @@
        </select>
       </div>    
       </div> 
- </div>
-    <div class="row"> 
-        <br>
-      <div class="form-group">
-      <div class="col-lg-6">    
-      <label for="input" class="">Identificación</label>           
+     <div class="col-lg-6"> 
+     <div class="form-group">
+     <label for="input" class="">Identificación</label>           
       <select class="form-control" id="iden" name="iden" style="cursor:pointer;">
           <?php foreach ($this->participantes as $participantes) {?>
           <option  value="<?php echo $participantes['id_participante'];?>"><?php echo $participantes['identificacion'];?></option> 
@@ -31,7 +27,8 @@
      </select>
       </div>    
       </div> 
-    </div> 
+ </div>
+   
   <!--   <div class="row"> 
         <br>
       <div class="form-group">
@@ -43,12 +40,18 @@
     </div> -->
     <div class="row"> 
         <br>
+      <div class="col-lg-6">   
       <div class="form-group">
-      <div class="col-lg-6">    
       <label for="input" class="">Días Pernoctados</label>           
       <input  type="text" class="form-control" id="pernoc" name="pernoc"> 
       </div>    
       </div> 
+      <div class="col-lg-6">   
+      <div class="form-group">
+      <label for="input" class="">Auxilio del Estudiante</label>            
+      <input  type="text" class="form-control" id="estu" name="estu"> 
+      </div>    
+      </div>   
     </div> 
   <!--   <div class="row">
         <br>
@@ -59,15 +62,6 @@
       </div>    
       </div> 
     </div> -->
-     <div class="row">
-        <br>
-      <div class="form-group">
-      <div class="col-lg-6">    
-      <label for="input" class="">Auxilio del Estudiante</label>            
-      <input  type="text" class="form-control" id="estu" name="estu"> 
-      </div>    
-      </div> 
-    </div>
     <div class="row">
         <br>
      <label class="center-block" align="center">Transporte Especial</label>   
@@ -106,8 +100,8 @@
     </div> -->
     <div class="row">
         <br>
+      <div class="col-lg-6">  
       <div class="form-group">
-       <div class="col-lg-6">    
       <label for="input" class="">Fecha Pago</label>           
       <div class='input-group date' id='divMiCalendario' style="cursor:pointer;">
       <input type='text' id="ini" name="ini" placeholder="DD/MM/AAAA" class="form-control calendario"  />
@@ -115,12 +109,9 @@
       </div>    
       </div> 
       </div>   
-      </div>    
-     </div>
-      <div class="row">
-      <br>
+      </div> 
+      <div class="col-lg-6"> 
       <div class="form-group">
-       <div class="col-lg-6">    
       <label for="input" class="">Fecha Legalizado</label>           
       <div class='input-group date' id='divMiCalendario' style="cursor:pointer;">
       <input type='text' id="ini" name="ini" placeholder="DD/MM/AAAA" class="form-control calendario"  />
@@ -128,8 +119,31 @@
       </div>    
       </div> 
       </div>   
-      </div>    
+      </div>     
      </div>
+      
+    <div class="row">
+     <div class="col-lg-6">    
+     <div class="form-group">
+     <label for="input" class="">Estado Pago</label>           
+      <select class="form-control" id="estado" name="estado" style="cursor:pointer;">
+          <option>Tramite</option> 
+          <option>pagada</option> 
+          <option>Cancelada la Práctica</option>    
+       </select> 
+      </div>    
+      </div> 
+       <div class="col-lg-6">  
+       <div class="form-group">
+       <label for="input" class="">Legalizado</label>           
+      <select class="form-control" id="estado" name="estado" style="cursor:pointer;">
+      <option>Pago Realizado</option> 
+      <option>Pago Sin Realizar</option> 
+       </select> 
+      </div>    
+      </div>   
+    </div>
+   
      <div class="row"> 
         <br>
       <div class="col-md-4"> 

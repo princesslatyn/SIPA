@@ -23,7 +23,7 @@ class PartiresposController extends Zend_Controller_Action {
        // para que todo lo que este dentro de este metodo se ejecute en todas las Vistas..
     }
     public function agregarpartirespoAction(){
-        
+           
      $dql2= "select p from Application_Model_Participantes p where p.tipo_participante=:docente";
          
          // Ejecutar el Query, la variable query es donde se carga la consulta.

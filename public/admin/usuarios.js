@@ -64,7 +64,7 @@ $(usuarios.init);
          $.post('/usuarios/guardarusuario', {nom:nom, ape:ape, ide:ide, correo:correo, usuario:usuario, pass:pass, programa:programa, rol:rol});  
      
    // ajax.done(function(){
-     // window.location='/usuarios/listarusuario';   
+      window.location='/usuarios/listarusuario';   
     // }); 
     }
     }); 
@@ -141,7 +141,7 @@ $(usuarios.init);
     var ajax= $.post('/usuarios/actualizarusuario', {nom:nom, ape:ape, ide:ide, correo:correo, usuario:usuario,  programa:id_programa, rol:id_rol, id:id });
   //Actualizar el programa
       ajax.done(function(){
-    //  window.location='/usuarios/listarusuario';   
+      window.location='/usuarios/listarusuario';   
      });   
     }
  }); 
@@ -190,7 +190,7 @@ $(usuarios.init);
  });
      //Actualizar el programa
         ajax.done(function(){
-     //  window.location='/usuarios/listarusuario';   
+       window.location='/usuarios/listarusuario';   
         });  
     }
  }); 
@@ -228,7 +228,7 @@ $(usuarios.init);
  });
      //Actualizar el programa
         ajax.done(function(){
-     //  window.location='/usuarios/listarusuario';   
+       window.location='/usuarios/listarusuario';   
         });  
     }
  }); 

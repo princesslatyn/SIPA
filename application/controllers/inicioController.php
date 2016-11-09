@@ -86,6 +86,29 @@ class InicioController extends Zend_Controller_Action{
      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');    
         
     }
+    
+    public function logisticaAction(){
+      $this->_helper->layout->setLayout('prueba');    
+    //Librerias
+     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
+     $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
+     $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
+     $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
+     $this->view->headLink()->appendStylesheet('/css/facultad.css');
+//     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.css.map');
+     $this->view->headScript()->appendFile('/js/fuelux.min.js');
+     $this->view->headScript()->appendFile('/js/wizard.js');
+     $this->view->headScript()->appendFile('/bootstrap/js/moment.min.js');   
+     $this->view->headScript()->appendFile('/bootstrap/js/bootstrap-datepicker.js');      
+     $this->view->headScript()->appendFile('/bootstrap/js/datepicker.es.min.js');
+     $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
+     $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
+     $this->view->headScript()->appendFile('/js/conductor.js');
+     $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
+     $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
+     $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');    
+        
+    }
 }
 
 

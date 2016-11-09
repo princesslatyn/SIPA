@@ -10,6 +10,8 @@ class LogoutController extends Zend_Controller_Action{
         $this->em = $registry->entitymanager;
         
         $this->_helper->layout->setLayout('admin');
+        $this->_helper->layout->setLayout('layout');
+        $this->_helper->layout->setLayout('prueba');
     }
 
     public function indexAction(){

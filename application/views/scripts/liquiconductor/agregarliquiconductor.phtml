@@ -1,69 +1,158 @@
 
 <div class="container col-sm-4 col-md-6 col-lg-9" style="margin-top: 20px;">
-<h3 class=""> Agregar Viaticos del Conducror</h3>     
+<h3 class=""> Agregar Viaticos del Conductor</h3>     
 <br>
 <div class="panel panel-default">  
 <div class="panel-heading"> Datos de la Liquidación del Conductor</div>   
 <div class="panel-body">
 <form id="liqui">
-     <div class="row"> 
+     <div class="row">
+      <div class="col-lg-6">     
       <div class="form-group">
-      <div class="col-lg-6">    
       <label for="input" class="">Combustible</label>           
       <input type="text" class="form-control" id="combu" name="combu"> 
       </div>    
-      </div> 
-      </div> 
-    <br>
-     <div class="row"> 
-      <div class="form-group">
+      </div>
       <div class="col-lg-6">    
+      <div class="form-group">
       <label for="input" class="">Peajes</label>           
       <input type="text" class="form-control" id="pea" name="pea"> 
       </div>    
-      </div> 
+      </div>   
       </div> 
     <br>
-     <div class="row"> 
+     <div class="row">
+       <div class="col-lg-6">    
       <div class="form-group">
-      <div class="col-lg-6">    
       <label for="input" class="">Viaticos</label>           
       <input type="text" class="form-control" id="via" name="via"> 
       </div>    
-      </div> 
-      </div> 
-    <br>
-     <div class="row"> 
-      <div class="form-group">
+      </div>
       <div class="col-lg-6">    
+      <div class="form-group">
       <label for="input" class="">Imprevisto</label>           
       <input type="text" class="form-control" id="impre" name="impre"> 
       </div>    
-      </div> 
+      </div>    
       </div> 
     <br>
      <div class="row"> 
+      <div class="col-lg-6">      
       <div class="form-group">
-      <div class="col-lg-6">    
-      <label for="input" class="">Pagado la Práctica</label>           
+      <label for="input" class="">Pagada la Práctica</label>           
       <select class="form-control" id="paga" name="paga" style="cursor:pointer;">
-      <option>Carro Nuevo</option>
-      <option>Carros Viejo</option>
-      <option>Carro Bueno</option>   
-    
-       </select> 
+      <option>Trámite</option>
+      <option>Pagado</option>
+      <option>cancelado la Práctica</option>   
+      </select> 
+      </div>    
+      </div>
+       <div class="col-lg-6">    
+      <div class="form-group">
+      <label for="input" class="">Legalizado</label>           
+      <select class="form-control" id="paga" name="paga" style="cursor:pointer;">
+      <option>Pago Realizado</option>
+      <option>Pago Sin Realizar</option>  
+      </select>
+      </div>    
+      </div>    
+      </div> 
+      <br>
+     <div class="row">
+       <div class="col-lg-6">      
+      <div class="form-group">
+      <label for="input" class="">Conductor</label>           
+      <select class="form-control" id="cond" name="cond" style="cursor:pointer;">
+      <option>Trámite</option> 
+      </select> 
+      </div>    
+      </div>
+       <div class="col-lg-6">    
+      <div class="form-group">
+      <label for="input" class="">Ruta</label>           
+      <select class="form-control" id="ru" name="ru" style="cursor:pointer;">
+      <option>Pago Realizado</option> 
+      </select>
       </div>    
       </div> 
       </div> 
     <br>
      <div class="row"> 
+       <div class="col-lg-6">      
       <div class="form-group">
-      <div class="col-lg-6">    
-      <label for="input" class="">Legalizado</label>           
-      <input type="text" class="form-control" id="pea" name="pea"> 
+      <label for="input" class="">Fecha Salida</label>           
+      <select class="form-control" id="sali" name="sali" style="cursor:pointer;">
+      <option>Trámite</option>
+      </select> 
+      </div>    
+      </div>
+       <div class="col-lg-6">    
+      <div class="form-group">
+      <label for="input" class="">Fecha llegada</label>           
+      <select class="form-control" id="llega" name="llega" style="cursor:pointer;">
+          <option>Pago Realizado</option> 
+      </select>
       </div>    
       </div> 
       </div> 
+    <br>
+     <div class="row">
+      <div class="col-lg-6">      
+      <div class="form-group">
+      <label for="input" class="">Vehiculo</label>           
+      <select class="form-control" id="veh" name="veh" style="cursor:pointer;">
+      <option>Trámite</option>
+      </select>
+      </div>    
+      </div>
+       <div class="col-lg-6">    
+      <div class="form-group">
+      <label for="input" class="">Docente</label>           
+      <select class="form-control" id="docent" name="docent" style="cursor:pointer;">
+      <option>Pago Realizado</option>
+      </select>
+      </div>    
+      </div> 
+     </div>   
+      <br>
+     <div class="row">
+      <div class="col-lg-6">      
+      <div class="form-group">
+      <label for="input" class="">Facultad</label>           
+      <select class="form-control" id="paga" name="paga" style="cursor:pointer;">
+      <option>Trámite</option> 
+      </select> 
+      </div>    
+      </div>
+       <div class="col-lg-6">    
+      <div class="form-group">
+      <label for="input" class="">Programa</label>           
+      <select class="form-control" id="paga" name="paga" style="cursor:pointer;">
+      <option>Pago Realizado</option>
+      </select>
+      </div>    
+      </div> 
+      </div> 
+        <br>
+     <div class="row">
+      <div class="col-lg-6">      
+      <div class="form-group">
+      <label for="input" class="">Pasajeros</label>           
+      <select class="form-control" id="paga" name="paga" style="cursor:pointer;">
+      <option>Trámite</option>  
+      </select> 
+      </div>    
+      </div>
+       <div class="col-lg-6">    
+      <div class="form-group">
+      <label for="input" class="">Codigo Práctica</label>           
+      <select class="form-control" id="paga" name="paga" style="cursor:pointer;">
+      <option>Pago Realizado</option>
+      </select>
+      </div>    
+      </div> 
+      </div> 
+      
 </form>
  
 </div>
