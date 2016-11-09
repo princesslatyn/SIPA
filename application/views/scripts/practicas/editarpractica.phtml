@@ -3,7 +3,7 @@
 <br>
 
 <div class="fuelux">
-    <h2>CREACIÓN DE PRÁCTICAS ACADÉMICAS</h2> 
+    <h2>EDITAR  PRÁCTICAS ACADÉMICAS</h2> 
 <div class="wizard" data-initialize="wizard" id="myWizard">   
 <div class="steps-container">
 	<ul class="steps">
@@ -31,6 +31,7 @@
     <form id="pra">
     <div class="step-content">
 <div class="step-pane active sample-pane alert" data-step="1">
+  <input type="hidden" id="cod_practica" value="<?php echo $this->practicas[0]['cod_practica']; ?>"> 
 	<div class="row">
         <br>
         <br>   
@@ -38,7 +39,7 @@
        <div class="col-xs-6">
         <div class="">
         <label> Calendario </label>
-        <select class="form-control" name="cal" style="cursor:pointer;">
+        <select class="form-control" id="cal" name="cal" data-calendario="<?php echo $this->practicas[0]['id_calendario']['id'];?>"  style="cursor:pointer;">
          <?php foreach ($this->calendario as $calendario) {?>
           <option  value="<?php echo $calendario['id'];?>"><?php echo $calendario['annio']; ?>&nbsp;<?php echo $calendario['periodo']; ?></option>
          <?php }?>
@@ -48,7 +49,7 @@
         <div class="form-group">
         <label>Nombre del Solicitante</label>
         <div class="col-xs-6">
-        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del Docente Solicitante">
+        <input type="text" class="form-control" value="<?php echo $this->practicas[0]['nom_solicitante']?>" id="nombre" name="nombre" placeholder="Nombre del Docente Solicitante">
         </div>
         </div>     
            
@@ -91,17 +92,10 @@
         <div class="col-xs-6">
         <div class="form-group">
         <label class=""> Semestre </label> 
-        <select class="form-control" name="sem" style="cursor:pointer;">
-        <option>I</option>
-        <option>II</option>
-        <option>III</option>
-        <option>IV</option>
-        <option>V</option>
-        <option>VI</option>
-        <option>VII</option>
-        <option>VIII</option>
-        <option>IX</option>
-        <option>X</option>
+        <select class="form-control"  name="sem" style="cursor:pointer;">
+        <?php foreach ($this->practicas as $practicas) {?>  
+        <option  value="<?php echo $practicas['semestre'];?>"><?php echo $practicas['semestre'];?></option>
+        <?php }?>
         </select>       
         </div>       
         </div> 
@@ -121,7 +115,7 @@
         <div class="col-xs-6">
         <div class="">
         <label class="form-group"> Número Estudiantes </label>
-        <input class="form-control" name="num" type="text">    
+        <input class="form-control" value="<?php echo $this->practicas[0]['num_estudiantes']?>"  name="num" type="text">    
         </div>       
         </div> 
         </div>
@@ -130,7 +124,7 @@
          <br>
         <div class="form-group">
         <label for="">Nombre de la Práctica</label>
-        <input type="text" name="nom" class="form-control">
+        <input type="text" value="<?php echo $this->practicas[0]['nombre']?>"  name="nom" class="form-control">
         <small id="emailHelp" class="form-text text-muted">Diligencie los campos.</small>
         </div>    
         </div>
@@ -138,9 +132,9 @@
         <div class="form-group">
         <label for="">Tipo de Práctica</label>
         <select class="form-control" name="tipo" style="cursor:pointer;">
-        <option>Practica de Campo</option>
-        <option>Visitas empresariales</option>
-        <option>Prácticas Externas de laboratorio</option>
+        <?php foreach ($this->practicas as $practicas) {?>  
+        <option  value="<?php echo $practicas['tipo_practica'];?>"><?php echo $practicas['tipo_practica'];?></option>
+        <?php }?>
         </select>
         <small id="emailHelp" class="form-text text-muted">Selecione un tipo de Práctica.</small>
         </div>
@@ -149,28 +143,28 @@
         <div class="row">
         <div class="form-group">
         <label for="">Objetivos de la Práctica</label>
-        <textarea class="form-control" name="obj" id="exampleTextarea" rows="3"></textarea>
+        <textarea class="form-control"   name="obj" id="exampleTextarea" rows="3"><?php echo $this->practicas[0]['objetivo']?></textarea>
         <small id="emailHelp" class="form-text text-muted">Diligencie los campos.</small>
         </div>    
         </div>
         <div class="row">
         <div class="form-group">
         <label for="">Justificación de la Práctica</label>
-        <textarea class="form-control" name="jus" id="exampleTextarea" rows="3"></textarea>
+        <textarea class="form-control"  name="jus" id="exampleTextarea" rows="3"><?php echo $this->practicas[0]['justificacion']?></textarea>
         <small id="emailHelp" class="form-text text-muted">Diligencie los campos.</small>
         </div>    
         </div> 
         <div class="row">
         <div class="form-group">
         <label for="">Actividades desarrolladas por el Docente</label>
-        <textarea class="form-control" name="adoc" id="exampleTextarea" rows="3"></textarea>
+        <textarea class="form-control"  name="adoc" id="exampleTextarea" rows="3"><?php echo $this->practicas[0]['actividad_doc']?></textarea>
         <small id="emailHelp" class="form-text text-muted">Diligencie los campos.</small>
         </div>    
         </div> 
         <div class="row">
         <div class="form-group">
         <label for="">Actividades desarrolladas por el Estudiante</label>
-        <textarea class="form-control" name="est" id="exampleTextarea" rows="3"></textarea>
+        <textarea class="form-control"  name="est" id="exampleTextarea" rows="3"><?php echo $this->practicas[0]['actividad_est']?> </textarea>
         <small id="emailHelp" class="form-text text-muted">Diligencie los campos.</small>
         </div>    
         </div>     

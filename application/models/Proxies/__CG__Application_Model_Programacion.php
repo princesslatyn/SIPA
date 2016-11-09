@@ -90,18 +90,6 @@ class Application_Model_Programacion extends \Application_Model_Programacion imp
         return parent::setnum_pasajeros($pas);
     }
 
-    public function settipo($ti)
-    {
-        $this->__load();
-        return parent::settipo($ti);
-    }
-
-    public function setvalor($va)
-    {
-        $this->__load();
-        return parent::setvalor($va);
-    }
-
     public function setobservaciones($obs)
     {
         $this->__load();
@@ -132,16 +120,28 @@ class Application_Model_Programacion extends \Application_Model_Programacion imp
         return parent::setparticipantes($parti);
     }
 
+    public function setrecursos($recur)
+    {
+        $this->__load();
+        return parent::setrecursos($recur);
+    }
+
     public function getparticipantes()
     {
         $this->__load();
         return parent::getparticipantes();
     }
 
+    public function getrecursos()
+    {
+        $this->__load();
+        return parent::getrecursos();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'codigo_prog', 'num_dias', 'recorrido', 'fecha_salida', 'fecha_llegada', 'departamental', 'lugar_encuentro', 'dias_pernoctados', 'fecha_registro', 'num_pasajeros', 'tipo', 'valor', 'observaciones', 'id_calendario', 'cod_practica', 'id_participante', 'participantes');
+        return array('__isInitialized__', 'codigo_prog', 'num_dias', 'recorrido', 'fecha_salida', 'fecha_llegada', 'departamental', 'lugar_encuentro', 'dias_pernoctados', 'fecha_registro', 'num_pasajeros', 'observaciones', 'id_calendario', 'cod_practica', 'id_participante', 'participantes', 'recursos');
     }
 
     public function __clone()

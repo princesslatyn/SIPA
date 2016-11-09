@@ -10,61 +10,7 @@ $(practicas.init);
 
 //Creo un Metodo de Agregar Facultad...
  practicas.agregarpractica = function(){
-  
-  var table=$('#examplee').DataTable();
-  
- 
-  
-     $(document).on('click', '#rec', function(e){
-  //No se comporte por defecto viene, de mandarme a otra pagina  
-  e.preventDefault(); 
-   //Elemnto cliqueado
- var elementocliqueado= this;
- //console.log('HOla'); 
-    bootbox.dialog({
-  message: "agregar recurso especial",
-  title: "Confirmar Recurso",
-  buttons: {
-    default: {
-      label: "Aceptar",
-      className: "btn-default",
-      callback: function() {
-        
-     var tipo= $('#tipo option:selected').html();
-      // console.log(tipo);
-     var valor= $('#valor').val(); 
-      // console.log(valor);
-       
-   //función para eliminar una fila
-      $(document).on( 'click', '.eliminar_practicaa', function (e) {
-          // Previene los comportamientos por defectos
-           e.preventDefault(); 
-    table
-        .row( $(this).parents('tr') )
-        .remove()
-        .draw();
-      });
-       table.row.add([
-         tipo,
-         valor,
-         '<td><a class="eliminar_practicaa" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>'
-           
-      ]).draw();
-
-      }
-    },
-    danger: {
-      label: "Cancelar",
-      className: "btn-danger",
-      callback: function() {
-       // Example.show("oh, Error!");
-      }
-    }
-    
-  }
-});
- 
- });     
+     
   
      //Evento en el Boton
    var datatable= $('#example').DataTable();
@@ -78,7 +24,8 @@ $(practicas.init);
       console.log(num);
       var reco= $('#reco option:selected').html();
        console.log(reco);
-     // var despla= $('#despla').val();
+      var despla= $('#despla').val();
+      console.log(despla);
       var sal= $('#sal').val(); 
        console.log(sal);
       var lug= $('#lug').val(); 
@@ -108,16 +55,35 @@ $(practicas.init);
       
          //Validación De campos Vacios
     var valid= true;
-    if(num > 0 && reco != "" && sal != "" && lug != ""  && dia != "" && lle != "" && docen != "" && auxi != "" && ases != "" &&  obs != ""){
+     //llamo a la variable table
+      var table=$('#examplee').DataTable();
+      
+      table.rows().data();
+      var recursos= table.data().toArray();
+      var recursosdatos= "";
+      var ides= [];
+      var nombresrecursos= [];
+      
+      for(var i=0; i<recursos.length; i++){
+          ides.push(recursos[i][0]);
+          nombresrecursos.push(recursos[i][1]);
+          
+          
+      }
+        recursosdatos= nombresrecursos.join(',') +'<input type="hidden" value=' + ides.join(',') + '>' ;
+    if(num > 0 && reco != "" && despla != "" && sal != "" && lug != ""  && dia != "" && lle != "" && docen != "" && auxi != "" && ases != "" &&  obs != ""){
+       
        
         valid= true;
         datatable.row.add([
          num,
          reco,
+         despla,
          sal,
          lug,
          dia,
          lle,
+         recursosdatos,
          docen +'<input type="hidden" value=' + $('#docen').val() + '>',
          auxi +'<input type="hidden" value=' + $('#auxi').val() + '>',
          ases +'<input type="hidden" value=' + $('#ases').val() + '>',
@@ -128,7 +94,7 @@ $(practicas.init);
       //Para que se limpie el formulario
       var num= $('#num').val("");
       var reco= $('#reco').val("");
-     // var despla= $('#reco').val("");
+      var despla= $('#despla').val("");
       var sal= $('#sal').val(""); 
       var lug= $('#lug').val(""); 
       var dia= $('#per').val("");
@@ -149,6 +115,9 @@ $(practicas.init);
          
     //Validación de que los campos no se vayan vacios
     $( "#myWizard" ).on('finished.fu.wizard', function(){
+        
+    
+    
      
      datatable.rows().data();
     
@@ -157,6 +126,7 @@ $(practicas.init);
       var programacion= datatable.data().toArray();
     
       for(var i=0; i< programacion.length;i++){
+          programacion[i][7]= programacion[i][7].substring(programacion[i][7].indexOf('value=')+6).replace('>', "");
           programacion[i][8]= programacion[i][8].substring(programacion[i][8].indexOf('value=')+6).replace('>', "");
           programacion[i][9]= programacion[i][9].substring(programacion[i][9].indexOf('value=')+6).replace('>', "");
           programacion[i][10]= programacion[i][10].substring(programacion[i][10].indexOf('value=')+6).replace('>', "");
@@ -210,44 +180,60 @@ $(practicas.init);
  });  
     
    });
- 
-  
-    
-    
-   
     
 }
  practicas.editarpractica = function(){
-     //Validación de que los campos no se vayan vacios
-    $( "#fac" ).validate({
-  rules: {
-    facultad: {
-      required: true
-       }
+    //Creo una variable que me guarde el dato de la facultad para este caso el id..   
+   var calendario= $('#cal').data('calendario');   
+ 
+      $('#cal').val(calendario);
+    //Se actualice el valor del selector cuando elija un programa que este asociado a su facultad.
+    $('#cal').trigger('change');
+   var datos = $('#pra').serialize();
+    // alert(datos); 
+    //Mensaje de Confirmación 
+    $(document).on('click', '#final', function(e){
+  //No se comporte por defecto viene, de mandarme a otra pagina  
+  e.preventDefault(); 
+   //Elemnto cliqueado
+ var elementocliqueado= this;
+ //console.log('HOla'); 
+    bootbox.dialog({
+  message: "La Práctica se envió a la Logística",
+  title: "Práctica se guardo con exito",
+  buttons: {
+    default: {
+      label: "Aceptar",
+      className: "btn-default",
+      callback: function() {
+       // Example.show("Se realizo con Exito");
+       var id=$('#cod_practica').val();
+// console.log(facultad_id);
+
+ var ajax= $.post('/practicas/actualizarpractica', {datos:datos, programacion:programacion, id:id});
+  // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
+  ajax.done(function(){
+    //  alert('la Práctica se Guardo Con Exito');
+    // window.location='/practicas/listarpractica';
+  });
+ 
+ //Codigo para actualizar automaticamente la pagina.
       }
-   });
-    //on hace la asignación de un evento..
-    $('#editar').on('click', function(){
-       // console.log('Hola')
-    //val me devuelve el elemento que esta en el id de la función  (extrae el valor del input)
-    // #facultad valor del input
-    // facultad variable donde se guarda los datos
-    //Valido los campos
-    if($('#fac').valid()){
-    var facultad= $('#facultad').val(); 
-    //Guardar el id de facultades
-    var id=$('#id_facultad').val();
-    
-            
-   // console.log(facultad);
-    //Metodo Para enviar los datos al controlador
- var ajax=  $.post('/facultades/actualizarfacultad', {facultad:facultad, id:id});
-       //Actualizar Facultad
-        ajax.done(function(){
-      window.location='/facultades/listarfacultad';
-  });    
+    },
+    danger: {
+      label: "Cancelar",
+      className: "btn-danger",
+      callback: function() {
+       // Example.show("oh, Error!");
+      }
     }
-    });
+    
+  }
+});
+ 
+ });     
+    
+   
     
 }
 practicas.eliminarpractica = function(){

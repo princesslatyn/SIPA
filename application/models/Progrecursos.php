@@ -31,10 +31,16 @@ class Application_Model_Progrecursos {
     private $fecha_registro;
     
     //Metodo Público
+    public function getid_pro(){
+        return $this->id_pro;  
+    }
+
+
     public function setvalor($val){
     $this->valor =$val;
         
     }
+    
      public function setid_recursos($re){
     $this->id_recursos =$re;
         
@@ -42,15 +48,6 @@ class Application_Model_Progrecursos {
      public function setregistrado($reg){
     $this->registrado =$reg;
         
-    }
-    public function getvalor(){
-        return $this->valor;
-    }
-     public function getid_recursos(){
-        return $this->id_recursos;
-    }
-    public function getregistrado(){
-        return $this->registrado;
     }
 
 

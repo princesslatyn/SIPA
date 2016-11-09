@@ -1,0 +1,35 @@
+<div class="row col-sm-4 col-md-6 col-lg-9" style="margin-top: 10px;">
+    <h3>Listar Los Servicios</h3>
+    <br>
+        <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+              
+                <th>Tipo de Servicio</th>
+                <th>Valor</th>
+                <th>Codigo Programación</th>
+                <th>Acciones</th>
+                
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+            
+                 <th>Tipo de Servicio</th>
+                 <th>Valor</th>
+                 <th>Codigo Programación</th>
+                 <th>Acciones</th>
+            </tr>
+        </tfoot>
+        <tbody>
+           <?php foreach ($this->servicios as $servicios) {?> 
+            <tr>
+                <td><?php echo $servicios ['tipo'];?></td>
+                <td><?php echo $servicios ['valor'];?></td>
+                <td><?php echo $servicios ['codigo_prog']['codigo_prog'];?></td>
+                <td><a href="/servicio/editarservicio/id/<?php echo $servicios ['cod_servicio'];?> "><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a>&nbsp;<a class="eliminar_servicio" data-servicio="<?php echo $servicios['cod_servicio'];?>" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>
+            </tr> 
+            <?php }?>
+        </tbody>
+    </table>    
+        </div> 

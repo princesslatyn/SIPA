@@ -1,18 +1,17 @@
 <?php
 
-
-class PartiresposController extends Zend_Controller_Action {
-    
-   // Entity Manager
+class ServicioController extends Zend_Controller_Action
+{
+    // Entity Manager
     private $em;
-    
- public function init()
+
+    public function init()
     {
         // Activar el Entity Manager
         $registry = Zend_Registry::getInstance();
         $this->em = $registry->entitymanager;
         
-         $this->_helper->layout->setLayout('admin');
+         $this->_helper->layout->setLayout('prueba');
          $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
          $this->view->headLink()->appendStylesheet('/css/facultad.css');
         
@@ -22,41 +21,25 @@ class PartiresposController extends Zend_Controller_Action {
     {
        // para que todo lo que este dentro de este metodo se ejecute en todas las Vistas..
     }
-    public function agregarpartirespoAction(){
-        
-     $dql2= "select p from Application_Model_Participantes p where p.tipo_participante=:docente";
-         
-         // Ejecutar el Query, la variable query es donde se carga la consulta.
-        $query2 = $this->em->createQuery($dql2);
-        $query2->setParameter('docente', 'docente'); 
-        //Resultados de la consulta en un Vector, en este caso en Array
-         $participantes = $query2->getArrayResult();
-       // var_dump($participantes);
-        // Pasarle la información de programas a la vista..
-        $this->view->participantes= $participantes;  
-        
-        $dql3="select re, recu from Application_Model_Progrecursos re join re.id_recursos recu";
-        
-         $query3 = $this->em->createQuery($dql3);
-        
-         
-         $progrecursos =$query3->getArrayResult();
-        // var_dump($progrecursos);
-          $this->view->progrecursos= $progrecursos;
-          
-            //Preparo la consulta dql
-      $dql4= "select r from Application_Model_Recurespeciales r";
-       
-       $query4 = $this->em->createQuery($dql4);
-       
-       //muestre el resultado en un array...
-      $recursos =$query4->getArrayResult();
-      
-      //Pasarle a la Vista la informción de la Calendario
-      $this->view->recursos= $recursos; 
-          
-          
     
+    public function agregarservicioAction(){ 
+    
+         //Consulta dql para listar las servicioscd 
+        $dql ="select p from Application_Model_Programacion p";
+        
+        // Ejecutar el Query, la variable query es donde se carga la consulta.
+        $query = $this->em->createQuery($dql);
+        
+        //Resultados de la consulta en un Vector, en este caso en Array
+        $programacion = $query->getArrayResult();
+        
+        //Imprimir en la pagina lo que esta en la variable en este caso facultades
+       // var_dump($facultades);
+        //Pasarle a la Vista la informción de la facultad
+        $this->view->programacion= $programacion;
+        
+        
+        
      $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
@@ -71,28 +54,28 @@ class PartiresposController extends Zend_Controller_Action {
      $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
      $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
      $this->view->headScript()->appendFile('/js/practica.js');
-     $this->view->headScript()->appendFile('/admin/partirespo.js');
+     $this->view->headScript()->appendFile('/logistica/servicio.js');
      $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
      $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
-     $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');    
+     $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
     }
-    
-     public function listarpartirespoAction() { 
+    public function listarservicioAction()
+    { 
        
         
         //Consulta dql para listar las facultades
-        $dql ="select f from Application_Model_Facultades f";
+        $dql ="select s, p from Application_Model_Servicios s join s.codigo_prog p";
         
         // Ejecutar el Query, la variable query es donde se carga la consulta.
         $query = $this->em->createQuery($dql);
         
         //Resultados de la consulta en un Vector, en este caso en Array
-        $facultades = $query->getArrayResult();
+        $servicios = $query->getArrayResult();
         
         //Imprimir en la pagina lo que esta en la variable en este caso facultades
        // var_dump($facultades);
         //Pasarle a la Vista la informción de la facultad
-        $this->view->facultades= $facultades;
+        $this->view->servicios= $servicios;
         
       
       $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
@@ -101,56 +84,83 @@ class PartiresposController extends Zend_Controller_Action {
       $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
       $this->view->headScript()->appendFile('/js/facultad.js');
       $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
-      $this->view->headScript()->appendFile('/admin/facultades.js');
+       $this->view->headScript()->appendFile('/logistica/servicio.js');
       $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
       $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
       $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
       $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
       
     }
-    public function guardarpartirespoAction(){
+    public function guardarservicioAction(){
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->viewRenderer->setNoRender(TRUE);
      
-     //$facultad recibe los datos que se les pasa por petición ajax
-     $facultad =$this->_getParam('facultad');  
+     try {
+            //$facultad recibe los datos que se les pasa por petición ajax
+     $servicio =$this->_getParam('servicio'); 
+   // var_dump($servicio);
+     $valor =$this->_getParam('valor');
+    // var_dump($valor);
+     $codigo =  $this->_getParam('codigo');
      //var_dump($facultad);
+     var_dump($codigo);
      
      // Instancia del modelo Facultades. crea una facultad automatico..
-     $facultad_objeto = new Application_Model_Facultades();
+     $servicio_objeto = new Application_Model_Servicios();
      //la instancia le asigna una facultad, hacer el nombre de la facultad..
-     $facultad_objeto->setnombre($facultad);
+     $servicio_objeto->settipo($servicio);
+     $servicio_objeto->setvalor($valor);
+     $servicio_objeto->setcodigo_prog(($this->em->getRepository('Application_Model_Programacion')->find($codigo)));
      //da la orden de guardar...
-     $this->em->persist($facultad_objeto);
+     $this->em->persist($servicio_objeto);
      //Ejecuta la Orden de guardar..
-     $this->em->flush();   
+     $this->em->flush(); 
+         
+     } catch (Exception $e) {
+         echo $e->getMessage();   
+     }  
         
         
     }
-       public function editarpartirespoAction() { 
+     public function editarservicioAction() { 
        
-         //capturo el id de la facultad
-         $facultad_id =$this->_getParam('id');
-         //Realizo la consulta para obtener el codigo de la facultad...
-         $dql= "select f from Application_Model_Facultades f where f.id_facultad=:facultad";
-         //Crear el query para que se guarde la consulta...
-         $query= $this->em->createQuery($dql);
-         //Se guarde el id de facultad..
-         $query->setParameter('facultad', $facultad_id);
-         //muestre el resultado en un array...
-         $facultad =$query->getArrayResult();
-        // var_dump($facultad);     
-      
-       /** try{  
-     } catch (Exception $e) {
-         echo $e->getMessage();
-     } */
-         //Se le pasa la variable a la vista...
-        $this->view->facultad= $facultad; 
+           //Consulta dql para listar las servicioscd 
+        $dql ="select p from Application_Model_Programacion p";
+        
+        // Ejecutar el Query, la variable query es donde se carga la consulta.
+        $query = $this->em->createQuery($dql);
+        
+        //Resultados de la consulta en un Vector, en este caso en Array
+        $programacion = $query->getArrayResult();
+        
+        //Imprimir en la pagina lo que esta en la variable en este caso facultades
+       // var_dump($facultades);
+        //Pasarle a la Vista la informción de la facultad
+        $this->view->programacion= $programacion; 
          
-     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
+       //instacia para la edición del metodo editar la programación
+        $servicio_id= $this->_getParam('id'); 
+       // var_dump($servicio_id);
+         
+       //Consulta dql para listar las facultades
+        $dql1 ="select s, p from Application_Model_Servicios s join s.codigo_prog p where s.cod_servicio=:servicio";
+        
+        // Ejecutar el Query, la variable query es donde se carga la consulta.
+        $query1 = $this->em->createQuery($dql1);
+        
+        $query1->setParameter('servicio', $servicio_id);
+        
+        //Resultados de la consulta en un Vector, en este caso en Array
+        $servicios = $query1->getArrayResult();
+        
+        //Imprimir en la pagina lo que esta en la variable en este caso facultades
+       // var_dump($facultades);
+        //Pasarle a la Vista la informción de la facultad
+        $this->view->servicios= $servicios;
+         
+    $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
      $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
@@ -164,13 +174,12 @@ class PartiresposController extends Zend_Controller_Action {
      $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
      $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
      $this->view->headScript()->appendFile('/js/practica.js');
-     $this->view->headScript()->appendFile('/admin/facultades.js');
+     $this->view->headScript()->appendFile('/logistica/servicio.js');
      $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
      $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
-     $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
     }
-    public function actualizarpartirespoAction(){
+    public function actualizarservicioAction(){
           //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
@@ -181,33 +190,42 @@ class PartiresposController extends Zend_Controller_Action {
      //Se hace un condicional que el id es mayor que cero
      if($id>0){
       //Proceso a editar
-       //$facultad recibe los datos que se les pasa por petición ajax
-     $facultad =$this->_getParam('facultad');  
-     //var_dump($facultad);
+       // recibo los datos que se les pasa por petición ajax
+      $servicio =$this->_getParam('servicio'); 
+      // var_dump($servicio);
+      $valor =$this->_getParam('valor');
+      // var_dump($valor);
+      $codigo =  $this->_getParam('codigo');
      
      // Almacena en el objecto la facultad que tiene el id..
-     $facultad_objeto = ($this->em->getRepository('Application_Model_Facultades')->find($id));
+     $servicio_objeto = ($this->em->getRepository('Application_Model_Servicios')->find($id));
      //la instancia le asigna una facultad, hacer el nombre de la facultad..
-     $facultad_objeto->setnombre($facultad);
+     $servicio_objeto->settipo($servicio);
+     $servicio_objeto->setvalor($valor);
+     $servicio_objeto->setcodigo_prog(($this->em->getRepository('Application_Model_Programacion')->find($codigo)));
+     var_dump($servicio_objeto);
+     
      //da la orden de guardar...
-     $this->em->persist($facultad_objeto);
+     $this->em->persist($servicio_objeto);
      //Ejecuta la Orden de guardar..
      $this->em->flush();     
-     }      
+     }
+      $this->view->headScript()->appendFile('/logistica/servicio.js');
+     
     }
-      public function eliminarpartirespoAction(){
+      public function eliminarservicioAction(){
           //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->viewRenderer->setNoRender(TRUE);
      //Recibo el dato por ajax
      try {
-     $facultad_id= $this->_getParam('facultad_id');  
+     $servicio_id= $this->_getParam('servicio_id');  
      
-     $facultad_objeto= ($this->em->getRepository('Application_Model_Facultades')->find($facultad_id));
+     $servicio_objeto= ($this->em->getRepository('Application_Model_Servicios')->find($servicio_id));
      
      // da la orden de guardar
-     $this->em->remove($facultad_objeto);
+     $this->em->remove($servicio_objeto);
      
      //Ejecuta la Orden de Guardar
      $this->em->flush();
@@ -218,5 +236,7 @@ class PartiresposController extends Zend_Controller_Action {
      }
            
     }
-    
 }
+
+
+

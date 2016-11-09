@@ -252,21 +252,23 @@ class PracticasController extends Zend_Controller_Action
          $programacion_objeto->setcod_practica($practica_objeto);
          $programacion_objeto->setnum_dias($valor['0']);
          $programacion_objeto->setrecorrido($valor['1']);
-         $fecha_salida= DateTime::createFromFormat('d/m/Y', $valor['2']);
-         var_dump($valor['2']);
+         $programacion_objeto->setdepartamental($valor['2']);
+         $fecha_salida= DateTime::createFromFormat('d/m/Y', $valor['3']);
+         var_dump($valor['3']);
          $programacion_objeto->setfecha_salida($fecha_salida);
-         $programacion_objeto->setlugar_encuentro($valor['3']);
-         $programacion_objeto->setdias_pernoctados($valor['4']);
-         $fecha_llegada= DateTime::createFromFormat('d/m/Y', $valor['5']);
+         $programacion_objeto->setlugar_encuentro($valor['4']);
+         $programacion_objeto->setdias_pernoctados($valor['5']);
+         $fecha_llegada= DateTime::createFromFormat('d/m/Y', $valor['6']);
          $programacion_objeto->setfecha_llegada($fecha_llegada);
        //  $programacion_objeto->settipo($valor['6']);
         // $programacion_objeto->setvalor($valor['7']);
          $programacion_objeto->setobservaciones($valor['11']);
-        
-        // var_dump($valor);
-        // var_dump($programacion);
-         $programacion_objeto->getrecursos()->add($this->em->getRepository('Application_Model_Recurespeciales')->find($valor['6']));
-        $programacion_objeto->getrecursos()->add($this->em->getRepository('Application_Model_Progrecursos')->find($valor['7']));
+         //declaro una variable
+          $recursos= explode(",", $valor['7']);
+          foreach ($recursos as $r){
+          $programacion_objeto->getrecursos()->add($this->em->getRepository('Application_Model_Progrecursos')->find($r));    
+          }
+          
          $programacion_objeto->getparticipantes()->add($this->em->getRepository('Application_Model_Participantes')->find($valor['8']));
          $programacion_objeto->getparticipantes()->add($this->em->getRepository('Application_Model_Participantes')->find($valor['9']));
          $programacion_objeto->getparticipantes()->add($this->em->getRepository('Application_Model_Participantes')->find($valor['10']));
@@ -290,7 +292,131 @@ class PracticasController extends Zend_Controller_Action
     
    
     }
-
+    
+ public function editarpracticaAction(){
+  
+      //Preparo la consulta dql
+       $dql= "select c from Application_Model_calendar c";
+       
+       $query = $this->em->createQuery($dql);
+       
+       //muestre el resultado en un array...
+      $calendario =$query->getArrayResult();
+      
+      //Pasarle a la Vista la informción de la Calendario
+      $this->view->calendario= $calendario;
+      
+   //capturo el id de la facultad
+         $practica_id =$this->_getParam('id');
+       //  var_dump($practica_id);
+         //Realizo la consulta para obtener el codigo de la facultad...
+         $dql1= "select p, cal from Application_Model_Practicas p join p.id_calendario cal where p.cod_practica=:practica";
+         //Crear el query para que se guarde la consulta...
+         $query1= $this->em->createQuery($dql1);
+         //Se guarde el id de facultad..
+         $query1->setParameter('practica', $practica_id);
+         //muestre el resultado en un array...
+       
+        $practicas = $query1->getArrayResult();   
+        //Pasarle a la Vista la informción a listar práctica
+        $this->view->practicas= $practicas;    
+     
+            // Realizamos la consulta dql, para que se listen los Programas, en la vista Agregar Asignatura..
+     $dql2 ="select p from Application_Model_Programas p";
+        
+         // Ejecutar el Query, la variable query es donde se carga la consulta.
+        $query2 = $this->em->createQuery($dql2);
+        
+        //Resultados de la consulta en un Vector, en este caso en Array
+        $programas = $query2->getArrayResult();
+        
+        // Pasarle la información de programas a la vista ..
+        $this->view->programas= $programas; 
+        
+         //preparo la consulta de facultades
+        $dql3= "select fa from Application_Model_Facultades fa";
+        
+        $query3= $this->em->createQuery($dql3);
+        
+        $facultad =  $query3->getArrayResult();
+        
+        $this->view->facultad= $facultad;
+        
+        // Preparo la consulta de Asignaturas
+        $dql4= "select a from Application_Model_Asignaturas a";
+         // Ejecutamos la consulta con Query
+         $query4 = $this->em->createQuery($dql4);
+        
+       //Resultados de la consulta en un Vector, en este caso en Array
+       $asignatura = $query4->getArrayResult();
+       
+      // Pasarle la información de programas a la vista ..
+       $this->view->asignatura =$asignatura;
+       
+      
+ 
+  $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
+     $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
+     $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
+     $this->view->headLink()->appendStylesheet('/css/font-awesome.min.css');
+      $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
+//     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.css.map');
+     $this->view->headScript()->appendFile('/js/fuelux.min.js');
+     $this->view->headScript()->appendFile('/js/wizard.js');
+     $this->view->headScript()->appendFile('/bootstrap/js/moment.min.js');   
+     $this->view->headScript()->appendFile('/bootstrap/js/bootstrap-datepicker.js');      
+     $this->view->headScript()->appendFile('/bootstrap/js/datepicker.es.min.js');
+     $this->view->headScript()->appendFile('/js/practica.js');
+     $this->view->headScript()->appendFile('/admin/practicas.js');
+     $this->view->headScript()->appendFile('/practica/participantes.js');
+     $this->view->headScript()->appendFile('/practica/progrecurso.js');
+     $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
+     $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
+     $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
+     $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
+     $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
+     $this->view->headScript()->appendFile('/validacion/bootbox.min.js');     
+     
+ }
+ public function actualizarpracticaAction(){
+          //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+     $this->_helper->layout->disableLayout();
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+     $this->_helper->viewRenderer->setNoRender(TRUE);
+     
+     //Recibir id como parametro
+     $id= $this->_getParam('id'); 
+     
+     //Se hace un condicional que el id es mayo que cero
+     if($id>0){
+     //$usuario recibe los datos que se les pasa por petición ajax
+     $nom =$this->_getParam('nom');
+     $ape =$this->_getParam('ape');
+     $ide =$this->_getParam('ide');
+     $correo =$this->_getParam('correo');
+     $usuario =$this->_getParam('usuario');
+    // $pass =$this->_getParam('pass');
+     $programa =$this->_getParam('programa');
+     $rol =$this->_getParam('rol');
+     
+     // Almacena en el objecto usuario que tiene el id..
+     $usuario_objeto= ($this->em->getRepository('Application_Model_Usuarios')->find($id));
+     $usuario_objeto->setnombre($nom);
+     $usuario_objeto->setapellidos($ape);
+     $usuario_objeto->setidentificacion($ide);
+     $usuario_objeto->setcorreo($correo);
+     $usuario_objeto->setusuario($usuario);
+     $usuario_objeto->setcod_programa($this->em->getRepository('Application_Model_Programas')->find($programa));
+     $usuario_objeto->setid_rol($this->em->getRepository('Application_Model_Roles')->find($rol));
+    // var_dump($usuario_objeto);
+     
+     $this->em->persist($usuario_objeto);
+     //Ejecuta la Orden de guardar..
+     $this->em->flush();
+     } 
+   $this->view->headScript()->appendFile('/admin/practicas.js');
+          
+    }
 }
 
 

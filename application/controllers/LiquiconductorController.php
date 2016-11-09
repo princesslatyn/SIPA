@@ -1,18 +1,17 @@
 <?php
 
-
-class PartiresposController extends Zend_Controller_Action {
-    
-   // Entity Manager
+class LiquiconductorController extends Zend_Controller_Action
+{
+    // Entity Manager
     private $em;
-    
- public function init()
+
+    public function init()
     {
         // Activar el Entity Manager
         $registry = Zend_Registry::getInstance();
         $this->em = $registry->entitymanager;
         
-         $this->_helper->layout->setLayout('admin');
+         $this->_helper->layout->setLayout('prueba');
          $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
          $this->view->headLink()->appendStylesheet('/css/facultad.css');
         
@@ -22,41 +21,9 @@ class PartiresposController extends Zend_Controller_Action {
     {
        // para que todo lo que este dentro de este metodo se ejecute en todas las Vistas..
     }
-    public function agregarpartirespoAction(){
-        
-     $dql2= "select p from Application_Model_Participantes p where p.tipo_participante=:docente";
-         
-         // Ejecutar el Query, la variable query es donde se carga la consulta.
-        $query2 = $this->em->createQuery($dql2);
-        $query2->setParameter('docente', 'docente'); 
-        //Resultados de la consulta en un Vector, en este caso en Array
-         $participantes = $query2->getArrayResult();
-       // var_dump($participantes);
-        // Pasarle la información de programas a la vista..
-        $this->view->participantes= $participantes;  
-        
-        $dql3="select re, recu from Application_Model_Progrecursos re join re.id_recursos recu";
-        
-         $query3 = $this->em->createQuery($dql3);
-        
-         
-         $progrecursos =$query3->getArrayResult();
-        // var_dump($progrecursos);
-          $this->view->progrecursos= $progrecursos;
-          
-            //Preparo la consulta dql
-      $dql4= "select r from Application_Model_Recurespeciales r";
-       
-       $query4 = $this->em->createQuery($dql4);
-       
-       //muestre el resultado en un array...
-      $recursos =$query4->getArrayResult();
-      
-      //Pasarle a la Vista la informción de la Calendario
-      $this->view->recursos= $recursos; 
-          
-          
     
+    public function agregarliquiconductorAction()
+    { 
      $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
@@ -71,13 +38,13 @@ class PartiresposController extends Zend_Controller_Action {
      $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
      $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
      $this->view->headScript()->appendFile('/js/practica.js');
-     $this->view->headScript()->appendFile('/admin/partirespo.js');
+     $this->view->headScript()->appendFile('/admin/facultades.js');
      $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
      $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
-     $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');    
+     $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
     }
-    
-     public function listarpartirespoAction() { 
+    public function listarliquiconductorAction()
+    { 
        
         
         //Consulta dql para listar las facultades
@@ -108,7 +75,7 @@ class PartiresposController extends Zend_Controller_Action {
       $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
       
     }
-    public function guardarpartirespoAction(){
+    public function guardarliquiconductorAction(){
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
@@ -129,7 +96,7 @@ class PartiresposController extends Zend_Controller_Action {
         
         
     }
-       public function editarpartirespoAction() { 
+     public function editarliquiconductorAction() { 
        
          //capturo el id de la facultad
          $facultad_id =$this->_getParam('id');
@@ -170,7 +137,7 @@ class PartiresposController extends Zend_Controller_Action {
      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
      $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
     }
-    public function actualizarpartirespoAction(){
+    public function actualizarliquiconductorAction(){
           //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
@@ -195,7 +162,7 @@ class PartiresposController extends Zend_Controller_Action {
      $this->em->flush();     
      }      
     }
-      public function eliminarpartirespoAction(){
+      public function eliminarliquiconductorAction(){
           //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
@@ -218,5 +185,7 @@ class PartiresposController extends Zend_Controller_Action {
      }
            
     }
-    
 }
+
+
+

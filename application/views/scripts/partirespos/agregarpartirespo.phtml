@@ -5,13 +5,17 @@
 <div class="panel panel-default">  
 <div class="panel-heading"> Datos de la Liquidación de la Práctica</div>   
 <div class="panel-body">  
-<form id="asigna">
+<form id="res">
 <div class="row"> 
     
       <div class="form-group">
       <div class="col-lg-6">    
       <label for="input" class="">Nombre completo del docente</label>           
-      <input  type="text" class="form-control" id="asignatura" name="asignatura"> 
+      <select class="form-control" id="do" name="do" style="cursor:pointer;">
+          <?php foreach ($this->participantes as $participantes) {?>
+          <option  value="<?php echo $participantes['id_participante'];?>"><?php echo $participantes['nombre'];?></option> 
+           <?php }?> 
+       </select>
       </div>    
       </div> 
  </div>
@@ -20,11 +24,15 @@
       <div class="form-group">
       <div class="col-lg-6">    
       <label for="input" class="">Identificación</label>           
-      <input  type="text" class="form-control" id="codigo" name="codigo"> 
+      <select class="form-control" id="iden" name="iden" style="cursor:pointer;">
+          <?php foreach ($this->participantes as $participantes) {?>
+          <option  value="<?php echo $participantes['id_participante'];?>"><?php echo $participantes['identificacion'];?></option> 
+           <?php }?> 
+     </select>
       </div>    
       </div> 
     </div> 
-     <div class="row"> 
+  <!--   <div class="row"> 
         <br>
       <div class="form-group">
       <div class="col-lg-6">    
@@ -32,17 +40,17 @@
       <input  type="text" class="form-control" id="codigo" name="codigo"> 
       </div>    
       </div> 
-    </div> 
-     <div class="row"> 
+    </div> -->
+    <div class="row"> 
         <br>
       <div class="form-group">
       <div class="col-lg-6">    
       <label for="input" class="">Días Pernoctados</label>           
-      <input  type="text" class="form-control" id="codigo" name="codigo"> 
+      <input  type="text" class="form-control" id="pernoc" name="pernoc"> 
       </div>    
       </div> 
     </div> 
-    <div class="row">
+  <!--   <div class="row">
         <br>
       <div class="form-group">
       <div class="col-lg-6">    
@@ -50,44 +58,78 @@
       <input  type="text" class="form-control" id="grupo" name="grupo"> 
       </div>    
       </div> 
-    </div>
+    </div> -->
      <div class="row">
         <br>
       <div class="form-group">
       <div class="col-lg-6">    
       <label for="input" class="">Auxilio del Estudiante</label>            
-      <input  type="text" class="form-control" id="grupo" name="grupo"> 
+      <input  type="text" class="form-control" id="estu" name="estu"> 
       </div>    
       </div> 
     </div>
     <div class="row">
         <br>
-     <label class="center-block" align="center">Recursos Especiales</label>   
+     <label class="center-block" align="center">Transporte Especial</label>   
     </div>
      <div class="row">
          <br>
         <div class="col-xs-6">
         <div class="form-group">
         <label> Tipo</label>
-        <input class="form-control" id="tipo" type="text">        
+        <select class="form-control" id="tipo" name="tipo" style="cursor:pointer;">
+          <?php foreach ($this->recursos as $recursos) {?>
+        <option  value="<?php echo $recursos['id_recursos'];?>"><?php echo $recursos['nombre'];?></option> 
+           <?php }?> 
+     </select>
         </div>
         </div>
         <div class="col-xs-6">
         <div class="form-group">
         <label> valor($)</label>
-        <input class="form-control" id="valor" type="text">         
+         <select class="form-control" id="valor" name="valor" style="cursor:pointer;">
+          <?php foreach ($this->progrecursos as $progrecursos) {?>
+          <option  value="<?php echo $progrecursos['id_pro'];?>"><?php echo $progrecursos['valor'];?></option> 
+           <?php }?> 
+        </select>
         </div>
         </div>    
         </div>
-    <div class="row">
+<!--    <div class="row">
         <br>
       <div class="form-group">
       <div class="col-lg-6">    
       <label for="input" class="">Ruta</label>           
-      <input  type="text" class="form-control" id="grupo" name="grupo"> 
+      <input  type="text" class="form-control" id="ru" name="ru"> 
       </div>    
       </div> 
-    </div>
+    </div> -->
+    <div class="row">
+        <br>
+      <div class="form-group">
+       <div class="col-lg-6">    
+      <label for="input" class="">Fecha Pago</label>           
+      <div class='input-group date' id='divMiCalendario' style="cursor:pointer;">
+      <input type='text' id="ini" name="ini" placeholder="DD/MM/AAAA" class="form-control calendario"  />
+      <div class="input-group-addon"><span id="calend" class="glyphicon glyphicon-calendar calendarioboton"></span>
+      </div>    
+      </div> 
+      </div>   
+      </div>    
+     </div>
+      <div class="row">
+      <br>
+      <div class="form-group">
+       <div class="col-lg-6">    
+      <label for="input" class="">Fecha Legalizado</label>           
+      <div class='input-group date' id='divMiCalendario' style="cursor:pointer;">
+      <input type='text' id="ini" name="ini" placeholder="DD/MM/AAAA" class="form-control calendario"  />
+      <div class="input-group-addon"><span id="calend" class="glyphicon glyphicon-calendar calendarioboton"></span>
+      </div>    
+      </div> 
+      </div>   
+      </div>    
+     </div>
      <div class="row"> 
         <br>
       <div class="col-md-4"> 
@@ -222,7 +264,7 @@
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal"> Cerrar </button>
-        <button type="button" id="agregar" data-dismiss="modal" class="btn btn-default"> Calcular</button>
+        <button type="button" id="agreg" data-dismiss="modal" class="btn btn-default"> Calcular</button>
         </div>
         </div>
         </div>
