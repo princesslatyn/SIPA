@@ -13,12 +13,6 @@ class Application_Model_calendar {
      */
     private $id;
     
-    /** @Column(type="string", length=50) */
-    private $annio;
-    
-     /** @Column(type="string", length=20) */
-    private $periodo;
-    
       /** @Column(type="date") */
     private $fecha_inicio;
     
@@ -28,18 +22,28 @@ class Application_Model_calendar {
      /** @Column(type="datetime") */
     private $fecha_registro;
     
+     /**
+     * Bidirectional - Many users have Many favorite comments (OWNING SIDE)
+     *
+     * @ManyToOne(targetEntity="Application_Model_Annio")
+     * @JoinColumn(name="id_annio", referencedColumnName="id_annio")
+     */
+    private $id_annio;
+    
+     /**
+     * Bidirectional - Many users have Many favorite comments (OWNING SIDE)
+     *
+     * @ManyToOne(targetEntity="Application_Model_Periodo")
+     * @JoinColumn(name="id_periodo", referencedColumnName="id_periodo")
+     */
+    private $id_periodo;
+    
     //Metodo Público
     public function getid(){
         return $this->id;   
     }
-    public function setannio($anni){
-    $this->annio =$anni;
-        
-    }
-     public function setperiodo($per){
-    $this->periodo =$per;
-        
-    }
+    
+   
     public function setfecha_inicio($ini){
     $this->fecha_inicio =$ini;
         
@@ -47,7 +51,15 @@ class Application_Model_calendar {
     public function setfecha_fin($fin){
     $this->fecha_fin =$fin;
         
-    } 
+    }
+    public function setid_annio($ann){
+        $this->id_annio= $ann;
+        
+    }
+    public function setid_periodo($per){
+        $this->id_periodo=$per;
+    }
+
     public function __construct() {
         // la variable now, se comporta como un objeto donde la fecha se haga automaticamente..
         

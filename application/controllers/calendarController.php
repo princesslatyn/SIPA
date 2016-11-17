@@ -26,18 +26,8 @@ class calendarController extends Zend_Controller_Action
     public function agregarcalendarAction(){
         
         //Consulta dql para listar los calendarios
-        $dql ="select c from Application_Model_calendar c";
-        //var_dump($dql);
-        // Ejecutar el Query, la variable query es donde se carga la consulta.
-        $query = $this->em->createQuery($dql);
-        
-        //Resultados de la consulta en un Vector, en este caso en Array
-        $calendario = $query->getArrayResult();
-        
-        //Imprimir en la pagina lo que esta en la variable en este caso facultades
-       // var_dump($facultades);
-        //Pasarle a la Vista la informción de la facultad
-        $this->view->calendario= $calendario;  
+      
+            
         
          //Enlaces    
      $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
@@ -166,6 +156,8 @@ class calendarController extends Zend_Controller_Action
       
       //Pasarle a la Vista la informción de la Calendario
       $this->view->calendario= $calendario;
+      
+      
       
          
      $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 

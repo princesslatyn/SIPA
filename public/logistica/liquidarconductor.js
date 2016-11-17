@@ -1,64 +1,99 @@
 
-var conductor={};
-conductor.init = function(){
+var liquidarconductor={};
+liquidarconductor.init = function(){
  // console.log('Hola Kami'); 
- conductor.agregarconductor();
- conductor.editarconductor();
- conductor.eliminarconductor();
+ liquidarconductor.agregarliquidarconductor();
+ liquidarconductor.editarliquidarconductor();
+ liquidarconductor.eliminarliquidarconductor();
 }
-$(conductor.init);
+$(liquidarconductor.init);
 
 //Creo un Metodo de Agregar Conductor...
-conductor.agregarconductor = function(){
+liquidarconductor.agregarliquidarconductor = function(){
   //Validación de que los campos no se vayan vacios
-    $( "#con" ).validate({
+    $( "#liqui" ).validate({
   rules: {
-    nom: {
+    combu: {
       required: true
        },
-       ape: {
+       pea: {
       required: true
        },
-       ide: {
+       via: {
       required: true
        },
-       tele: {
+       impre: {
       required: true
        },
-       dir: {
+       paga: {
       required: true
+       },
+       lega: {
+        required: true   
+       },
+       pa: {
+        required: true   
+       },
+       le: {
+        required: true   
+       },
+        ru: {
+        required: true   
+       },
+       condu: {
+        required: true   
+       },
+       co: {
+        required: true   
+       },
+       veh: {
+        required: true   
        }
       }
    });
     //on hace la asignación de un evento..
     $('#agregar').on('click', function(){
-       console.log('Hola')
+      // console.log('Hola')
     //val me devuelve el elemento que esta en el id de la función  (extrae el valor del input)
     // #facultad valor del input
     // facultad variable donde se guarda los datos
-    if($('#con').valid()){
-    var nom= $('#nom').val(); 
-    console.log(nom);
-    var ape= $('#ape').val();
-    console.log(ape);
-    var ide= $('#ide').val();
-    console.log(ide);
-    var tele= $('#tele').val();
-    console.log(tele);
-    var dir= $('#dir').val();
-    console.log(dir);
+    if($('#liqui').valid()){
+    var combustible= $('#combu').val(); 
+    console.log(combustible);
+    var peaje= $('#pea').val();
+    console.log(peaje);
+    var viatico= $('#via').val();
+    console.log(viatico);
+    var imprevisto= $('#impre').val();
+    console.log(imprevisto);
+    var pagado= $('#paga').val();
+    console.log(pagado);
+     var legalizado= $('#lega').val();
+    console.log(legalizado);
+    var fechapa= $('#pa').val();
+    console.log(fechapa);
+     var fechale= $('#le').val();
+    console.log(fechale);
+    var codigo_prog= $('#ru').val();
+    console.log(codigo_prog);
+    var conductor= $('#condu').val();
+    console.log(conductor);
+    var cod_practica= $('#co').val();
+    console.log(cod_practica);
+    var vehiculo= $('#veh').val();
+    console.log(vehiculo);
     //Metodo Para enviar los datos al controlador
-  var ajax= $.post('/conductor/guardarconductor', {nom:nom, ape:ape, ide:ide, tele:tele, dir:dir});
+  var ajax= $.post('/liquiconductor/guardarliquiconductor', {combustible:combustible, peaje:peaje, viatico:viatico, imprevisto:imprevisto, pagado:pagado, legalizado:legalizado, fechapa:fechapa, fechale:fechale, codigo_prog:codigo_prog, conductor:conductor, cod_practica:cod_practica, vehiculo:vehiculo});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
   ajax.done(function(){
-   window.location='/conductor/listarconductor';
+  // window.location='/conductor/listarconductor';
   });
     }
     
     });
     
 }
-conductor.editarconductor = function(){
+liquidarconductor.editarliquidarconductor = function(){
      //Validación de que los campos no se vayan vacios
     $( "#con" ).validate({
   rules: {
@@ -112,7 +147,9 @@ conductor.editarconductor = function(){
     });
     
 }
-conductor.eliminarconductor = function(){
+//Edición Adicional
+
+liquidarconductor.eliminarliquidarconductor = function(){
 //Asignación de eventos por delegados
 $(document).on('click', '.eliminar_conductor', function(e){
   //No se comporte por defecto viene, de mandarme a otra pagina  

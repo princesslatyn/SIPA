@@ -56,6 +56,23 @@ class Application_Model_Liquiconductores {
      */
     private $id_conductor;
     
+     /**
+     * Bidirectional - Many users have Many favorite comments (OWNING SIDE)
+     *
+     * @ManyToOne(targetEntity="Application_Model_Practicas")
+     * @JoinColumn(name="cod_practica", referencedColumnName="cod_practica")
+     */
+    private $cod_practica;
+    
+      /**
+     * Bidirectional - Many users have Many favorite comments (OWNING SIDE)
+     *
+     * @ManyToOne(targetEntity="Application_Model_Transporte")
+     * @JoinColumn(name="cod_transporte", referencedColumnName="cod_transporte")
+     */
+    
+    private $cod_transporte;
+    
       /** @Column(type="string", length=50) */
     private $registrado;
     
@@ -91,6 +108,13 @@ class Application_Model_Liquiconductores {
     public function setid_conductor($condu){
         $this->id_conductor=$condu;
     }
+    public function setcod_practica($pra){
+        $this->cod_practica= $pra;
+    }
+    public function setcod_transporte($tra){
+        $this->cod_transporte=$tra;
+    } 
+
     public function setregistrado($regi){
         $this->registrado=$regi;
     }

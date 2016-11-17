@@ -12,37 +12,12 @@
       <div class="col-lg-6"> 
       <label>Año</label> 
       <select class="form-control" id="annio" name="annio" style="cursor:pointer;">
-      <?php foreach ($this->calendario as $calendario) {?>  
-      <option  value="<?php echo $calendario['annio'];?>"><?php echo $calendario['annio'];?></option>
-      <?php }?> 
+       
+      <option  value=""></option>
+     
       </select>
       </div>    
       </div>
-    
-     <div class="text-center">
-        <input type='button' class="button btn btn-default"  value='Agregar Año' data-toggle="modal" data-target="#myModal" onclick=""/>
-        <!-- Modal --> 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header" style="text-align: center">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Digite el Año,  </h4>
-         </div>
-        <div class="modal-body" style="text-align: center">
-        <div class="form-group">
-         <input type='text' id="anni" name="anni"/>        
-        </div>
-         Esta Seguro de Agregar el Año
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal"> Cerrar </button>
-        <button type="button" id="agrega" data-dismiss="modal" class="btn btn-default"> Aceptar </button>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div> 
  </div> 
  <div class="row"> 
      <br>
@@ -50,36 +25,13 @@
       <div class="col-lg-6"> 
       <label>Periodo</label>    
       <select class="form-control" id="per" name="per" style="cursor:pointer;">
-      <?php foreach ($this->calendario as $calendario) {?>  
-      <option  value="<?php echo $calendario['periodo'];?>"><?php echo $calendario['periodo'];?></option>
-      <?php }?> 
+      
+      <option  value=""></option>
+      
       </select>
       </div>    
       </div> 
-      <div class="text-center">
-        <input type='button' class="button btn btn-default"  value='Agregar Periodo' data-toggle="modal" data-target="#myModal1" onclick=""/>
-        <!-- Modal --> 
-        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header" style="text-align: center">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel1">Digite el Periodo,  </h4>
-         </div>
-        <div class="modal-body" style="text-align: center">
-        <div class="form-group">
-         <input type='text' id="annio" name="annio"/>        
-        </div>
-         Esta Seguro de Agregar el Periodo
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal"> Cerrar </button>
-        <button type="button" id="annio" data-dismiss="modal" class="btn btn-default"> Aceptar </button>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div> 
+     
  </div> 
     <div class="row"> 
      <br>
