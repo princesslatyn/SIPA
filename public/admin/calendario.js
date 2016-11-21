@@ -36,9 +36,12 @@ calendar.agregarcalendar = function(){
     // #facultad valor del input
     // facultad variable donde se guarda los datos
     if($('#cale').valid()){
-    var annio= $('#annio').val();  
+    var annio= $('#annio').val(); 
+    console.log(annio);
     var per= $('#per').val(); 
+    console.log(per);
     var ini= $('#ini').val(); 
+    console.log(ini);
     var fin= $('#fin').val();
     console.log(fin);
    // console.log(facultad);

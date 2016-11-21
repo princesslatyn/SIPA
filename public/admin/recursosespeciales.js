@@ -31,7 +31,7 @@ recursosespeciales.agregarrecursos = function(){
   var ajax= $.post('/recurespeciales/guardarrecurespeciales', {nombre:nombre});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
   ajax.done(function(){
-     window.location='/recurespeciales/listarrecurespeciales';
+    window.location='/recurespeciales/listarrecurespeciales';
   });
     }
     

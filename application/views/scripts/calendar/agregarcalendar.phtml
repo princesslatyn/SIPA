@@ -11,10 +11,10 @@
       <div class="form-group">
       <div class="col-lg-6"> 
       <label>Año</label> 
-      <select class="form-control" id="annio" name="annio" style="cursor:pointer;">
-       
-      <option  value=""></option>
-     
+      <select class="form-control" id="annio" name="annio" style="cursor:pointer;"> 
+       <?php foreach ($this->annio as $annio) {?>  
+      <option  value="<?php echo $annio['id_annio'];?>"><?php echo $annio['annio'];?></option>
+      <?php }?>
       </select>
       </div>    
       </div>
@@ -25,9 +25,9 @@
       <div class="col-lg-6"> 
       <label>Periodo</label>    
       <select class="form-control" id="per" name="per" style="cursor:pointer;">
-      
-      <option  value=""></option>
-      
+      <?php foreach ($this->periodo as $periodo) {?>  
+      <option  value="<?php echo $periodo['id_periodo'];?>"><?php echo $periodo['periodo'];?></option>
+      <?php }?>
       </select>
       </div>    
       </div> 

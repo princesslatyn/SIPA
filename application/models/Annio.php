@@ -6,23 +6,20 @@
  */
 
 class Application_Model_Annio{
-    /**
+     /**
      * @Id @Column(type="integer")
      * @GeneratedValue
      */
-   private $id_innio;
+   private $id_annio;
    
     /** @Column(type="string", length=50) */
     private $annio;
-
- 
-   
   
-   //Set id_rol
-   public function setid_innio($in){
-   $this->id_innio= $in; 
+   //metodos públicos
+   public function setid_annio($in){
+   $this->id_annio= $in; 
    }
-   //Set de Nombre   
+   //Set annio   
   public function setannio($ann){
       $this->annio =$ann;
   }

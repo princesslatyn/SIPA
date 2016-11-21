@@ -86,7 +86,7 @@ class PracticasController extends Zend_Controller_Action
        $this->view->asignatura =$asignatura;
        
        //Preparo la consulta dql
-       $dql6= "select c from Application_Model_calendar c";
+       $dql6= "select c, a, p from Application_Model_calendar c left join c.id_annio a left join c.id_periodo p";                                                                                      
        
        $query6 = $this->em->createQuery($dql6);
        

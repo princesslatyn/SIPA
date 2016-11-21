@@ -10,7 +10,8 @@ $(progrecurso.init);
 
 //Creo un Metodo de Agregar Facultad...
 progrecurso.agregarprogrecurso = function(){
-    
+   
+
     var table=$('#examplee').DataTable();
        $(document).on('click', '#rec', function(e){
   //No se comporte por defecto viene, de mandarme a otra pagina  

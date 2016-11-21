@@ -26,7 +26,22 @@ class calendarController extends Zend_Controller_Action
     public function agregarcalendarAction(){
         
         //Consulta dql para listar los calendarios
+      $dql= "select a from Application_Model_Annio a";
       
+      $query= $this->em->createQuery($dql);
+      
+      $annio= $query->getArrayResult();
+      
+      $this->view->annio= $annio;
+      
+      //preparo la consulta dql, para obtener el periodo
+      $dql1= "select p from Application_Model_Periodo p";
+      
+      $query1= $this->em->createQuery($dql1);
+      
+      $periodo= $query1->getArrayResult();
+      
+      $this->view->periodo= $periodo;
             
         
          //Enlaces    
@@ -54,7 +69,7 @@ class calendarController extends Zend_Controller_Action
     public function listarcalendarAction()
     { 
          //Consulta dql para listar los calendarios
-        $dql ="select c from Application_Model_calendar c";
+        $dql ="select c, a, p from Application_Model_calendar c left join c.id_annio a left join c.id_periodo p";
         //var_dump($dql);
         // Ejecutar el Query, la variable query es donde se carga la consulta.
         $query = $this->em->createQuery($dql);
@@ -111,17 +126,19 @@ class calendarController extends Zend_Controller_Action
      //condicional para validar la fecha de inicio, con la fecha de fin
         
         $fecha_ini = strtotime($ini);
+        var_dump($fecha_ini);
         $fecha_fi =  strtotime($fin);
+        var_dump($fecha_fi);
         
         if($fecha_ini < $fecha_fi){
             
         echo 'Las Fechas Son correctas';
         $calendario_objeto = new Application_Model_calendar();
-        $calendario_objeto->setannio($annio);
-        $calendario_objeto->setperiodo($per);
+        $calendario_objeto->setid_annio($this->em->getRepository('Application_Model_Annio')->find($annio));
+        $calendario_objeto->setid_periodo($this->em->getRepository('Application_Model_Periodo')->find($per));
         $calendario_objeto->setfecha_inicio($fecha_inicio);
         $calendario_objeto->setfecha_fin($fecha_fin);
-         // var_dump($calendario_objeto);
+         var_dump($calendario_objeto);
         $this->em->persist($calendario_objeto);
         //Ejecuta la Orden de guardar..
         $this->em->flush(); 
@@ -144,15 +161,34 @@ class calendarController extends Zend_Controller_Action
     }
      public function editarcalendarAction() { 
        //le paso el id, por petición Ajax
+         //Consulta dql para listar los calendarios
+      $dql= "select a from Application_Model_Annio a";
+      
+      $query= $this->em->createQuery($dql);
+      
+      $annio= $query->getArrayResult();
+      
+      $this->view->annio= $annio;
+      
+      //preparo la consulta dql, para obtener el periodo
+      $dql1= "select p from Application_Model_Periodo p";
+      
+      $query1= $this->em->createQuery($dql1);
+      
+      $periodo= $query1->getArrayResult();
+      
+      $this->view->periodo= $periodo;  
+         
+         
       $calendario_id =$this->_getParam('id');
       //Preparo la Consulta....
-      $dql="select c from Application_Model_calendar c where c.id=:calendario";
+      $dql2="select c, a, p from Application_Model_calendar c join c.id_annio a join c.id_periodo p where c.id=:calendario";
       //Crear el query para que se guarde la consulta...
-      $query= $this->em->createQuery($dql);
+      $query2= $this->em->createQuery($dql2);
       //Se guarde el id de calendario..
-      $query->setParameter('calendario', $calendario_id);
+      $query2->setParameter('calendario', $calendario_id);
       //muestre el resultado en un array...
-      $calendario =$query->getArrayResult();
+      $calendario =$query2->getArrayResult();
       
       //Pasarle a la Vista la informción de la Calendario
       $this->view->calendario= $calendario;
