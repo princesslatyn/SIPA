@@ -14,6 +14,7 @@ $(practicas.init);
   
      //Evento en el Boton
    var datatable= $('#example').DataTable();
+   
       // Para las multiples tablas
      // $('table.display').dataTable();
       $('#prog').on('click', function(){ 
@@ -354,7 +355,29 @@ $(practicas.init);
            
             }
           }
-          
+          else{
+              if(data.step==3){
+                  $('#rep_cal').html($('#cal option:selected').html());
+                  $('#rep_docente').html($('#nombre').val());
+                  $('#rep_asig').html($('#asigna option:selected').html());
+                  $('#rep_numest').html($('#num').val());
+                  $('#rep_nompr').html($('#nom').val());
+                  $('#rep_obj').html($('#obj').val());
+                  $('#rep_just').html($('#jus').val());
+                  $('#rep_actdoc').html($('#adoc').val());
+                  $('#rep_actest').html($('#est').val());
+                  $('#rep_tipopr').html($('#tipo').val());
+                  $('#rep_fsal').html($('#sal').val());
+                  $('#rep_flleg').html($('#lle').val());
+                  $('#rep_lugar').html($('#lug').val());
+                  
+                  var tmp = $('#example').clone();
+                  tmp.prop('id', 'rep_table');
+                  tmp.DataTable();
+                  $('#rep_tbl').append(tmp);
+                  
+              }
+          }
       });   
           
    
