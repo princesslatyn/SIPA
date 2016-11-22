@@ -138,7 +138,7 @@ calendar.editarcalendar = function(){
        });
       //Actualizar Calendario
         ajax.done(function(){
-      window.location='/calendar/listarcalendar';
+    // window.location='/calendar/listarcalendar';
   });    
     }
     });

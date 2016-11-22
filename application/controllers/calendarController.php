@@ -125,6 +125,8 @@ class calendarController extends Zend_Controller_Action
      
      //condicional para validar la fecha de inicio, con la fecha de fin
         
+    try{
+        
         $fecha_ini = strtotime($ini);
         var_dump($fecha_ini);
         $fecha_fi =  strtotime($fin);
@@ -132,16 +134,24 @@ class calendarController extends Zend_Controller_Action
         
         if($fecha_ini < $fecha_fi){
             
-        echo 'Las Fechas Son correctas';
+      //  echo 'Las Fechas Son correctas';
         $calendario_objeto = new Application_Model_calendar();
         $calendario_objeto->setid_annio($this->em->getRepository('Application_Model_Annio')->find($annio));
         $calendario_objeto->setid_periodo($this->em->getRepository('Application_Model_Periodo')->find($per));
         $calendario_objeto->setfecha_inicio($fecha_inicio);
         $calendario_objeto->setfecha_fin($fecha_fin);
          var_dump($calendario_objeto);
-        $this->em->persist($calendario_objeto);
+      //  $this->em->persist($calendario_objeto);
         //Ejecuta la Orden de guardar..
-        $this->em->flush(); 
+     //   $this->em->flush(); 
+           }  else {
+           header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+        } 
+     
+        
+    }catch(Exception $e){
+        echo $e->getMessage();
+    }
         
     /**    $json= array();
         $json['id']=$calendario_objeto->getid();
@@ -150,9 +160,7 @@ class calendarController extends Zend_Controller_Action
          echo Zend_Json::encode($json); */
            
                 
-        }  else {
-           header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-        } 
+      
         
         //Imprimir en la pagina lo que esta en la variable en este caso facultades
        // var_dump($facultades);
@@ -247,8 +255,8 @@ class calendarController extends Zend_Controller_Action
         // Almacena en el objecto del calendario que tiene el id..
      $calendario_objeto = ($this->em->getRepository('Application_Model_calendar')->find($ide));
      //la instancia le asigna una facultad, hacer el nombre de la facultad..
-     $calendario_objeto->setannio($annio);
-     $calendario_objeto->setperiodo($per);
+     $calendario_objeto->setid_annio($this->em->getRepository('Application_Model_Annio')->find($annio));
+     $calendario_objeto->setid_periodo($this->em->getRepository('Application_Model_Periodo')->find($per));
      $calendario_objeto->setfecha_inicio($fecha_inicio);
      $calendario_objeto->setfecha_fin($fecha_fin);
      //da la orden de guardar...
@@ -266,7 +274,8 @@ class calendarController extends Zend_Controller_Action
       var_dump($fin);
      
          
-     }      
+     }
+     $this->view->headScript()->appendFile('/admin/calendario.js');
     }
     
   

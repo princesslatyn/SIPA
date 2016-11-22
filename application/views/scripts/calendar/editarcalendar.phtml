@@ -38,7 +38,7 @@
       <div class="col-lg-6">    
       <label for="input" class="">Fecha Inicio</label>           
       <div class='input-group date' id='divMiCalendario' style="cursor:pointer;">
-      <input type='text' id="ini" name="ini" value="<?php echo $calendario['fecha_inicio']->format('d/m/Y');?>" class="form-control calendario"  />
+      <input type='text' id="ini" name="ini" value="<?php echo $this->calendario[0]['fecha_inicio']->format('d/m/Y');?>" class="form-control calendario"  />
       <div class="input-group-addon"><span id="calend" class="glyphicon glyphicon-calendar calendarioboton"></span>
       </div>    
       </div> 
@@ -46,7 +46,7 @@
       <div class="col-lg-6">    
       <label for="input" class="">Fecha Final</label>           
       <div class='input-group date' id='divMiCalendario1' style="cursor:pointer;">
-          <input type='text' id="fin" name="fin" value="<?php echo $calendario['fecha_fin']->format('d/m/Y');?>" class="form-control calendario"  />
+          <input type='text' id="fin" name="fin" value="<?php echo $this->calendario[0]['fecha_fin']->format('d/m/Y');?>" class="form-control calendario"  />
       <div class="input-group-addon"><span id="calend" class="glyphicon glyphicon-calendar calendarioboton"></span>
       </div>    
       </div> 
