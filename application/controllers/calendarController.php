@@ -108,19 +108,19 @@ class calendarController extends Zend_Controller_Action
      $annio =$this->_getParam('annio'); 
      $per =$this->_getParam('per');
      $ini =$this->_getParam('ini');
-     $fin =$this->_getParam('fin');
+     $final =$this->_getParam('fin');
      try{
         //formato para convertir string a datetime
          $fecha_inicio = new DateTime($ini);
-         $fecha_inicio->format('d/m/Y');
+//         $fecha_inicio->format('d/m/Y');
      
-        $fecha_fin = DateTime::createFromFormat('d/m/Y', $fin);
+        $fecha_fin = DateTime::createFromFormat('d/m/Y', $final);
      } catch (Exception $ex) {
         echo $ex->getMessage();
      }
       
      var_dump($ini);
-     var_dump($fin);
+     var_dump($final);
      
      
      //condicional para validar la fecha de inicio, con la fecha de fin
@@ -129,8 +129,11 @@ class calendarController extends Zend_Controller_Action
         
         $fecha_ini = strtotime($ini);
         var_dump($fecha_ini);
-        $fecha_fi =  strtotime($fin);
-        var_dump($fecha_fi);
+        $fecha_fi =  $fecha_fin->date('d/m/Y H/i/s/u', strtotime($final));
+                
+        var_dump($fecha_fin);
+        
+        var_dump(strtotime($final));
         
         if($fecha_ini < $fecha_fi){
             

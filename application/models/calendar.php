@@ -18,6 +18,10 @@ class Application_Model_calendar {
     
       /** @Column(type="date") */
     private $fecha_fin;
+    
+    /** @Column(type="string", length=50) */
+    
+    private $estado;
 
      /** @Column(type="datetime") */
     private $fecha_registro;
@@ -52,6 +56,10 @@ class Application_Model_calendar {
     $this->fecha_fin =$fin;
         
     }
+    public function setestado($esta){
+        $this->estado= $esta;   
+    }
+
     public function setid_annio($ann){
         $this->id_annio= $ann;
         
