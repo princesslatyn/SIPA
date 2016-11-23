@@ -8,8 +8,8 @@
 <form id="cale">  
  <div class="row"> 
      <br>
-      <div class="form-group">
       <div class="col-lg-6"> 
+      <div class="form-group">
       <label>Año</label> 
       <select class="form-control" id="annio" name="annio" style="cursor:pointer;">
       <?php foreach ($this->annio as $annio) {?>  
@@ -17,12 +17,9 @@
       <?php }?> 
       </select>
       </div>    
-      </div> 
- </div> 
- <div class="row"> 
-     <br>
-      <div class="form-group">
-      <div class="col-lg-6"> 
+      </div>
+      <div class="col-lg-6">
+      <div class="form-group"> 
       <label>Periodo</label>    
       <select class="form-control" id="per" name="per" style="cursor:pointer;">
       <?php foreach ($this->periodo as $periodo) {?>  
@@ -30,8 +27,20 @@
       <?php }?> 
       </select>
       </div>    
-      </div> 
+      </div>
  </div> 
+     <div class="row"> 
+  <div class="col-lg-6">
+        <label class="form-group"> Estado del calendario </label>
+        <select class="form-control" id="ca" name="ca"  style="cursor:pointer;">
+           
+            <option>Abierto</option>
+            <option>Cerrado</option>
+         
+        </select>       
+        </div>   
+     
+ </div>
     <div class="row"> 
      <br>
       <div class="form-group">
