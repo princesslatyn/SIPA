@@ -11,7 +11,7 @@
       <div class="col-lg-6"> 
       <div class="form-group">
       <label>Año</label> 
-      <select class="form-control" id="annio" name="annio" style="cursor:pointer;">
+      <select class="form-control" id="an" name="an" data-annio="<?php echo $this->calendario[0]['id_annio']['id_annio']; ?>" style="cursor:pointer;">
       <?php foreach ($this->annio as $annio) {?>  
       <option  value="<?php echo $annio['id_annio'];?>"><?php echo $annio['annio'];?></option>
       <?php }?> 
@@ -21,7 +21,7 @@
       <div class="col-lg-6">
       <div class="form-group"> 
       <label>Periodo</label>    
-      <select class="form-control" id="per" name="per" style="cursor:pointer;">
+      <select class="form-control" id="pe" name="pe" data-periodo="<?php echo $this->calendario[0]['id_periodo']['id_periodo'];?>" style="cursor:pointer;">
       <?php foreach ($this->periodo as $periodo) {?>  
       <option  value="<?php echo $periodo['id_periodo'];?>"><?php echo $periodo['periodo'];?></option>
       <?php }?> 
@@ -31,11 +31,10 @@
  </div> 
      <div class="row"> 
   <div class="col-lg-6">
-        <label class="form-group"> Estado del calendario académico </label>
-        <select class="form-control" id="ca" name="ca"  style="cursor:pointer;">
-           
-            <option>Abierto</option>
-            <option>Cerrado</option>
+        <label class="form-group"> Estado del calendario</label>
+        <select class="form-control" id="calen" name="calen"  style="cursor:pointer;">
+            <option value="1">Abierto</option>
+            <option value="0">Cerrado</option>
          
         </select>       
         </div>   
@@ -47,7 +46,7 @@
       <div class="col-lg-6">    
       <label for="input" class="">Fecha Inicio</label>           
       <div class='input-group date' id='divMiCalendario' style="cursor:pointer;">
-      <input type='text' id="ini" name="ini" value="<?php echo $this->calendario[0]['fecha_inicio']->format('d/m/Y');?>" class="form-control calendario"  />
+      <input type='text' id="in" name="in" value="<?php echo $this->calendario[0]['fecha_inicio']->format('d/m/Y');?>" class="form-control calendario"  />
       <div class="input-group-addon"><span id="calend" class="glyphicon glyphicon-calendar calendarioboton"></span>
       </div>    
       </div> 
@@ -55,7 +54,7 @@
       <div class="col-lg-6">    
       <label for="input" class="">Fecha Final</label>           
       <div class='input-group date' id='divMiCalendario1' style="cursor:pointer;">
-          <input type='text' id="fin" name="fin" value="<?php echo $this->calendario[0]['fecha_fin']->format('d/m/Y');?>" class="form-control calendario"  />
+          <input type='text' id="fi" name="fi" value="<?php echo $this->calendario[0]['fecha_fin']->format('d/m/Y');?>" class="form-control calendario"  />
       <div class="input-group-addon"><span id="calend" class="glyphicon glyphicon-calendar calendarioboton"></span>
       </div>    
       </div> 

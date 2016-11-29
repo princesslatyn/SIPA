@@ -5,7 +5,7 @@ calendar.init = function(){
  calendar.agregarcalendar();
  calendar.editarcalendar();
  calendar.eliminarcalendar();
- calendar.agregarannio();
+ //calendar.agregarannio();
 }
 $(calendar.init);
 
@@ -20,6 +20,9 @@ calendar.agregarcalendar = function(){
        },
        per: {
       required: true
+       },
+       ca:{
+       required: true    
        },
        ini: {
       required: true
@@ -40,19 +43,21 @@ calendar.agregarcalendar = function(){
     console.log(annio);
     var per= $('#per').val(); 
     console.log(per);
+    var estado= $('#ca').val();
+    console.log(estado);
     var ini= $('#ini').val(); 
     console.log(ini);
     var fin= $('#fin').val();
     console.log(fin);
    // console.log(facultad);
     //Metodo Para enviar los datos al controlador
-  var ajax= $.post('/calendar/guardarcalendar', {annio:annio, per:per, ini:ini, fin:fin});
+  var ajax= $.post('/calendar/guardarcalendar', {annio:annio, per:per, estad:estado, ini:ini, fin:fin});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
     ajax.error(function(){
       alert('Error, las Fechas Ingresadas Son Incorrectas');  
     });
     ajax.done(function(){
-    window.location='/calendar/listarcalendar';
+   // window.location='/calendar/listarcalendar';
     //pintar una nueva opción
     
    });
@@ -63,7 +68,7 @@ calendar.agregarcalendar = function(){
 }
 //metodo para pintar el select
 //Creo un Metodo de Agregar Facultad...
-calendar.agregarannio = function(){
+/**calendar.agregarannio = function(){
    
     //on hace la asignación de un evento..
     $('#agrega').on('click', function(){
@@ -91,47 +96,66 @@ calendar.agregarannio = function(){
     
     });
     
-}
+} */
 
 calendar.editarcalendar = function(){
      //Validación de que los campos no se vayan vacios
     $( "#cale" ).validate({
   rules: {
-    annio: {
+   an: {
       required: true
        },
-       per: {
+      pe: {
       required: true
        },
-       ini: {
+       calen:{
+         required: true  
+       },
+       in: {
       required: true
        },
-      fin: {
+      fi: {
       required: true
        }
       }
    });
+   //guardo el dato del año para que guarde el id....
+   var annio = $('#an').data('annio');
+  // console.log(annio);
+   $('#an').val(annio);
+   //Se actualice el valor del selector cuando elija un el año.
+   $('#an').trigger('change');
+   
+   var periodo= $('#pe').data('periodo');
+   
+   $('#pe').val(periodo);
+   
+   $('#pe').trigger('change');
+   
     //on hace la asignación de un evento..
     $('#editar').on('click', function(){
-       // console.log('Hola')
-    //val me devuelve el elemento que esta en el id de la función  (extrae el valor del input)
-    // #facultad valor del input
-    // facultad variable donde se guarda los datos
+    // console.log('hola');
     //Valido los campos
-    if($('#cale').valid()){
-   var annio= $('#annio').val(); 
-   var per= $('#per').val();
-   var ini= $('#ini').val(); 
+   if($('#cale').valid()){
+   var id_annio= $('#annio').val(); 
+   console.log(id_annio);
+   var id_periodo= $('#per').val();
+   console.log(id_periodo);
+   var estado= $('#ca').val();
+   console.log(estado);
+   var ini= $('#ini').val();
    console.log(ini);
    var fin= $('#fin').val();
    console.log(fin);
    var ide= $('#id').val();
     //console.log(fin);
+  //Actualizar el dato del selector cuando lo edite
+    annio= $('#annio').val();
+    periodo= $('#per').val();
     
-            
    // console.log(facultad);
     //Metodo Para enviar los datos al controlador
- var ajax=  $.post('/calendar/actualizarcalendar', {annio:annio, per:per, ini:ini, fin:fin, ide:ide});
+ var ajax=  $.post('/calendar/actualizarcalendar', {id_annio:id_annio, id_periodo:id_periodo, estado:estado, ini:ini, fin:fin, ide:ide});
       //Mensaje de error cuando las fechas son incorrectas
       ajax.error(function(){
       alert('Error, las Fechas Ingresadas Son Incorrectas');  

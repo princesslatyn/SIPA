@@ -203,7 +203,7 @@ $(practicas.init);
        //Metodo Para enviar los datos al controlador
   var ajax= $.post('/Progrecurso/guardarprogrecurso', {valor:valor, idrecurso:idrecurso});
       ajax.done(function(data){
-          console.log(data);
+         // console.log(data);
        //pintar una nueva opción
         table.row.add([
          data.id_pro,   
@@ -291,8 +291,46 @@ $(practicas.init);
         
            //Validación De campos Vacios
            var valid= true;
+           console.log(data);
+           if(data.step==1){
+          
+         // var calendario= $('#cal').val();    
+          var solicitante= $('#nombre').val();
+          var facultad= $('#fac').val();
+          var departamento= $('#dep').val();
+          var programa= $('#pro').val();
+          var semestre= $('#sem').val();
+          var asignatura= $('#asigna').val();
+          var numero_est= $('#num').val();
+          var practica= $('#nom').val();
+          var tipo= $('#tipo').val();
+          var objetivo= $('#obj').val();
+          var justificacion= $('#jus').val();
+          var des_docente= $('#adoc').val();
+          var des_estudiante= $('#est').val();
+          
+          //Validación
+          //  facultad != "" && departamento != "" && programa != "" && semestre != "" && asignatura != "" && numero_est > 0 && practica != "" && tipo != "" && objetivo != "" && justificacion != "" && des_docente != "" && des_estudiante != ""
+     /**     if(calendario != ""){
+            console.log(calendario); 
+            
+          }else{
+              evt.preventDefault();
+               valid = false;
+             alert('Por Favor Diligencie el campo'); 
+          } */
+          if(solicitante != "" && facultad != "" && departamento != "" && programa != "" && semestre != "" && asignatura != "" && numero_est > 0 && practica != "" && tipo != "" && objetivo != "" && justificacion != "" && des_docente != "" && des_estudiante != ""){
+          //  console.log(); 
+            
+          }else{
+              evt.preventDefault();
+               valid = false;
+             alert('Por Favor Diligencie los campos'); 
+          }
+            
+          }
           //obtener el numero de dias, apartir de dos fechas..
-          console.log(data);
+         // console.log(data);
           if(data.step==2){
               var fecha_inicial= $('#sal').val();
           // console.log(fecha_inicial);
@@ -404,31 +442,7 @@ $(practicas.init);
       }
        // console.log('Hola Kami');
        //validación del paso1 corresponde al formulario de prácticas
-       /**  $("#myWizard").on('actionclicked.fu.wizard', function (evt, data){
-          //valido los campos del formulario práctica.
-           var valid= true;
-          //obtener el numero de dias, apartir de dos fechas..
-          console.log(data);
-          if(data.step==1){
-          
-          var calendario= $('#cal').val();    
-          var nombresolicitante= $('#nombre').val();
-          var facultad= $('#fac').val();
-          var calendario= $('#cal').val();
-          var calendario= $('#cal').val();
-          var calendario= $('#cal').val();
-          var calendario= $('#cal').val();
-          var calendario= $('#cal').val();
-          var calendario= $('#cal').val();
-          var calendario= $('#cal').val();
-          var calendario= $('#cal').val();
-          var calendario= $('#cal').val();
-          var calendario= $('#cal').val();
-          var calendario= $('#cal').val();
-          
-              
-          }
-         }); */
+       
         //Con esta variable le paso los datos del formulario en un vector
      var datos = $('#pra').serialize();
      //campos para validar

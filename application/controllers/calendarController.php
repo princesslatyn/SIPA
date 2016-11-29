@@ -107,6 +107,8 @@ class calendarController extends Zend_Controller_Action
      //Recibo los parametros por ajax
      $annio =$this->_getParam('annio'); 
      $per =$this->_getParam('per');
+     $estado= $this->_getParam('estado');
+     var_dump($estado);
      $ini =$this->_getParam('ini');
      $final =$this->_getParam('fin');
      try{
@@ -129,7 +131,7 @@ class calendarController extends Zend_Controller_Action
         
         $fecha_ini = strtotime($ini);
         var_dump($fecha_ini);
-        $fecha_fi =  $fecha_fin->date('d/m/Y H/i/s/u', strtotime($final));
+        $fecha_fi =  $fecha_fin->getTimestamp();
                 
         var_dump($fecha_fin);
         
@@ -141,12 +143,13 @@ class calendarController extends Zend_Controller_Action
         $calendario_objeto = new Application_Model_calendar();
         $calendario_objeto->setid_annio($this->em->getRepository('Application_Model_Annio')->find($annio));
         $calendario_objeto->setid_periodo($this->em->getRepository('Application_Model_Periodo')->find($per));
+        $calendario_objeto->setestado($estado);
         $calendario_objeto->setfecha_inicio($fecha_inicio);
         $calendario_objeto->setfecha_fin($fecha_fin);
          var_dump($calendario_objeto);
-      //  $this->em->persist($calendario_objeto);
+        $this->em->persist($calendario_objeto);
         //Ejecuta la Orden de guardar..
-     //   $this->em->flush(); 
+        $this->em->flush(); 
            }  else {
            header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
         } 
@@ -220,7 +223,7 @@ class calendarController extends Zend_Controller_Action
      $this->view->headScript()->appendFile('/bootstrap/js/datepicker.es.min.js');
      $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
      $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
-     $this->view->headScript()->appendFile('/js/practica.js');
+     //$this->view->headScript()->appendFile('/js/practica.js');
      $this->view->headScript()->appendFile('/admin/calendario.js');
      $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
      $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
@@ -237,8 +240,10 @@ class calendarController extends Zend_Controller_Action
      if($ide>0){
       //Proceso a editar
        //$facultad recibe los datos que se les pasa por petición ajax
-     $annio =$this->_getParam('annio');  
-     $per =$this->_getParam('per');
+     $id_annio =$this->_getParam('id_annio');  
+     var_dump($id_annio);
+     $id_periodo =$this->_getParam('id_periodo');
+     $estado= $this->_getParam('estado');
      $ini =$this->_getParam('ini');
      var_dump($ini);
      $fin =$this->_getParam('fin');
@@ -258,8 +263,9 @@ class calendarController extends Zend_Controller_Action
         // Almacena en el objecto del calendario que tiene el id..
      $calendario_objeto = ($this->em->getRepository('Application_Model_calendar')->find($ide));
      //la instancia le asigna una facultad, hacer el nombre de la facultad..
-     $calendario_objeto->setid_annio($this->em->getRepository('Application_Model_Annio')->find($annio));
-     $calendario_objeto->setid_periodo($this->em->getRepository('Application_Model_Periodo')->find($per));
+     $calendario_objeto->setid_annio($this->em->getRepository('Application_Model_Annio')->find($id_annio));
+     $calendario_objeto->setid_periodo($this->em->getRepository('Application_Model_Periodo')->find($id_periodo));
+     $calendario_objeto->setestado($estado);
      $calendario_objeto->setfecha_inicio($fecha_inicio);
      $calendario_objeto->setfecha_fin($fecha_fin);
      //da la orden de guardar...
