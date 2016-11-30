@@ -427,11 +427,14 @@ $(practicas.init);
                       
                   } 
               }
-              var rep_tab= $('#rep_tbl').DataTable();
+              
               if(data.step == 4){
               if(data.direction == "previous"){
               if(confirm("Esta operación eliminará la programación ingresada, ¿desea continuar?")){    
-              rep_tab.clear().draw();
+              //var rep_tab= $('#rep_table').DataTable();
+              $('#rep_table').html('');
+              //rep_tab.clear().draw();
+              datatable.clear().draw();
               $('#myWizard').wizard('selectedItem', { 
                    step:3
               
