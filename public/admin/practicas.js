@@ -415,6 +415,31 @@ $(practicas.init);
                   $('#rep_tbl').append(tmp);
                   
               }
+              if(data.step == 3){
+                  if(data.direction == "previous"){
+                      if(confirm("Esta operación eliminará la programación ingresada, ¿desea continuar?")){
+                          datatable.clear().draw();
+                          $('#myWizard').wizard('selectedItem', {
+                                step: 2
+                                
+                            });
+                      }
+                      
+                  } 
+              }
+              var rep_tab= $('#rep_tbl').DataTable();
+              if(data.step == 4){
+              if(data.direction == "previous"){
+              if(confirm("Esta operación eliminará la programación ingresada, ¿desea continuar?")){    
+              rep_tab.clear().draw();
+              $('#myWizard').wizard('selectedItem', { 
+                   step:3
+              
+                      });
+                  }
+              }    
+                  
+              }
           }
       });   
           
