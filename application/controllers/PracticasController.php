@@ -19,6 +19,7 @@ class PracticasController extends Zend_Controller_Action
     }
     
     public function agregarpracticaAction(){ 
+        
          // Realizamos la consulta dql, para que se listen los Programas, en la vista Agregar Asignatura..
      $dql ="select p from Application_Model_Programas p";
         
@@ -142,7 +143,7 @@ class PracticasController extends Zend_Controller_Action
      $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
      $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
-    
+
     }
     public function listarpracticaAction(){ 
     //preparo la consulta, para extraer la información de la tabla práctica..
