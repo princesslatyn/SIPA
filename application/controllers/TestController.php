@@ -1,9 +1,9 @@
 <?php
 
-class ProgramasController extends Zend_Controller_Action
+class TestController extends Zend_Controller_Action
 {
+    // Entity Manager
     private $em;
-
 
     public function init()
     {
@@ -12,21 +12,104 @@ class ProgramasController extends Zend_Controller_Action
         $this->em = $registry->entitymanager;
         
          $this->_helper->layout->setLayout('admin');
-     //  $this->_helper->layout->setLayout('prueba'); 
          $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
-        
-        
+         $this->view->headLink()->appendStylesheet('/css/facultad.css');
         
     }
 
-    public function indexAction()
-    {
-       // para que todo lo que este dentro de este metodo se ejecute en todas las Vistas..
+    public function indexAction(){
+           //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+     $this->_helper->layout->disableLayout();
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+     $this->_helper->viewRenderer->setNoRender(TRUE);
+       
+     try {
+         //Conexión con la Base de datos del software academico power Campus
+      /**   $serverName = "172.16.14.241"; //serverName\instanceName
+         $connectionInfo = array( "Database"=>"Campus", "UID"=>"lila", "PWD"=>"lila12345");
+         $conn = sqlsrv_connect( $serverName, $connectionInfo);
+
+          if( $conn ) {
+     
+          echo "Conexión establecida.<br />";
+          //Preparo la consulta....
+         $sql = "SELECT * FROM V_Programas, V_Asignaturas, V_Grupos WHERE Semestre='8' AND Asignatura='ADMINISTRACION DE EMPRESAS ACUICOLAS' AND Programa='MAESTRIA EN SALUD PUBLICA' AND Matriculados='12' AND Grupo='G-1'";
+          $stmt = sqlsrv_query( $conn, $sql );
+          while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+          echo " ".$row['Semestre'].", ".$row['Asignatura'].", ".$row['Programa'].", ".$row['Matriculados'].", ".$row['Grupo']."<br />";
+          //var_dump($sql);
+       }
+       sqlsrv_free_stmt( $stmt);
+          
+            }else{
+                 echo "Conexión no se pudo establecer.<br />";
+                 die( print_r( sqlsrv_errors(), true));
+            } */
+//          $servername="172.16.14.241";
+//        $conn= new PDO("sqlsrv:server=$servername;Database=Campus;", "lila", "lila12345");
+//        if($conn){
+//            echo 'Ok';
+//        }else{
+//            echo 'Error de Conexión ):';
+//        }
+   //Conexión con la Base de datos del software de Gestión Humana
+    //Conexión con la Base de datos del software academico power Campus
+         $serverName = "10.0.4.51"; //serverName\instanceName
+         $connectionInfo = array( "Database"=>"KACTUS", "UID"=>"Unicor", "PWD"=>"123456789ABC");
+         $conn = sqlsrv_connect( $serverName, $connectionInfo);
+
+          if( $conn ) {
+     
+          echo "Conexión establecida Con Kactus.<br />";
+          $sql = "SELECT *FROM VIEW_SIPA";
+          $stmt = sqlsrv_query($conn, $sql);
+          var_dump($sql = "SELECT *FROM VIEW_SIPA");
+          exit();
+         while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC) ) {
+         echo $row['Cedula'].", ".$row['Apellidos'].", ".$row['Nombres'].", ".$row['Cargo']."<br />";
+          }
+          sqlsrv_free_stmt($stmt);
+          var_dump($row);
+          
+            }else{
+                 echo "Conexión no se pudo establecer.<br />";
+                 die( print_r( sqlsrv_errors(), true));
+            }        
+         
+     } catch (Exception $e) {
+         echo $e->getMessage();
+         
+     }
+                
+       
     }
     
-    public function agregarprogramaAction()
+    public function agregarfacultadAction()
     { 
-       //Consulta dql para listar las facultades
+     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
+     $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
+     $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
+     $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
+     $this->view->headLink()->appendStylesheet('/css/facultad.css');
+//     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.css.map');
+     $this->view->headScript()->appendFile('/js/fuelux.min.js');
+     $this->view->headScript()->appendFile('/js/wizard.js');
+     $this->view->headScript()->appendFile('/bootstrap/js/moment.min.js');   
+     $this->view->headScript()->appendFile('/bootstrap/js/bootstrap-datepicker.js');      
+     $this->view->headScript()->appendFile('/bootstrap/js/datepicker.es.min.js');
+     $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
+     $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
+     $this->view->headScript()->appendFile('/js/practica.js');
+     $this->view->headScript()->appendFile('/admin/facultades.js');
+     $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
+     $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
+     $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
+    }
+    public function listarfacultadAction()
+    { 
+       
+        
+        //Consulta dql para listar las facultades
         $dql ="select f from Application_Model_Facultades f";
         
         // Ejecutar el Query, la variable query es donde se carga la consulta.
@@ -40,39 +123,6 @@ class ProgramasController extends Zend_Controller_Action
         //Pasarle a la Vista la informción de la facultad
         $this->view->facultades= $facultades;
         
-     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
-     $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
-     $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
-     $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
-     $this->view->headLink()->appendStylesheet('/css/facultad.css');
-//     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.css.map');
-     $this->view->headScript()->appendFile('/js/fuelux.min.js');
-     $this->view->headScript()->appendFile('/js/wizard.js');
-     $this->view->headScript()->appendFile('/bootstrap/js/moment.min.js');   
-     $this->view->headScript()->appendFile('/bootstrap/js/bootstrap-datepicker.js');      
-     $this->view->headScript()->appendFile('/bootstrap/js/datepicker.es.min.js');
-     $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
-     $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
-     $this->view->headScript()->appendFile('/js/practica.js');
-     $this->view->headScript()->appendFile('/admin/programas.js');
-     $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
-     $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
-     $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
-    }
-    public function listarprogramaAction()
-    { 
-        // Realizamos la consulta dql
-        $dql ="select p, f from Application_Model_Programas p join p.cod_facultad f";
-        
-         // Ejecutar el Query, la variable query es donde se carga la consulta.
-        $query = $this->em->createQuery($dql);
-        
-        //Resultados de la consulta en un Vector, en este caso en Array
-        $programas = $query->getArrayResult();
-        
-        // Pasarle la información de programas a la vista ..
-        $this->view->programas= $programas;
-        
       
       $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
       $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
@@ -80,89 +130,55 @@ class ProgramasController extends Zend_Controller_Action
       $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
       $this->view->headScript()->appendFile('/js/facultad.js');
       $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
-      $this->view->headScript()->appendFile('/admin/programas.js');
+      $this->view->headScript()->appendFile('/admin/facultades.js');
       $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
       $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
       $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
       $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
+      
     }
-   public function guardarprogramaAction(){
+    public function guardarfacultadAction(){
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->viewRenderer->setNoRender(TRUE);
      
      //$facultad recibe los datos que se les pasa por petición ajax
-     $programa =$this->_getParam('programa');  
-   
-     $facultad =$this->_getParam('facultad');
-      // var_dump($facultad);
-         // Instancia del modelo Facultades. crea una facultad automatico..
-     $programa_objeto = new Application_Model_Programas();
+     $facultad =$this->_getParam('facultad');  
+     //var_dump($facultad);
+     
+     // Instancia del modelo Facultades. crea una facultad automatico..
+     $facultad_objeto = new Application_Model_Facultades();
      //la instancia le asigna una facultad, hacer el nombre de la facultad..
-     $programa_objeto->setnombre($programa);
-     // Almacena en el objecto la facultad que tiene el id..
-     $programa_objeto->setcod_facultad($this->em->getRepository('Application_Model_Facultades')->find($facultad));
-    // var_dump($programa_objeto);     
-    //da la orden de guardar...
-    $this->em->persist($programa_objeto);
+     $facultad_objeto->setnombre($facultad);
+     //da la orden de guardar...
+     $this->em->persist($facultad_objeto);
      //Ejecuta la Orden de guardar..
-     $this->em->flush(); 
-     
-     //capturar excepciones
-   /**  try {
+     $this->em->flush();   
+        
+        
+    }
+     public function editarfacultadAction() { 
+       
+         //capturo el id de la facultad
+         $facultad_id =$this->_getParam('id');
+         //Realizo la consulta para obtener el codigo de la facultad...
+         $dql= "select f from Application_Model_Facultades f where f.id_facultad=:facultad";
+         //Crear el query para que se guarde la consulta...
+         $query= $this->em->createQuery($dql);
+         //Se guarde el id de facultad..
+         $query->setParameter('facultad', $facultad_id);
+         //muestre el resultado en un array...
+         $facultad =$query->getArrayResult();
+        // var_dump($facultad);     
+      
+       /** try{  
      } catch (Exception $e) {
          echo $e->getMessage();
-     }*/
-     
-   }
-    public function editarprogramaAction()
-    { 
-       
-        
-       //Consulta dql para listar las facultades
-        $dql ="select f from Application_Model_Facultades f";
-        
-        // Ejecutar el Query, la variable query es donde se carga la consulta.
-        $query = $this->em->createQuery($dql);
-        
-        //Resultados de la consulta en un Vector, en este caso en Array
-        $facultades = $query->getArrayResult();
-        
-        //Imprimir en la pagina lo que esta en la variable en este caso facultades
-        // var_dump($facultades);
-        //Pasarle a la Vista la informción de la facultad
-        $this->view->facultades= $facultades;
-       
-       // Pasarle la información de programas a la vista ..
-        // $this->view->programas= $programas;
-        
-        
-            //Codigo de editar programas
-        $programa_id =$this->_getParam('id');
-       // var_dump($programa_id);
-        //Preparo la consulta 
-        $dql2="select f, fac from Application_Model_Programas f join f.cod_facultad fac where f.id_programa=:programa";
-        // Creo un Nuevo Query donde se guarda la consulta.
-        $query2= $this->em->createQuery($dql2);
-        //Donde se guarda el id del Programa...
-        $query2->setParameter('programa', $programa_id);
-       // var_dump($query);
-        //Muestre el resultado en un array
-        $programa=  $query2->getArrayResult();
-        
-       // var_dump();
-        
-        /**   try{ 
-    
-     } catch (Exception $e) {
-         echo $e->getMessage();
-     }  */
-    
-        $this->view->programa= $programa;
-        
-        
-        
+     } */
+         //Se le pasa la variable a la vista...
+        $this->view->facultad= $facultad; 
+         
      $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
@@ -177,13 +193,13 @@ class ProgramasController extends Zend_Controller_Action
      $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
      $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
      $this->view->headScript()->appendFile('/js/practica.js');
-     $this->view->headScript()->appendFile('/admin/programas.js');
+     $this->view->headScript()->appendFile('/admin/facultades.js');
      $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
      $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
      $this->view->headScript()->appendFile('/validacion/bootbox.min.js');
     }
-     public function actualizarprogramaAction(){
+    public function actualizarfacultadAction(){
           //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
@@ -191,42 +207,36 @@ class ProgramasController extends Zend_Controller_Action
      
      //Recibir id como parametro
      $id= $this->_getParam('id');   
-     //Se hace un condicional que el id es mayo que cero
+     //Se hace un condicional que el id es mayor que cero
      if($id>0){
       //Proceso a editar
        //$facultad recibe los datos que se les pasa por petición ajax
-     $programa =$this->_getParam('programa');  
-     //var_dump($programa);
-     //Nombre de la facultad donde esta asociada la llave foranea...
-     $facultad =  $this->_getParam('facultad');
+     $facultad =$this->_getParam('facultad');  
+     //var_dump($facultad);
      
-     // Almacena en el objecto Programa que tiene el id..
-    $programa_objeto = ($this->em->getRepository('Application_Model_Programas')->find($id));
+     // Almacena en el objecto la facultad que tiene el id..
+     $facultad_objeto = ($this->em->getRepository('Application_Model_Facultades')->find($id));
      //la instancia le asigna una facultad, hacer el nombre de la facultad..
-     $programa_objeto->setnombre($programa);
+     $facultad_objeto->setnombre($facultad);
      //da la orden de guardar...
-     $programa_objeto->setcod_facultad($this->em->getRepository('Application_Model_Facultades')->find($facultad));
-             
-     $this->em->persist($programa_objeto);
+     $this->em->persist($facultad_objeto);
      //Ejecuta la Orden de guardar..
-     $this->em->flush();
-     
-     $this->view->headScript()->appendFile('/admin/programas.js');
+     $this->em->flush();     
      }      
     }
-     public function eliminarprogramaAction(){
+      public function eliminarfacultadAction(){
           //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->layout->disableLayout();
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->viewRenderer->setNoRender(TRUE);
      //Recibo el dato por ajax
      try {
-     $programa_id= $this->_getParam('programa_id');  
+     $facultad_id= $this->_getParam('facultad_id');  
      
-     $programa_objeto= ($this->em->getRepository('Application_Model_Programas')->find($programa_id));
+     $facultad_objeto= ($this->em->getRepository('Application_Model_Facultades')->find($facultad_id));
      
      // da la orden de guardar
-     $this->em->remove($programa_objeto);
+     $this->em->remove($facultad_objeto);
      
      //Ejecuta la Orden de Guardar
      $this->em->flush();
@@ -237,7 +247,6 @@ class ProgramasController extends Zend_Controller_Action
      }
            
     }
-
 }
 
 

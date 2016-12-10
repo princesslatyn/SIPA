@@ -420,7 +420,7 @@ $(practicas.init);
                       if(confirm("Esta operación eliminará la programación ingresada, ¿desea continuar?")){
                           datatable.clear().draw();
                           $('#myWizard').wizard('selectedItem', {
-                                step: 2
+                                step: 3
                                 
                             });
                       }
