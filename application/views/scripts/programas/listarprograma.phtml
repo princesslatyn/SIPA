@@ -6,6 +6,7 @@
             <tr>
               
                 <th>Nombre del Programa</th>
+                <th>Nombre de la Facultad</th>
                 <th>Acciones</th>
                 
             </tr>
@@ -14,6 +15,7 @@
             <tr>
             
                 <th>Nombre del Programa</th>
+                <th>Nombre de la Facultad</th>
                 <th>Acciones</th>
             </tr>
         </tfoot>
@@ -21,6 +23,7 @@
             <?php foreach ($this->programas as $programas) {?>  
             <tr>
                 <td><?php echo $programas['nombre'];?></td>
+                <td><?php echo $programas['cod_facultad']['nombre'];?></td>
                 <td><a href="/programas/editarprograma/id/<?php echo $programas['id_programa'];?>"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a>&nbsp;<a class="eliminar_programa" data-programa="<?php echo $programas['id_programa'];?>" href="#"> <i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>
             </tr> 
             <?php }?>

@@ -42,7 +42,8 @@ class calendarController extends Zend_Controller_Action
       $periodo= $query1->getArrayResult();
       
       $this->view->periodo= $periodo;
-            
+      
+     
         
          //Enlaces    
      $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
@@ -102,27 +103,43 @@ class calendarController extends Zend_Controller_Action
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->viewRenderer->setNoRender(TRUE);
      
-   
+      //Preparo la consulta dql, para obtener el calendario activo
+      
+      $dql= "select a from Application_Model_calendar a where a.estado=:estado";
+      
+      $query= $this->em->createQuery($dql);
+      
+      $query->setParameter('estado', '1');
+      
+      $calendario_activo= $query->getArrayResult();
+      var_dump($calendario_activo);
+      $this->view->estado= $calendario_activo;
 
      //Recibo los parametros por ajax
      $annio =$this->_getParam('annio'); 
      $per =$this->_getParam('per');
      $estado= $this->_getParam('estado');
-     var_dump($estado);
+    // var_dump($estado);
      $ini =$this->_getParam('ini');
      $final =$this->_getParam('fin');
      try{
         //formato para convertir string a datetime
          $fecha_inicio = new DateTime($ini);
 //         $fecha_inicio->format('d/m/Y');
+         $fecha_actual= new\DateTime('now');
+         $fecha_ahora= $fecha_actual->getTimestamp();
+         //Conseguir la pocision del vector...
+        $fecha_fin_calendario= $calendario_activo[0]['fecha_fin'];
+        $fecha_final_calendario= $fecha_fin_calendario->getTimestamp();
+         
      
         $fecha_fin = DateTime::createFromFormat('d/m/Y', $final);
      } catch (Exception $ex) {
         echo $ex->getMessage();
      }
       
-     var_dump($ini);
-     var_dump($final);
+    // var_dump($ini);
+    // var_dump($final);
      
      
      //condicional para validar la fecha de inicio, con la fecha de fin
@@ -130,26 +147,35 @@ class calendarController extends Zend_Controller_Action
     try{
         
         $fecha_ini = strtotime($ini);
-        var_dump($fecha_ini);
+       // var_dump($fecha_ini);
         $fecha_fi =  $fecha_fin->getTimestamp();
                 
-        var_dump($fecha_fin);
+      //  var_dump($fecha_fin);
         
-        var_dump(strtotime($final));
+       // var_dump(strtotime($final));
+        var_dump($fecha_ini);
+        var_dump($fecha_fi);
+        var_dump($fecha_final_calendario);
+        var_dump($fecha_ahora);
+    if($fecha_ini < $fecha_fi && $fecha_final_calendario < $fecha_ahora){
         
-        if($fecha_ini < $fecha_fi){
             
-      //  echo 'Las Fechas Son correctas';
+          //  echo 'Las Fechas Son correctas';
         $calendario_objeto = new Application_Model_calendar();
         $calendario_objeto->setid_annio($this->em->getRepository('Application_Model_Annio')->find($annio));
         $calendario_objeto->setid_periodo($this->em->getRepository('Application_Model_Periodo')->find($per));
-        $calendario_objeto->setestado($estado);
+        $calendario_desactivado= $this->em->getRepository('Application_Model_calendar')->find($calendario_activo[0]['id']);
+        $calendario_desactivado->setestado('0');
+        $calendario_objeto->setestado('1');
         $calendario_objeto->setfecha_inicio($fecha_inicio);
         $calendario_objeto->setfecha_fin($fecha_fin);
          var_dump($calendario_objeto);
-        $this->em->persist($calendario_objeto);
+       $this->em->persist($calendario_objeto);
+       $this->em->persist($calendario_desactivado);
         //Ejecuta la Orden de guardar..
-        $this->em->flush(); 
+       $this->em->flush();   
+        
+      
            }  else {
            header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
         } 

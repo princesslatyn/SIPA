@@ -20,7 +20,8 @@ class PracticasController extends Zend_Controller_Action
     
     public function agregarpracticaAction(){ 
         
-         // Realizamos la consulta dql, para que se listen los Programas, en la vista Agregar Asignatura..
+      try{
+             // Realizamos la consulta dql, para que se listen los Programas, en la vista Agregar Asignatura..
      $dql ="select p from Application_Model_Programas p";
         
          // Ejecutar el Query, la variable query es donde se carga la consulta.
@@ -87,9 +88,11 @@ class PracticasController extends Zend_Controller_Action
        $this->view->asignatura =$asignatura;
        
        //Preparo la consulta dql
-       $dql6= "select c, a, p from Application_Model_calendar c left join c.id_annio a left join c.id_periodo p";                                                                                      
+       $dql6= "select c, a, p from Application_Model_calendar c left join c.id_annio a left join c.id_periodo p where c.estado=:estado";                                                                                      
        
        $query6 = $this->em->createQuery($dql6);
+       
+       $query6->setParameter('estado', '1');
        
        //muestre el resultado en un array...
       $calendario =$query6->getArrayResult();
@@ -119,6 +122,10 @@ class PracticasController extends Zend_Controller_Action
       //Pasarle a la Vista la informción de la Calendario
       $this->view->recursos= $recursos; 
         
+          
+      }  catch (Exception $e){
+          echo $e->getMessage();
+      }
        
         
         
