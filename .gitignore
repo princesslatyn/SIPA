@@ -221,3 +221,4 @@ tests/
 docs/
 library/
 nbproject/
+!/library/
