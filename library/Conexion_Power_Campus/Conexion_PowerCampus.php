@@ -22,11 +22,10 @@ class Conexion_PowerCampus {
    public function conectar(){
    
        //Conexión con la Base de datos del software academico power Campus
-         $database= "Campus";
-         $serverName = "172.16.14.241"; //serverName\instanceName
-         $usuario= "lila";
-         $contrasena= "lila12345";
-         $conn = sqlsrv_connect( $serverName, $database, $usuario, $contrasena);
+         //serverName\instanceName
+         $connection = array( "Database"=>  $this->database, "UID"=>$this->usuario, "PWD"=>$this->contrasena, "SERVER"=>  $this->
+                 serverName);
+         $conn = sqlsrv_connect($connection);
 
           if( $conn ) {
      
