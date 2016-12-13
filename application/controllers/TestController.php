@@ -25,7 +25,7 @@ class TestController extends Zend_Controller_Action
        
      try {
          //Conexión con la Base de datos del software academico power Campus
-      /**   $serverName = "172.16.14.241"; //serverName\instanceName
+         $serverName = "172.16.14.241"; //serverName\instanceName
          $connectionInfo = array( "Database"=>"Campus", "UID"=>"lila", "PWD"=>"lila12345");
          $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
@@ -44,7 +44,7 @@ class TestController extends Zend_Controller_Action
             }else{
                  echo "Conexión no se pudo establecer.<br />";
                  die( print_r( sqlsrv_errors(), true));
-            } */
+            } 
 //          $servername="172.16.14.241";
 //        $conn= new PDO("sqlsrv:server=$servername;Database=Campus;", "lila", "lila12345");
 //        if($conn){
@@ -54,27 +54,27 @@ class TestController extends Zend_Controller_Action
 //        }
    //Conexión con la Base de datos del software de Gestión Humana
     //Conexión con la Base de datos del software academico power Campus
-         $serverName = "10.0.4.51"; //serverName\instanceName
-         $connectionInfo = array( "Database"=>"KACTUS", "UID"=>"Unicor", "PWD"=>"123456789ABC");
-         $conn = sqlsrv_connect( $serverName, $connectionInfo);
-
-          if( $conn ) {
-     
-          echo "Conexión establecida Con Kactus.<br />";
-          $sql = "SELECT *FROM VIEW_SIPA";
-          $stmt = sqlsrv_query($conn, $sql);
-          var_dump($sql = "SELECT *FROM VIEW_SIPA");
-          exit();
-         while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC) ) {
-         echo $row['Cedula'].", ".$row['Apellidos'].", ".$row['Nombres'].", ".$row['Cargo']."<br />";
-          }
-          sqlsrv_free_stmt($stmt);
-          var_dump($row);
-          
-            }else{
-                 echo "Conexión no se pudo establecer.<br />";
-                 die( print_r( sqlsrv_errors(), true));
-            }        
+//         $serverName = "10.0.4.51"; //serverName\instanceName
+//         $connectionInfo = array( "Database"=>"KACTUS", "UID"=>"Unicor", "PWD"=>"123456789ABC");
+//         $conn = sqlsrv_connect( $serverName, $connectionInfo);
+//
+//          if( $conn ) {
+//     
+//          echo "Conexión establecida Con Kactus.<br />";
+//          $sql = "SELECT *FROM VIEW_SIPA";
+//          $stmt = sqlsrv_query($conn, $sql);
+//          var_dump($sql = "SELECT *FROM VIEW_SIPA");
+//          exit();
+//         while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC) ) {
+//         echo $row['Cedula'].", ".$row['Apellidos'].", ".$row['Nombres'].", ".$row['Cargo']."<br />";
+//          }
+//          sqlsrv_free_stmt($stmt);
+//          var_dump($row);
+//          
+//            }else{
+//                 echo "Conexión no se pudo establecer.<br />";
+//                 die( print_r( sqlsrv_errors(), true));
+//            }        
          
      } catch (Exception $e) {
          echo $e->getMessage();
