@@ -23,7 +23,7 @@ class Conexion_PowerCampus {
    
        //Conexión con la Base de datos del software academico power Campus
          $serverName = "172.16.14.241"; //serverName\instanceName
-         $connectionInfo = array( "Database"=>"Campus", "UID"=>"lila", "PWD"=>"lila12345");
+         $connectionInfo = array( "database"=>"Campus", "usuario"=>"lila", "contrasena"=>"lila12345");
          $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
           if( $conn ) {
