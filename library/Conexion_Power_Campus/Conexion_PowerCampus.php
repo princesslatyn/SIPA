@@ -4,7 +4,9 @@ class Conexion_PowerCampus {
    private $database;
    private $usuario;
    private $contrasena;
-   
+   private $serverName;
+
+
    //hago un metodo para las conexiones con power campues
    public function conectar(){
    
@@ -25,6 +27,15 @@ class Conexion_PowerCampus {
        
        
    }
+   //Creo el constructor
+    public function __construct() {
+        // la variable now, se comporta como un objeto donde la fecha se haga automaticamente..
+        $this->database= "Campus";
+        $this->usuario= "lila";
+        $this->contrasena= "lila12345";
+        $this->serverName= "172.16.14.241";
+           
+    }
 }
 
 
