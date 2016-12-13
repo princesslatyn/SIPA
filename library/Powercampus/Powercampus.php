@@ -1,6 +1,6 @@
 <?php
 
-class Conexion_PowerCampus {
+class Powercampus {
    private $database;
    private $usuario;
    private $contrasena;
@@ -16,17 +16,13 @@ class Conexion_PowerCampus {
         $this->serverName= "172.16.14.241";
         //llamar el metodo conectar
         $this->conectar();
-        
-       
-    
-           
+               
     }
-   
    
    //hago un metodo para las conexiones con power campues
    public function conectar(){
    
-       //Conexión con la Base de datos del software academico power Campus
+         //Conexión con la Base de datos del software academico power Campus
          //serverName\instanceName
          $ServerName= $this->serverName;
          $connection = array( "Database"=>  $this->database, "UID"=>$this->usuario, "PWD"=>$this->contrasena);

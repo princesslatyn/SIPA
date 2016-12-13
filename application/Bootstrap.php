@@ -23,6 +23,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute('rest', $restRoute);
         
     }
+    public function _initPowercampus(){
+        
+    }
 
 }
 
