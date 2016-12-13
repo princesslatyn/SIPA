@@ -14,6 +14,11 @@ class Conexion_PowerCampus {
         $this->usuario= "lila";
         $this->contrasena= "lila12345";
         $this->serverName= "172.16.14.241";
+        //llamar el metodo conectar
+        $this->conectar();
+        
+       
+    
            
     }
    
