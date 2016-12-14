@@ -23,6 +23,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute('rest', $restRoute);
         
     }
+     public function _initPowercampus(){
+      $conexion= new Powercampus_Powercampus();
+      //var_dump($conexion);
+      $registry = Zend_Registry::set('power', $conexion);
+      return $registry;
+      
+    }
 
 }
 
