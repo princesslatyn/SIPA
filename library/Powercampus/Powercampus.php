@@ -1,6 +1,6 @@
 <?php
 
-class Powercampus {
+class Powercampus_Powercampus {
    private $database;
    private $usuario;
    private $contrasena;
