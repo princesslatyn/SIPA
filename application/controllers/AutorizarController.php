@@ -19,6 +19,7 @@ class AutorizarController extends Zend_Controller_Action{
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
     $this->_helper->viewRenderer->setNoRender(TRUE);    
     $authNamespace = new Zend_Session_Namespace('Zend_Auth');
+    $authNamespace->setExpirationSeconds('60');
     
     //Creo un swich para que me controle todas los roles
   // var_dump($authNamespace->usuarios[0]['id_rol']['id_rol']);

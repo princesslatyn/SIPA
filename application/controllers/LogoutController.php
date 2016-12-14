@@ -22,6 +22,7 @@ class LogoutController extends Zend_Controller_Action{
        
         $authNamespace = new Zend_Session_Namespace('Zend_Auth');
         unset($authNamespace);
+        $authNamespace->setExpirationSeconds('60');
         $this->_helper->redirector->goToUrl('/login');
     }
 
