@@ -40,6 +40,11 @@ class Powercampus_Powercampus {
        
        
    }
+    public function _initPowecampus(){
+    $registry = Zend_Registry::getregistry(); 
+    $registry->powercampus = $this;
+   
+   }
   
 }
 
