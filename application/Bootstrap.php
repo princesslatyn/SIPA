@@ -24,10 +24,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
     }
      public function _initPowercampus(){
-      $conexion= new Powercampus_Powercampus();
+     // $conexion= new Powercampus_Powercampus();
       //var_dump($conexion);
-      $registry = Zend_Registry::set('power', $conexion);
-      return $registry;
+       $conn = Powercampus_Powercampus::getInstance();
+        $registry = Zend_Registry::getInstance();
+        return $registry->powercampus_connection;
+      
+    }
+      public function _initKactus(){
+     // $conexion= new Powercampus_Powercampus();
+      //var_dump($conexion);
+       $conn = Kactus_Kactus::getInstance();
+        $registry = Zend_Registry::getInstance();
+        return $registry->kactus_connection;
       
     }
 

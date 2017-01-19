@@ -11,7 +11,147 @@ $(practicas.init);
 //Creo un Metodo de Agregar Facultad...
  practicas.agregarpractica = function(){
      
-  
+//Evento para escoger la facultad
+ $('#dep').on('change', function(){
+    var departamento = $('#dep').val();
+   // console.log(facultad);
+ //var programas =('#pro').val();
+    
+    var ajax= $.get('/Practicas/obtenerprogramas', {departamento:departamento});
+    ajax.done(function(data){
+      //  console.log(data);
+        //limpiar el contenido del selector
+        $('#pro').html('');
+      //  $('#dep').html('');
+        //declaro una variable
+        
+          for(var i=0; i<data.length; i++){
+        // console.log(data);
+        //agregar contenido al selector
+        $('#pro').append('<option value="'+data[i]['ID_Programa']+'" selected="selected">'+data[i]['Programa']+'</option>'); 
+       // $('#dep').append('<option value="'+data[i]['ID_Departamento']+'" selected="selected">'+data[i]['Departamento']+'</option>');
+        }  
+         $('#pro').trigger('change');
+    });
+ }); 
+ //evento para escoger el departamento
+  $('#fac').on('change', function(){
+    var facultad = $('#fac').val();
+   // console.log(departamento);
+ //var programas =('#pro').val();
+ 
+    
+    var ajax= $.get('/Practicas/obtenerdepartamento', {facultad:facultad});
+    ajax.done(function(data){
+      //  console.log(data);
+        //limpiar el contenido del selector
+         $('#dep').html('');
+        //declaro una variable
+        
+          for(var i=0; i<data.length; i++){
+         //console.log(data);
+        //agregar contenido al selector
+        $('#dep').append('<option value="'+data[i]['ID']+'" selected="selected">'+data[i]['Departa']+'</option>');
+        }  
+       //EVENTO PARA SIMILAR ENTREDA DEL USUARIO
+       $('#dep').trigger('change');
+      
+    });
+ }); 
+ //Obtener el programas
+ //evento para escoger el departamento
+  $('#pro').on('change', function(){
+    var programas = $('#pro').val();
+   // console.log(departamento);
+ //var programas =('#pro').val();
+ 
+    
+    var ajax= $.get('/Practicas/obtenersemestre', {programas:programas});
+    ajax.done(function(data){
+      //  console.log(data);
+        //limpiar el contenido del selector
+         $('#sem').html('');
+        //declaro una variable
+        
+          for(var i=0; i<data.length; i++){
+        // console.log(data);
+        //agregar contenido al selector
+        $('#sem').append('<option value="'+data[i]['Semestre']+'" selected="selected">'+data[i]['Semestre']+'</option>');
+        }  
+       //EVENTO PARA SIMILAR ENTREDA DEL USUARIO
+      
+    });
+ });
+ //Obtener las asignaturas
+  $('#sem').on('change', function(){
+    var programa= $('#pro').val();  
+    var semestre = $('#sem').val();
+   // console.log(departamento);
+ //var programas =('#pro').val();
+ 
+    
+    var ajax= $.get('/Practicas/obtenerasignatura', {semestre:semestre, programa:programa});
+    ajax.done(function(data){
+      //  console.log(data);
+        //limpiar el contenido del selector
+        
+       $('#asigna').html('');
+       // $('#sem').html('');
+        
+        //declaro una variable
+        
+          for(var i=0; i<data.length; i++){
+        // console.log(data);
+        //agregar contenido al selector
+        $('#asigna').append('<option value="'+data[i]['Id_Asignatura']+'" selected="selected">'+data[i]['Asignatura']+'</option>');
+        }  
+       //EVENTO PARA SIMULAR ENTREDA DEL USUARIO
+    //  $('#sem').trigger('change');
+      // $('#pro').trigger('change');
+    });
+ });
+ //Evento para obtener los matriculados
+  $('#asigna').on('change', function(){
+    var asignatura= $('#asigna').val();  
+   
+    console.log(asignatura);
+    
+    var ajax= $.get('/Practicas/obtenermatriculados', {asignatura:asignatura});
+    ajax.done(function(data){
+      // console.log(data);
+        //limpiar el contenido del selector
+         $('#num').html('');
+        //declaro una variable
+        
+          for(var i=0; i<data.length; i++){
+       // console.log(data);
+        //agregar contenido al selector
+        $('#num').append('<option value="'+data[i]['Matriculados']+'" selected="selected">'+data[i]['Matriculados']+'</option>');
+        }  
+       //EVENTO PARA SIMULAR ENTREDA DEL USUARIO
+     // $('#asigna').trigger('change');
+    });
+ }); 
+ // función para agregar el docente responsable...
+ $('#fac').on('change', function(){
+     var nombre= $('#nombre').val();
+     console.log(nombre);
+     
+    var ajax= $.get('/Practicas/obtenerdocente', {nombre:nombre});
+        ajax.done(function(data){
+      // console.log(data);
+         $('#nombre').html('');
+          for(var i=0; i<data.length; i++){
+        //console.log(data);
+        //agregar contenido al selector
+        $('#nombre').append('<option value="'+data[i]['ape_empl']+'" selected="selected">'+data[i]['ape_empl']+'</option>'), ('<option value="'+data[i]['nom_empl']+'" selected="selected">'+data[i]['nom_empl']+'</option>');
+        
+        } 
+        // $('#nombre').trigger('click');
+    });
+ });
+ 
+ 
      //Evento en el Boton
    var datatable= $('#example').DataTable();
    

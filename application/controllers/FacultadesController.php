@@ -4,6 +4,7 @@ class FacultadesController extends Zend_Controller_Action
 {
     // Entity Manager
     private $em;
+    private $pw;
 
     public function init()
     {
@@ -14,6 +15,9 @@ class FacultadesController extends Zend_Controller_Action
          $this->_helper->layout->setLayout('admin');
          $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
          $this->view->headLink()->appendStylesheet('/css/facultad.css');
+         
+         //activar conexión con power campus
+         $this->pw= $registry->powercampus_connection;
         
     }
 
@@ -48,6 +52,7 @@ class FacultadesController extends Zend_Controller_Action
        
         
         //Consulta dql para listar las facultades
+       
         $dql ="select f from Application_Model_Facultades f";
         
         // Ejecutar el Query, la variable query es donde se carga la consulta.

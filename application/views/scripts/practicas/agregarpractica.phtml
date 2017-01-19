@@ -75,7 +75,9 @@
         <div class="form-group">
         <label>Nombre del Solicitante</label>
         <div class="col-xs-6">
-        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del Docente Solicitante">
+        <select class="form-control" id="nombre" name="nombre" style="cursor:pointer;">
+        <option  value=""></option>
+        </select> 
         </div>
         </div>     
            
@@ -87,7 +89,7 @@
         <label class="form-group"> Facultad </label>
         <select class="form-control" id="fac" name="fac" style="cursor:pointer;">
          <?php foreach ($this->facultad as $facultad) {?>
-          <option  value="<?php echo $facultad['id_facultad'];?>"><?php echo $facultad['nombre']; ?></option>
+          <option  value="<?php echo $facultad['id_facultad'];?>"><?php echo htmlentities(utf8_encode($facultad['nombre']));  ?></option>
          <?php }?>
         </select>       
         </div>       
@@ -96,9 +98,7 @@
         <div class="">
         <label class="form-group"> Departamento </label> 
         <select class="form-control" id="dep" name="dep" style="cursor:pointer;">
-         <?php foreach ($this->programas as $programas) {?>
-          <option  value="<?php echo $programas['id_programa'];?>"><?php echo $programas['nombre'];?></option>
-          <?php }?>
+        <option  value=""></option>
         </select>       
         </div>       
         </div> 
@@ -109,9 +109,7 @@
         <div class="">
         <label class="form-group"> Programa  </label>
         <select class="form-control" id="pro" name="pro" style="cursor:pointer;">
-         <?php foreach ($this->programas as $programas) {?>
-          <option  value="<?php echo $programas['id_programa'];?>"><?php echo $programas['nombre'];?></option>
-          <?php }?>
+          <option  value=""></option>
         </select>       
         </div>       
         </div>
@@ -119,16 +117,8 @@
         <div class="form-group">
         <label class=""> Semestre </label> 
         <select class="form-control" id="sem" name="sem" style="cursor:pointer;">
-        <option>I</option>
-        <option>II</option>
-        <option>III</option>
-        <option>IV</option>
-        <option>V</option>
-        <option>VI</option>
-        <option>VII</option>
-        <option>VIII</option>
-        <option>IX</option>
-        <option>X</option>
+        <option></option>
+        
         </select>       
         </div>       
         </div> 
@@ -139,16 +129,18 @@
         <div class="">
         <label class="form-group"> Asignatura </label>
         <select class="form-control" id="asigna" name="asigna" style="cursor:pointer;">
-         <?php foreach ($this->asignatura as $asignatura) {?>
-          <option  value="<?php echo $asignatura['cod_asignatura'];?>"><?php echo $asignatura['nombre'];?></option>
-          <?php }?>
+        
+          <option  value=""></option>
+         
         </select>       
         </div>       
         </div>
         <div class="col-xs-6">
         <div class="">
         <label class="form-group"> Número Estudiantes </label>
-        <input class="form-control" id="num" name="num" type="text">    
+        <select class="form-control" id="num" name="num" style="cursor:pointer;">
+        <option  value=""></option> 
+        </select>   
         </div>       
         </div> 
         </div>

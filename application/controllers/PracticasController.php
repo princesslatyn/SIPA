@@ -4,6 +4,8 @@ class PracticasController extends Zend_Controller_Action
 {
     // Entity Manager
     private $em;
+    private $pw;
+    private $ka;
 
     public function init()
     {
@@ -11,6 +13,8 @@ class PracticasController extends Zend_Controller_Action
         // Activar el Entity Manager
         $registry = Zend_Registry::getInstance();
         $this->em = $registry->entitymanager;
+        $this->pw= $registry->powercampus_connection;
+        $this->ka= $registry->kactus_connection;
     }
 
     public function indexAction()
@@ -68,14 +72,20 @@ class PracticasController extends Zend_Controller_Action
         $this->view->participante= $participante;
         
          //preparo la consulta de facultades
-        $dql4= "select fa from Application_Model_Facultades fa";
+         $sql = "SELECT ID AS id_facultad, Facultad AS nombre  FROM V_Facultades  ORDER BY ID";
+          $stmt = sqlsrv_query( $this->pw, $sql );
+         $datos = array();
+          while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+           $datos[]= $row;   
+         // echo $row['ID'].", ".$row['Facultad']."<br />";
+         //var_dump($row);
+       }
+      // var_dump($datos);
+       sqlsrv_free_stmt( $stmt);
         
-        $query4= $this->em->createQuery($dql4);
+         $this->view->facultad= $datos;
         
-        $facultad =  $query4->getArrayResult();
-        
-        $this->view->facultad= $facultad;
-        
+ 
         // Preparo la consulta de Asignaturas
         $dql5= "select a from Application_Model_Asignaturas a";
          // Ejecutamos la consulta con Query
@@ -424,6 +434,188 @@ class PracticasController extends Zend_Controller_Action
      } 
    $this->view->headScript()->appendFile('/admin/practicas.js');
           
+    }
+    public function obtenerprogramasAction(){
+        header('Content-Type: application/json'); 
+       $this->_helper->layout->disableLayout();
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+       $this->_helper->viewRenderer->setNoRender(TRUE);  
+        
+           
+             $id_facultad= $this->getParam('departamento');
+             //var_dump($id_facultad);
+             //crear el vector de programas
+             $programas= array();
+         $sql = "SELECT * FROM V_Departamentos INNER JOIN  V_Facultades ON V_Departamentos.ID_Facultad=V_Facultades.ID INNER JOIN V_Programas ON V_Departamentos.ID_Departamento=V_Programas.ID_Departamento where V_Departamentos.ID_Departamento= ?";
+          $stmt = sqlsrv_query( $this->pw, $sql,  array($id_facultad));
+          //var_dump($sql);
+          while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+              //para quitar las tildes
+          $row['ID_Facultad']= htmlentities(utf8_encode($row['ID_Facultad']));  
+          $row['Facultad']= htmlentities(utf8_encode($row['Facultad']));
+          $row['Departamento']= htmlentities(utf8_encode($row['Departamento']));
+          $row['Programa']= htmlentities(utf8_encode($row['Programa']));
+          $row['ID_Departamento']= htmlentities(utf8_encode($row['ID_Departamento']));
+          $programas[]= $row;    
+          // $row['ID_Facultad'].", ".$row['Facultad'].", ".$row['Departamento'].", ".$row['Programa'].", ".$row['ID_Departamento']."<br />";
+         // var_dump($row);
+       }
+       echo json_encode($programas);
+      
+       sqlsrv_free_stmt( $stmt);
+      
+          
+            
+    }
+    public function obtenerdepartamentoAction(){
+         header('Content-Type: application/json'); 
+        $this->_helper->layout->disableLayout();
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+       $this->_helper->viewRenderer->setNoRender(TRUE);  
+        //recibo el departamento por peticiòn ajax
+        $id_facultad= $this->getParam('facultad');
+       // var_dump($id_facultad);
+        //declaro el vector de los departamentos
+        $departamentos= array();
+        $sql = "SELECT ID_Departamento AS ID, Departamento AS Departa, ID_Facultad As id_fa  FROM V_Departamentos where ID_Facultad= ?";
+          $stmt = sqlsrv_query( $this->pw, $sql,  array($id_facultad));
+          //var_dump($sql);
+          while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+              //para quitar las tildes
+          $row['Departa']= htmlentities(utf8_encode($row['Departa']));
+          $row['ID']= htmlentities(utf8_encode($row['ID']));
+          $row['id_fa']= htmlentities(utf8_encode($row['id_fa']));
+          $departamentos[]= $row;   
+         // var_dump($row);
+          // $row['ID_Facultad'].", ".$row['Facultad'].", ".$row['Departamento'].", ".$row['Programa'].", ".$row['ID_Departamento']."<br />";
+         // var_dump($row);
+       }
+       echo json_encode($departamentos);
+      
+       sqlsrv_free_stmt( $stmt);
+        
+        
+    }
+    public function obtenersemestreAction(){
+         header('Content-Type: application/json'); 
+        $this->_helper->layout->disableLayout();
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+       $this->_helper->viewRenderer->setNoRender(TRUE);  
+        //recibo el departamento por peticiòn ajax
+        $id_programa= $this->getParam('programas');
+       // var_dump($id_facultad);
+        //declaro el vector de los departamentos
+        $semestre= array();
+        $sql = "SELECT DISTINCT Semestre FROM  V_Asignaturas where Id_Programa= ? ORDER BY Semestre";
+          $stmt = sqlsrv_query( $this->pw, $sql,  array($id_programa));
+          //var_dump($sql);
+          while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+              //para quitar las tildes
+          $row['Semestre']= htmlentities(utf8_encode($row['Semestre']));
+          
+          $semestre[]= $row;   
+         // var_dump($row);
+          // $row['ID_Facultad'].", ".$row['Facultad'].", ".$row['Departamento'].", ".$row['Programa'].", ".$row['ID_Departamento']."<br />";
+         // var_dump($row);
+       }
+       echo json_encode($semestre);
+      
+       sqlsrv_free_stmt( $stmt);
+        
+    }
+     public function obtenerasignaturaAction(){
+         header('Content-Type: application/json'); 
+        $this->_helper->layout->disableLayout();
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+       $this->_helper->viewRenderer->setNoRender(TRUE);  
+        //recibo el departamento por peticiòn ajax
+        $semestre= $this->getParam('semestre');
+        $id_programa= $this->getParam('programa');
+       // var_dump($id_programa);
+      
+       // var_dump($id_facultad);
+        //declaro el vector de los departamentos
+        $asignatura= array();
+        $sql = "SELECT DISTINCT Id_Asignatura, Asignatura FROM V_Asignaturas WHERE Semestre= ? AND Id_Programa= ?";
+          $stmt = sqlsrv_query( $this->pw, $sql,  array($semestre, $id_programa));
+          //var_dump($sql);
+          while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+              //para quitar las tildes
+          $row['Asignatura']= htmlentities(utf8_encode($row['Asignatura']));
+          $row['Id_Asignatura']= htmlentities(utf8_encode($row['Id_Asignatura']));
+         // $row['Id_Programa']= htmlentities(utf8_encode($row['Id_Programa']));
+          $asignatura[]= $row;   
+         // var_dump($asignatura);
+          // $row['ID_Facultad'].", ".$row['Facultad'].", ".$row['Departamento'].", ".$row['Programa'].", ".$row['ID_Departamento']."<br />";
+         // var_dump($row);
+       }
+       echo json_encode($asignatura);
+      
+       sqlsrv_free_stmt( $stmt);
+        
+    }
+     public function obtenermatriculadosAction(){
+         header('Content-Type: application/json'); 
+        $this->_helper->layout->disableLayout();
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+       $this->_helper->viewRenderer->setNoRender(TRUE);  
+        //recibo el departamento por peticiòn ajax
+        $asignatura= $this->getParam('asignatura');
+        
+      // var_dump($asignatura);
+      
+       // var_dump($id_facultad);
+        //declaro el vector de los departamentos
+        $matriculados= array();
+        $sql = "SELECT DISTINCT  Matriculados FROM V_Grupos WHERE ID_Asignatura= ?";
+          $stmt = sqlsrv_query( $this->pw, $sql,  array($asignatura));
+          //var_dump($sql);
+          while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+              //para quitar las tildes
+          $row['Matriculados']= htmlentities(utf8_encode($row['Matriculados']));
+         // $row['ID_Asignatura']= htmlentities(utf8_encode($row['ID_Asignatura']));
+         // $row['Id_Programa']= htmlentities(utf8_encode($row['Id_Programa']));
+          $matriculados[]= $row;   
+         // var_dump($row);
+          // $row['ID_Facultad'].", ".$row['Facultad'].", ".$row['Departamento'].", ".$row['Programa'].", ".$row['ID_Departamento']."<br />";
+         // var_dump($row);
+       }
+       echo json_encode($matriculados);
+      
+       sqlsrv_free_stmt( $stmt);
+        
+    }
+    public function obtenerdocenteAction(){
+         header('Content-Type: application/json'); 
+        $this->_helper->layout->disableLayout();
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+       $this->_helper->viewRenderer->setNoRender(TRUE);  
+        //recibo el departamento por peticiòn ajax
+        $nombre= $this->getParam('nombre');
+        //var_dump($nombre);
+        
+      // var_dump($asignatura);
+      
+       // var_dump($id_facultad);
+        //declaro el vector de los departamentos
+        $docentes= array();
+        $sql = "SELECT DISTINCT ape_empl, nom_empl FROM KACTUS.dbo.VIEW_SIPA ORDER BY ape_empl";
+          $stmt = sqlsrv_query( $this->ka, $sql,  array($nombre));
+          //var_dump($sql);
+          while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+              //para quitar las tildes
+          $row['ape_empl']= htmlentities(utf8_encode($row['ape_empl']));
+          $row['nom_empl']= htmlentities(utf8_encode($row['nom_empl']));
+         // $row['Id_Programa']= htmlentities(utf8_encode($row['Id_Programa']));
+          $docentes[]= $row;   
+         // var_dump($row);
+          // $row['ID_Facultad'].", ".$row['Facultad'].", ".$row['Departamento'].", ".$row['Programa'].", ".$row['ID_Departamento']."<br />";
+         // var_dump($row);
+       }
+       echo json_encode($docentes);
+      
+       sqlsrv_free_stmt( $stmt);
+        
     }
 }
 
