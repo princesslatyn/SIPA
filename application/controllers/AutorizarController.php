@@ -30,6 +30,10 @@ class AutorizarController extends Zend_Controller_Action{
             echo "hola";
             $this->_redirect('/inicio/logistica');
             break;
+        case "3": 
+            echo "hola";
+            $this->_redirect('/inicio/financiera');
+            break;
         case "4":
             $this->_redirect('/inicio/departamento');
             break;

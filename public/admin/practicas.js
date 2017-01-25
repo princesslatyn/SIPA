@@ -135,7 +135,7 @@ $(practicas.init);
  // función para agregar el docente responsable...
  $('#fac').on('change', function(){
      var nombre= $('#nombre').val();
-     console.log(nombre);
+    // console.log(nombre);
      
     var ajax= $.get('/Practicas/obtenerdocente', {nombre:nombre});
         ajax.done(function(data){
@@ -144,7 +144,7 @@ $(practicas.init);
           for(var i=0; i<data.length; i++){
         //console.log(data);
         //agregar contenido al selector
-        $('#nombre').append('<option value="'+data[i]['ape_empl']+'" selected="selected">'+data[i]['ape_empl']+'</option>'), ('<option value="'+data[i]['nom_empl']+'" selected="selected">'+data[i]['nom_empl']+'</option>');
+        $('#nombre').append('<option value="'+data[i]['ape_empl']+''+data[i]['nom_empl']+'" selected="selected">'+data[i]['ape_empl']+''+data[i]['nom_empl']+'</option>');
         
         } 
         // $('#nombre').trigger('click');
@@ -431,7 +431,7 @@ $(practicas.init);
         
            //Validación De campos Vacios
            var valid= true;
-           console.log(data);
+          // console.log(data);
            if(data.step==1){
           
          // var calendario= $('#cal').val();    
@@ -476,15 +476,15 @@ $(practicas.init);
           // console.log(fecha_inicial);
            var fecha_final= $('#lle').val();
             var dias= practicas.calcularDias(fecha_inicial, fecha_final)+1;   
-            
-           if(dias > 0){
+           
+              if(dias > 0 || fecha_inicial == fecha_final){
                console.log(dias);
                
            }else{
                evt.preventDefault();
                valid = false;
              alert('Las fechas son incorrectas'); 
-           }   
+           } 
            
            var lugar= $('#lug').val();
            if(lugar != ""){
@@ -743,6 +743,7 @@ practicas.isValidDate= function (day,month,year){
      
      var id=$('#cod_practica').val();
 // console.log(facultad_id);
+       
 
  var ajax= $.post('/practicas/actualizarpractica', {datos:datos, programacion:programacion, id:id});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..

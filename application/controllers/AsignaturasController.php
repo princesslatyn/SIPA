@@ -94,6 +94,7 @@ class AsignaturasController extends Zend_Controller_Action
       $this->view->headLink()->appendStylesheet('/css/facultad.css');
       $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
       $this->view->headScript()->appendFile('/js/facultad.js');
+      $this->view->headScript()->appendFile('/bootstrap/js/moment.min.js'); 
       $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
       $this->view->headScript()->appendFile('/admin/materias.js');
       $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
