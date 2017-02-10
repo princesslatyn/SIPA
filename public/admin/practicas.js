@@ -76,10 +76,10 @@ $(practicas.init);
           for(var i=0; i<data.length; i++){
         // console.log(data);
         //agregar contenido al selector
-        $('#sem').append('<option value="'+data[i]['Semestre']+'" selected="selected">'+data[i]['Semestre']+'</option>');
+        $('#sem').append('<option value="'+data[i]['sem']+'" selected="selected">'+data[i]['sem']+'</option>');
         }  
        //EVENTO PARA SIMILAR ENTREDA DEL USUARIO
-      
+       $('#sem').trigger('change');
     });
  });
  //Obtener las asignaturas
@@ -103,20 +103,43 @@ $(practicas.init);
           for(var i=0; i<data.length; i++){
         // console.log(data);
         //agregar contenido al selector
-        $('#asigna').append('<option value="'+data[i]['Id_Asignatura']+'" selected="selected">'+data[i]['Asignatura']+'</option>');
+        $('#asigna').append('<option value="'+data[i]['id_asigna']+'" selected="selected">'+data[i]['asigna']+'</option>');
         }  
        //EVENTO PARA SIMULAR ENTREDA DEL USUARIO
-    //  $('#sem').trigger('change');
+         $('#asigna').trigger('change');
       // $('#pro').trigger('change');
     });
  });
- //Evento para obtener los matriculados
+ //Evento para obtener los grupos de las asignatura escogida
   $('#asigna').on('change', function(){
     var asignatura= $('#asigna').val();  
    
-    console.log(asignatura);
+   // console.log(asignatura);
     
-    var ajax= $.get('/Practicas/obtenermatriculados', {asignatura:asignatura});
+    var ajax= $.get('/Practicas/obtenergrupos', {asignatura:asignatura});
+    ajax.done(function(data){
+      // console.log(data);
+        //limpiar el contenido del selector
+         $('#gru').html('');
+        //declaro una variable
+        
+          for(var i=0; i<data.length; i++){
+       // console.log(data);
+        //agregar contenido al selector
+        $('#gru').append('<option value="'+data[i]['gru']+'" selected="selected">'+data[i]['gru']+'</option>');
+        }  
+       //EVENTO PARA SIMULAR ENTREDA DEL USUARIO
+       $('#gru').trigger('change');
+     
+    });
+ }); 
+ //Evento para obtener los matriculados
+  $('#gru').on('change', function(){
+    var grupo= $('#gru').val();  
+   
+    console.log(grupo);
+    
+    var ajax= $.get('/Practicas/obtenermatriculados', {grupo:grupo});
     ajax.done(function(data){
       // console.log(data);
         //limpiar el contenido del selector
@@ -126,30 +149,13 @@ $(practicas.init);
           for(var i=0; i<data.length; i++){
        // console.log(data);
         //agregar contenido al selector
-        $('#num').append('<option value="'+data[i]['Matriculados']+'" selected="selected">'+data[i]['Matriculados']+'</option>');
+        $('#num').append('<option value="'+data[i]['mat']+'" selected="selected">'+data[i]['mat']+'</option>');
         }  
        //EVENTO PARA SIMULAR ENTREDA DEL USUARIO
-     // $('#asigna').trigger('change');
+       $('#num').trigger('change');
     });
  }); 
- // función para agregar el docente responsable...
- $('#fac').on('change', function(){
-     var nombre= $('#nombre').val();
-    // console.log(nombre);
-     
-    var ajax= $.get('/Practicas/obtenerdocente', {nombre:nombre});
-        ajax.done(function(data){
-      // console.log(data);
-         $('#nombre').html('');
-          for(var i=0; i<data.length; i++){
-        //console.log(data);
-        //agregar contenido al selector
-        $('#nombre').append('<option value="'+data[i]['ape_empl']+''+data[i]['nom_empl']+'" selected="selected">'+data[i]['ape_empl']+''+data[i]['nom_empl']+'</option>');
-        
-        } 
-        // $('#nombre').trigger('click');
-    });
- });
+
  
  
      //Evento en el Boton
@@ -441,6 +447,7 @@ $(practicas.init);
           var programa= $('#pro').val();
           var semestre= $('#sem').val();
           var asignatura= $('#asigna').val();
+          var grupo= $('#gru').val();
           var numero_est= $('#num').val();
           var practica= $('#nom').val();
           var tipo= $('#tipo').val();
@@ -459,7 +466,7 @@ $(practicas.init);
                valid = false;
              alert('Por Favor Diligencie el campo'); 
           } */
-          if(solicitante != "" && facultad != "" && departamento != "" && programa != "" && semestre != "" && asignatura != "" && numero_est > 0 && practica != "" && tipo != "" && objetivo != "" && justificacion != "" && des_docente != "" && des_estudiante != ""){
+          if(solicitante != "" && facultad != "" && departamento != "" && programa != "" && semestre != "" && asignatura != "" && grupo != "" && numero_est != "" && practica != "" && tipo != "" && objetivo != "" && justificacion != "" && des_docente != "" && des_estudiante != ""){
           //  console.log(); 
             
           }else{
@@ -501,6 +508,9 @@ $(practicas.init);
             var fecha= practicas.sumaFecha(1, fecha_inicial);
             console.log(fecha);
             var tmp= fecha_final;
+            if(fecha_inicial == fecha_final){
+                dias = 1;
+            }
             for(i=0; i< dias; i++){
              if(i==0){
                
@@ -515,7 +525,25 @@ $(practicas.init);
              }else{
                  fecha_final= "";
              }
-             datatable.row.add ([
+             if(fecha_inicial == fecha_final){
+              datatable.row.add ([
+              i+1,
+              "",
+              "",
+              fecha_inicial,
+              lugar,
+              "",
+             fecha_final,
+             "",
+             "",
+             "",
+             "",
+             "",
+          '<td><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>'    
+             ]).draw();
+             }
+             else{
+                 datatable.row.add ([
               i+1,
               "",
               "",
@@ -530,6 +558,8 @@ $(practicas.init);
              "",
           '<td><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>'    
              ]).draw();
+             }
+             
            
             }
           }
@@ -538,6 +568,7 @@ $(practicas.init);
                   $('#rep_cal').html($('#cal option:selected').html());
                   $('#rep_docente').html($('#nombre').val());
                   $('#rep_asig').html($('#asigna option:selected').html());
+                  $('#rep_gru').html($('#gru option:selected').html());
                   $('#rep_numest').html($('#num').val());
                   $('#rep_nompr').html($('#nom').val());
                   $('#rep_obj').html($('#obj').val());
@@ -696,6 +727,9 @@ practicas.isValidDate= function (day,month,year){
 			// obtenemos las fechas en milisegundos
 			var dateStart=new Date(inicial[2],(inicial[1]-1),inicial[0]);
             var dateEnd=new Date(final[2],(final[1]-1),final[0]);
+            console.log(dateStart - dateEnd);
+            console.log(dateStart);
+            console.log(dateEnd);
             if(dateStart<dateEnd)
             {
 				// la diferencia entre las dos fechas, la dividimos entre 86400 segundos
@@ -703,9 +737,19 @@ practicas.isValidDate= function (day,month,year){
 				// trabajando con milisegundos.
 				resultado=(((dateEnd-dateStart)/86400)/1000);
 			}else{
-				resultado="La fecha inicial es posterior a la fecha final";
+                            if(dateStart - dateEnd == 0){
+                                resultado = 1;
+                            }
+                            else{
+                                resultado="La fecha inicial es posterior a la fecha final";
+                            }
+				
 			}
 		}else{
+                    if(dateStart - dateEnd == 0){
+                                resultado = 1;
+                            }
+                           
 			if(!practicas.validate_fecha(fechaInicial))
 				resultado="La fecha inicial es incorrecta";
 			if(!practicas.validate_fecha(fechaFinal))

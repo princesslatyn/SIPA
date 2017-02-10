@@ -3,6 +3,7 @@ var usuarios={};
 usuarios.init = function(){
   //console.log('Hola Kami'); 
 usuarios.agregarusuario();
+usuarios.agregarusurdep();
 usuarios.editarusuario();
 usuarios.eliminarusuario();
 usuarios.resetearcontrasena();
@@ -61,11 +62,75 @@ $(usuarios.init);
     
     //Metodo Para enviar los datos al controlador
  // var ajax= 
-         $.post('/usuarios/guardarusuario', {nom:nom, ape:ape, ide:ide, correo:correo, usuario:usuario, pass:pass, programa:programa, rol:rol});  
+      var ajax= $.post('/usuarios/guardarusuario', {nom:nom, ape:ape, ide:ide, correo:correo, usuario:usuario, pass:pass, programa:programa, rol:rol});  
      
-   // ajax.done(function(){
+    ajax.done(function(){
       window.location='/usuarios/listarusuario';   
-    // }); 
+     }); 
+    }
+    }); 
+ 
+    
+} 
+usuarios.agregarusurdep = function(){
+    //Validación de que los campos no se vayan vacios
+    $( "#usu" ).validate({
+  rules: {
+    nom: {
+      required: true 
+       },
+       ape:{
+       required: true    
+       },
+       ide:{
+       required: true    
+       },
+       correo:{
+       required: true    
+       },
+       usuario:{
+       required: true    
+       },
+       pass:{
+       required: true    
+       },
+       rol:{
+       required: true    
+       }
+      }
+   });
+  //on hace la asignación de un evento..
+    $('#agregar').on('click', function(){
+        //console.log('Hola')
+    if($('#usu').valid()){
+    //Declaro las variables que se van a enviar por ajax  
+    var nom= $('#nom').val();
+    console.log(nom);
+    var ape= $('#ape').val();
+    console.log(ape);
+    var ide= $('#ide').val();
+    console.log(ide);
+    var correo= $('#correo').val();
+    console.log(correo);
+    var usuario= $('#usuario').val();
+    console.log(usuario);
+    var pass= $('#pass').val();
+    console.log(pass);
+    var rol= $('#rol').val();
+    console.log(rol);
+    //console.log(facultad);
+    //val me devuelve el elemento que esta en el id de la función  (extrae el valor del input)
+    // #facultad valor del input
+    // facultad variable donde se guarda los datos 
+    //console.log(programa);
+    
+    //Metodo Para enviar los datos al controlador
+ // var ajax= 
+      var ajax= $.post('/usuarios/guardaruserdep', {nom:nom, ape:ape, ide:ide, correo:correo, usuario:usuario, pass:pass, rol:rol});  
+     
+    ajax.done(function(){
+      window.location='/usuarios/listarusuario';   
+     }); 
     }
     }); 
  

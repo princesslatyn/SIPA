@@ -3,6 +3,10 @@
 <br>
 
 <div class="fuelux">
+    <a href="/practicas/listarpractica">
+        <button type="button"  class="btn btn-default"> Inicio
+        <span class="glyphicon glyphicon-arrow-right"></span></button></a>   
+         <br>
     <h2>EDITAR  PRÁCTICAS ACADÉMICAS</h2> 
 <div class="wizard" data-initialize="wizard" id="myWizard">   
 <div class="steps-container">
@@ -41,7 +45,7 @@
         <label> Calendario </label>
         <select class="form-control" id="cal" name="cal" data-calendario="<?php echo $this->practicas[0]['id_calendario']['id'];?>"  style="cursor:pointer;">
          <?php foreach ($this->calendario as $calendario) {?>
-          <option  value="<?php echo $calendario['id'];?>"><?php echo $calendario['annio']; ?>&nbsp;<?php echo $calendario['periodo']; ?></option>
+          <option  value="<?php echo $calendario['id']['id_annio'];?>"><?php echo $calendario['id_annio']['annio']; ?>&nbsp;<?php echo $calendario['id_periodo']['periodo'];?></option>
          <?php }?>
         </select>       
         </div>       

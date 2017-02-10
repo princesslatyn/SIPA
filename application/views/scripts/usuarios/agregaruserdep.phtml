@@ -1,6 +1,6 @@
 
 <div class="container col-sm-4 col-md-6 col-lg-9" style="margin-top: 20px;">
-<h3 class=""> Agregar Usuario</h3>     
+<h3 class=""> Agregar Usuario de las Dependencias</h3>     
 <br>
 <div class="panel panel-default">  
 <div class="panel-heading"> Datos del Usuario</div>   
@@ -52,17 +52,7 @@
       </div>    
       </div>
      <div class="row"> 
-     <br>
-      <div class="col-lg-6"> 
-      <div class="form-group">
-      <label>Nombre del Programa</label> 
-       <select class="form-control" id="programa" name="programa" style="cursor:pointer;">
-           <?php foreach ($this->programas as $datos) {?>
-          <option  value="<?php echo $datos['id']; ?>"><?php echo htmlentities(utf8_encode($datos['nombre']));?></option>
-          <?php }?> 
-       </select>
-      </div>    
-      </div> 
+     <br> 
       <div class="col-lg-6"> 
       <div class="form-group">
       <label>Rol</label> 

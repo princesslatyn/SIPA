@@ -82,6 +82,13 @@ class Application_Model_Practicas {
      * @JoinColumn(name="id_calendario", referencedColumnName="id")
      */
     private $id_calendario;
+        /**
+     * Bidirectional - Many users have Many favorite comments (OWNING SIDE)
+     *
+     * @ManyToOne(targetEntity="Application_Model_Grupo")
+     * @JoinColumn(name="id_grupo", referencedColumnName="id_grupo")
+     */
+    private $id_grupo;
 
 
 
@@ -145,6 +152,9 @@ class Application_Model_Practicas {
     }
     public function setid_calendario($cal){
         $this->id_calendario= $cal;
+    }
+    public function setid_grupo($gru){
+        $this->id_grupo= $gru;
     }
 
     public function __construct() {

@@ -3,6 +3,7 @@
 class UsuariosController extends Zend_Controller_Action
 {
     private $em;
+    private $pw;
 
 
     public function init()
@@ -10,6 +11,7 @@ class UsuariosController extends Zend_Controller_Action
         // Activar el Entity Manager
         $registry = Zend_Registry::getInstance();
         $this->em = $registry->entitymanager;
+        $this->pw= $registry->powercampus_connection;
         
         $this->_helper->layout->setLayout('admin');
      //  $this->_helper->layout->setLayout('prueba'); 
@@ -28,7 +30,7 @@ class UsuariosController extends Zend_Controller_Action
     public function agregarusuarioAction()
     { 
        //Consulta dql para listar las facultades
-        $dql1 ="select p from Application_Model_Programas p";
+       /** $dql1 ="select p from Application_Model_Programas p";
         
         // Ejecutar el Query, la variable query es donde se carga la consulta.
         $query1 = $this->em->createQuery($dql1);
@@ -39,7 +41,61 @@ class UsuariosController extends Zend_Controller_Action
         //Imprimir en la pagina lo que esta en la variable en este caso facultades
        // var_dump($facultades);
         //Pasarle a la Vista la informción de la facultad
-        $this->view->programas= $programas;
+        $this->view->programas= $programas; */
+        
+            //preparo la consulta de power campus a programas
+         $sql = "SELECT DISTINCT ID_Programa AS id, Programa AS nombre FROM V_Programas  ORDER BY Programa";
+          $stmt = sqlsrv_query( $this->pw, $sql );
+         $datos = array();
+          while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+           $datos[]= $row;   
+         // echo $row['ID'].", ".$row['Facultad']."<br />";
+         //var_dump($row);
+       }
+      // var_dump($datos);
+       sqlsrv_free_stmt( $stmt);
+        
+         $this->view->programas= $datos;  
+        
+        //
+        //Consulta dql para listar las facultades
+        $dql2 ="select r from Application_Model_Roles r";
+        
+        // Ejecutar el Query, la variable query es donde se carga la consulta.
+        $query2 = $this->em->createQuery($dql2);
+        
+        //Resultados de la consulta en un Vector, en este caso en Array
+      $roles = $query2->getArrayResult();
+        
+        //Imprimir en la pagina lo que esta en la variable en este caso facultades
+       // var_dump($facultades);
+        //Pasarle a la Vista la informción de la facultad
+        $this->view->roles= $roles;
+        
+        
+     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
+     $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
+     $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
+     $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
+     $this->view->headLink()->appendStylesheet('/css/facultad.css');
+//     $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.css.map');
+     $this->view->headScript()->appendFile('/js/fuelux.min.js');
+     $this->view->headScript()->appendFile('/js/wizard.js');
+     $this->view->headScript()->appendFile('/bootstrap/js/moment.min.js');   
+     $this->view->headScript()->appendFile('/bootstrap/js/bootstrap-datepicker.js');      
+     $this->view->headScript()->appendFile('/bootstrap/js/datepicker.es.min.js');
+     $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');
+     $this->view->headScript()->appendFile('/js/bootstrap-modal.js');
+     $this->view->headScript()->appendFile('/js/practica.js');
+     $this->view->headScript()->appendFile('/admin/usuarios.js');
+     $this->view->headScript()->appendFile('/validacion/jquery.validate.min.js');
+     $this->view->headScript()->appendFile('/validacion/localization/messages_es.min.js');
+     $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
+    }
+    
+    public function agregaruserdepAction()
+    { 
+       
         //
         //Consulta dql para listar las facultades
         $dql2 ="select r from Application_Model_Roles r";
@@ -120,14 +176,15 @@ class UsuariosController extends Zend_Controller_Action
      $this->_helper->viewRenderer->setNoRender(TRUE);
      
     
-          //$usuario recibe los datos que se les pasa por petición ajax
+     try {
+               //$usuario recibe los datos que se les pasa por petición ajax
      $nom =$this->_getParam('nom');
      $ape =$this->_getParam('ape');
      $ide =$this->_getParam('ide');
      $correo =$this->_getParam('correo');
      $usuario =$this->_getParam('usuario');
      $pass =$this->_getParam('pass');
-     var_dump($pass);
+     //var_dump($pass);
      $programa =$this->_getParam('programa');
      $rol =$this->_getParam('rol');
       // var_dump($facultad);
@@ -140,8 +197,60 @@ class UsuariosController extends Zend_Controller_Action
      $usuario_objeto->setcorreo($correo);
      $usuario_objeto->setusuario(htmlentities($usuario));
      $usuario_objeto->setcontrasena(hash('sha256', $pass));
-     $usuario_objeto->setcod_programa($this->em->getRepository('Application_Model_Programas')->find($programa));
+     $usuario_objeto->setcod_progra_power($programa);
      $usuario_objeto->setid_rol($this->em->getRepository('Application_Model_Roles')->find($rol));
+         
+     } catch (Exception $e) {
+         echo $e->getMessage();
+         
+     }
+     // Almacena en el objecto la usuario que tiene el id..
+    // var_dump($usuario_objeto);     
+    //da la orden de guardar...
+   $this->em->persist($usuario_objeto);
+     //Ejecuta la Orden de guardar..
+     $this->em->flush(); 
+     
+     //capturar excepciones
+   /**  try {
+     } catch (Exception $e) {
+         echo $e->getMessage();
+     } */
+     
+   }
+   public function guardaruserdepAction(){
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+     $this->_helper->layout->disableLayout();
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+     $this->_helper->viewRenderer->setNoRender(TRUE);
+     
+    
+     try {
+               //$usuario recibe los datos que se les pasa por petición ajax
+     $nom =$this->_getParam('nom');
+     $ape =$this->_getParam('ape');
+     $ide =$this->_getParam('ide');
+     $correo =$this->_getParam('correo');
+     $usuario =$this->_getParam('usuario');
+     $pass =$this->_getParam('pass');
+     //var_dump($pass);
+     $rol =$this->_getParam('rol');
+      // var_dump($facultad);
+         // Instancia del modelo Facultades. crea una facultad automatico..
+     $usuario_objeto = new Application_Model_Usuarios();
+     //la instancia le asigna una facultad, hacer el nombre de la facultad..
+     $usuario_objeto->setnombre(htmlentities($nom));
+     $usuario_objeto->setapellidos(htmlentities($ape));
+     $usuario_objeto->setidentificacion($ide);
+     $usuario_objeto->setcorreo($correo);
+     $usuario_objeto->setusuario(htmlentities($usuario));
+     $usuario_objeto->setcontrasena(hash('sha256', $pass));
+     $usuario_objeto->setid_rol($this->em->getRepository('Application_Model_Roles')->find($rol));
+         
+     } catch (Exception $e) {
+         echo $e->getMessage();
+         
+     }
      // Almacena en el objecto la usuario que tiene el id..
     // var_dump($usuario_objeto);     
     //da la orden de guardar...

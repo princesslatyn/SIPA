@@ -138,10 +138,16 @@ class Application_Model_Practicas extends \Application_Model_Practicas implement
         return parent::setid_calendario($cal);
     }
 
+    public function setid_grupo($gru)
+    {
+        $this->__load();
+        return parent::setid_grupo($gru);
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'cod_practica', 'nombre', 'num_estudiantes', 'nom_solicitante', 'justificacion', 'objetivo', 'actividad_doc', 'actividad_est', 'tipo_practica', 'fecha_registro', 'semestre', 'departamento', 'programaciones', 'cod_asignatura', 'id_facultad', 'id_programa', 'id_calendario');
+        return array('__isInitialized__', 'cod_practica', 'nombre', 'num_estudiantes', 'nom_solicitante', 'justificacion', 'objetivo', 'actividad_doc', 'actividad_est', 'tipo_practica', 'fecha_registro', 'semestre', 'departamento', 'programaciones', 'cod_asignatura', 'id_facultad', 'id_programa', 'id_calendario', 'id_grupo');
     }
 
     public function __clone()

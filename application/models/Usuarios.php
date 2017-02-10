@@ -53,6 +53,9 @@ class Application_Model_Usuarios {
      */
   private $cod_programa;
   
+   /** @Column(type="string", length=100) */
+    private $cod_progra_power;
+  
   public function setid_usuario($idusuario){
       $this->id_usuario= $idusuario;
   }
@@ -85,5 +88,8 @@ class Application_Model_Usuarios {
   }
   public function setcod_programa($cod){
       $this->cod_programa= $cod; 
+  }
+  public function setcod_progra_power($power){
+      $this->cod_progra_power= $power;
   }
 }

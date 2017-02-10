@@ -21,23 +21,43 @@ class AutorizarController extends Zend_Controller_Action{
     $authNamespace = new Zend_Session_Namespace('Zend_Auth');
     
     //Creo un swich para que me controle todas los roles
-  // var_dump($authNamespace->usuarios[0]['id_rol']['id_rol']);
+   // var_dump($authNamespace->usuarios[0]['id_rol']['id_rol']);
     switch ($authNamespace->usuarios[0]['id_rol']['id_rol']){
-        case "1": 
-            $this->_redirect('/inicio/admin');
+       case "1": 
+           $this->_redirect('/inicio/admin');
             break;
         case "2": 
             echo "hola";
-            $this->_redirect('/inicio/logistica');
+           $this->_redirect('/inicio/logistica');
             break;
         case "3": 
             echo "hola";
-            $this->_redirect('/inicio/financiera');
+           $this->_redirect('/inicio/financiera');
             break;
         case "4":
+            try {
+             $id_usuario = $authNamespace->usuarios[0]['id_usuario'];
+            $dql="select u, r from Application_Model_Usuarios u  join u.id_rol r where u.id_usuario=:usuario";
+            //creo el query con la consulta..
+            $query = $this->em->createQuery($dql);
+            $query->setParameter('usuario', $id_usuario);
+           //resultados de la consulta
+           $cod_programa= $query->getArrayResult();
+           // var_dump($cod_programa);
+           $authNamespace->programa= $cod_programa;
             $this->_redirect('/inicio/departamento');
-            break;
+            
+                
+            } catch (Exception $ex) {
+                echo $ex->getMessage();
+                
+            }
+            break; 
+        
     }
+    //hago un condiconal para saber cual es el
+    
+    //que voy a consultar
     
   
           

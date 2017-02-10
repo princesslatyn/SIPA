@@ -59,12 +59,15 @@ class LoginController extends Zend_Controller_Action
      //Obtengo el resultado del query
      $usuarios = $query->getArrayResult();
      var_dump(count($usuarios));
+      
      
     if(count($usuarios)== 1){
        echo 'Datos Ingresados Correctos';
     //Inicio sesión cuando los datos sean correctos   
+       
     $authNamespace = new Zend_Session_Namespace('Zend_Auth');
-    $authNamespace->usuarios = $usuarios;
+    $authNamespace->usuarios = $usuarios; 
+    var_dump($usuarios);
        
        
     } else {
