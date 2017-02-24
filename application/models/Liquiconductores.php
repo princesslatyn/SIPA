@@ -25,7 +25,7 @@ class Application_Model_Liquiconductores {
      /** @Column(type="string", length=256) */
     private $imprevistos;
     
-     /** @Column(type="string", length=256) */
+     /** @Column(type="string", length=50) */
     private $pagado;
     
      /** @Column(type="string", length=50) */
@@ -55,14 +55,6 @@ class Application_Model_Liquiconductores {
      * @JoinColumn(name="id_conductor", referencedColumnName="id_conductor")
      */
     private $id_conductor;
-    
-     /**
-     * Bidirectional - Many users have Many favorite comments (OWNING SIDE)
-     *
-     * @ManyToOne(targetEntity="Application_Model_Practicas")
-     * @JoinColumn(name="cod_practica", referencedColumnName="cod_practica")
-     */
-    private $cod_practica;
     
       /**
      * Bidirectional - Many users have Many favorite comments (OWNING SIDE)

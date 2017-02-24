@@ -1,5 +1,5 @@
 <div class="row col-sm-4 col-md-6 col-lg-9" style="margin-top: 10px;">
-    <h3>Liquidación de Prácticas</h3>
+    <h3>Programación de las Prácticas</h3>
     <br>
         <table id="example" class="display" cellspacing="0" width="100%">
         <thead>
@@ -9,7 +9,7 @@
                 <th>Fecha llegada</th>
                 <th>pasajeros</th>
                 <th>Docente</th>
-                <th>Codigo Práctica</th>
+                <th>Codigo Programación</th>
                 <th>Acciones</th>
                 
             </tr>
@@ -21,7 +21,7 @@
                 <th>Fecha llegada</th>
                 <th>pasajeros</th>
                 <th>Docente</th>
-                <th>Codigo Práctica</th>
+                <th>Codigo Programación</th>
                 <th>Acciones</th>
             </tr>
         </tfoot>
@@ -33,8 +33,8 @@
                 <td><?php echo $programacion ['fecha_llegada']->format('Y-m-d h:i:s');?></td>
                 <td><?php echo $programacion ['num_pasajeros'];?></td>
                 <td><?php echo $programacion ['cod_practica']['nom_solicitante'];?></td>
-                <td><?php echo $programacion ['cod_practica']['cod_practica'];?></td>
-                <td><a href="/liquiconductor/agregarliquiconductor/id/<?php echo $programacion ['codigo_prog'];?> "><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a></td>
+                <td><?php echo $programacion ['codigo_prog'];?></td>
+                <td><a href="/liquiconductor/agregarliquiconductor/id/<?php echo $programacion ['codigo_prog'];?> "><i class="fa fa-pencil-square" style="font-size:18px;color:#5cb85c;cursor:pointer;"></i></a></td>
             </tr> 
             <?php }?>
         </tbody>

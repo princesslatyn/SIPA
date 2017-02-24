@@ -6,14 +6,16 @@
             <tr>
               
                
-                <th>Cond</th>
-                <th>Ruta</th>
-                <th>Fac_sal</th>
-                <th>Fec_lle</th>
-                <th>vehi</th>
-                <th>doce</th>
-                <th>Pasa</th>
-                <th>Codigo</th>
+                <th>Combustible</th>
+                <th>Peajes</th>
+                <th>Viaticos</th>
+                <th>Imprevistos</th>
+                <th>Pagado</th>
+                <th>Fecha pago</th>
+                <th>Legalizado</th>
+                <th>Fecha_legalizado</th>
+                <th>Asignar Conductor</th>
+                <th>Asignar Vehiculo</th>
                 <th>Acciones</th>
                 
             </tr>
@@ -22,20 +24,31 @@
             <tr>
             
                 
-                <th>Cond</th>
-                <th>Ruta</th>
-                <th>Fac_sal</th>
-                <th>Fec_lle</th>
-                <th>vehi</th>
-                <th>doce</th>
-                <th>Pasa</th>
-                <th>Codigo</th>
+                <th>Combustible</th>
+                <th>Peajes</th>
+                <th>Viaticos</th>
+                <th>Imprevistos</th>
+                <th>Pagado</th>
+                <th>Fecha pago</th>
+                <th>Legalizado</th>
+                <th>Fecha_legalizado</th>
+                <th>Asignar Conductor</th>
+                <th>Asignar Vehiculo</th>
                 <th>Acciones</th>
             </tr>
         </tfoot>
         <tbody>
            <?php foreach ($this->facultades as $facultad) {?> 
             <tr>
+                <td><?php echo $facultad ['nombre'];?></td>
+                <td><?php echo $facultad ['nombre'];?></td>
+                <td><?php echo $facultad ['nombre'];?></td>
+                <td><?php echo $facultad ['nombre'];?></td>
+                <td><?php echo $facultad ['nombre'];?></td>
+                <td><?php echo $facultad ['nombre'];?></td>
+                <td><?php echo $facultad ['nombre'];?></td>
+                <td><?php echo $facultad ['nombre'];?></td>
+                <td><?php echo $facultad ['nombre'];?></td>
                 <td><?php echo $facultad ['nombre'];?></td>
                 <td><a href="/facultades/editarfacultad/id/<?php echo $facultad ['id_facultad'];?> "><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a>&nbsp;<a class="eliminar_facultad" data-facultad="<?php echo $facultad['id_facultad'];?>" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>
             </tr> 

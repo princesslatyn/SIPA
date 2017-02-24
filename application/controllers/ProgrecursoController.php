@@ -31,7 +31,7 @@ class ProgrecursoController extends Zend_Controller_Action
      $idrecurso =  $this->_getParam('idrecurso');
     // var_dump($idrecurso);
      
-     // Instancia del modelo Facultades. crea una facultad automatico..
+     // Instancia el modelo de programacion de recursos..
      $progrecurso_objeto = new Application_Model_Progrecursos();
      //la instancia le asigna una facultad, hacer el nombre de la facultad..
      $progrecurso_objeto->setvalor($valor);
@@ -47,7 +47,7 @@ class ProgrecursoController extends Zend_Controller_Action
          
      } catch (Exception $e) {
       
-         echo $e->getMessage();  
+       echo $e->getMessage();  
      } 
         
         
@@ -74,6 +74,45 @@ class ProgrecursoController extends Zend_Controller_Action
          
      }
            
+    }
+    public function visualizarprogrecursoAction(){
+       header('Content-Type: application/json');   
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+     $this->_helper->layout->disableLayout();
+     //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
+     $this->_helper->viewRenderer->setNoRender(TRUE);  
+     
+     $tipo_def=$this->_getParam('tipo_def');
+     
+//     var_dump($tipo_def);
+     
+     if($tipo_def != -1){
+         
+     
+     
+     $dql=sprintf("select r, re from Application_Model_Progrecursos r join r.id_recursos re where r.id_pro in (%s)", $tipo_def);
+     $query = $this->em->createQuery($dql);
+//     $query->setParameter('ids', $tipo_def);
+     
+     $recursos = $query->getArrayResult();
+//     var_dump($recursos);
+           //procesar array
+     $tmp = array();
+     foreach($recursos as $r){
+        $t = array();
+        $t['nombre'] = $r['id_recursos']['nombre'];
+        $t['valor'] = $r['valor'];
+        $t['id'] = $r['id_pro'];
+        $tmp[] = $t;
+     }
+    
+     $recursos = $tmp;     
+     }
+     else{
+         $recursos = array();
+     }
+     echo Zend_Json::encode($recursos);
+     
     }
 }
 

@@ -13,6 +13,9 @@ class Application_Model_Partirespos {
      */
     private $id_responsable;
     
+     /** @Column(type="string", length=256) */
+    private $viaticos;
+    
     /** @Column(type="string", length=256) */
     private $aux_estudiante;
     
@@ -58,6 +61,10 @@ class Application_Model_Partirespos {
 
 
     //Metodo Público
+    public function setviaticos($via){
+        $this->viaticos= $via;
+    } 
+     
     public function setaux_estudiante($aux){
     $this->aux_estudiante =$aux;
         

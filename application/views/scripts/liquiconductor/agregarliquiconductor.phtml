@@ -30,7 +30,7 @@
       </div>
       <div class="col-lg-6">    
       <div class="form-group">
-      <label for="input" class="">Imprevisto</label>           
+      <label for="input" class="">Imprevistos</label>           
       <input type="text" class="form-control" id="impre" name="impre"> 
       </div>    
       </div>    
@@ -43,22 +43,10 @@
       <select class="form-control" id="paga" name="paga" style="cursor:pointer;">
       <option>Trámite</option>
       <option>Pagado</option>
-      <option>cancelado la Práctica</option>   
+      <option>cancelada la Práctica</option>   
       </select> 
       </div>    
       </div>
-       <div class="col-lg-6">    
-      <div class="form-group">
-      <label for="input" class="">Legalizado</label>           
-      <select class="form-control" id="lega" name="lega" style="cursor:pointer;">
-      <option>Pago Realizado</option>
-      <option>Pago Sin Realizar</option>  
-      </select>
-      </div>    
-      </div>    
-      </div> 
-       <br>
-     <div class="row"> 
       <div class="col-lg-6">      
       <div class="form-group">
       <label for="input" class="">Fecha Pago</label>           
@@ -68,7 +56,19 @@
       </div>    
       </div> 
       </div>    
-      </div>
+      </div> 
+      </div> 
+       <br>
+     <div class="row"> 
+      <div class="col-lg-6">    
+      <div class="form-group">
+      <label for="input" class="">Legalizado</label>           
+      <select class="form-control" id="lega" name="lega" style="cursor:pointer;">
+      <option>Si</option>
+      <option>No</option>  
+      </select>
+      </div>    
+      </div> 
        <div class="col-lg-6">    
       <div class="form-group">
       <label for="input" class="">Fecha Legalizado</label>           
@@ -84,7 +84,7 @@
      <div class="row">
        <div class="col-lg-6">      
       <div class="form-group">
-      <label for="input" class="">Conductor</label>           
+      <label for="input" class="">Asignar Conductor</label>           
       <select class="form-control" id="condu" name="condu" style="cursor:pointer;">
        <?php foreach ($this->conductor as $conductor) {?>  
           <option  value="<?php echo $conductor['id_conductor'];?>"><?php echo $conductor['id_conductor']['nombre'];?><?php echo $conductor['nombre'];?> <?php echo $conductor['apellido'];?></option>
@@ -92,45 +92,9 @@
       </select> 
       </div>    
       </div>
-       <div class="col-lg-6">    
-      <div class="form-group">
-      <label for="input" class="">Ruta</label>           
-      <select class="form-control" id="ru" name="ru" style="cursor:pointer;">
-      <?php foreach ($this->programacion as $programacion) {?>  
-          <option  value="<?php echo $programacion['codigo_prog'];?>"><?php echo $programacion['recorrido'];?></option>
-         <?php }?> 
-      </select>
-      </div>    
-      </div> 
-      </div> 
-    <br>
-     <div class="row"> 
-       <div class="col-lg-6">      
-      <div class="form-group">
-      <label for="input" class="">Fecha Salida</label>           
-      <select class="form-control" id="sali" name="sali" style="cursor:pointer;">
-      <?php foreach ($this->programacion as $programacion) {?>  
-          <option  value="<?php echo $programacion['codigo_prog'];?>"><?php echo $programacion['fecha_salida']->format('Y-m-d h:i:s');?></option>
-         <?php }?> 
-      </select> 
-      </div>    
-      </div>
-       <div class="col-lg-6">    
-      <div class="form-group">
-      <label for="input" class="">Fecha llegada</label>           
-      <select class="form-control" id="llega" name="llega" style="cursor:pointer;">
-       <?php foreach ($this->programacion as $programacion) {?>  
-          <option  value="<?php echo $programacion['codigo_prog'];?>"><?php echo $programacion['fecha_llegada']->format('Y-m-d h:i:s');?></option>
-         <?php }?> 
-      </select>
-      </div>    
-      </div> 
-      </div> 
-    <br>
-     <div class="row">
       <div class="col-lg-6">      
       <div class="form-group">
-      <label for="input" class="">Vehiculo</label>           
+      <label for="input" class="">Asignar Vehiculo</label>           
       <select class="form-control" id="veh" name="veh" style="cursor:pointer;">
        <?php foreach ($this->transporte as $transporte) {?>  
           <option  value="<?php echo $transporte['cod_transporte'];?>"><?php echo $transporte['cod_transporte']['placa'];?><?php echo $transporte['placa'];?></option>
@@ -138,64 +102,19 @@
       </select>
       </div>    
       </div>
-       <div class="col-lg-6">    
+      </div>    
+      <div class="row">
+      <div class="col-lg-6">      
       <div class="form-group">
-      <label for="input" class="">Docente</label>           
-      <select class="form-control" id="docent" name="docent" style="cursor:pointer;">
-       <?php foreach ($this->programacion as $programacion) {?>  
-          <option  value="<?php echo $programacion['codigo_prog'];?>"><?php echo $programacion['codigo_prog']['cod_practica'];?><?php echo $programacion['cod_practica']['nom_solicitante'];?></option>
+      <label for="input" class="">Codigo de programación</label>           
+      <select class="form-control" id="veh" name="veh" style="cursor:pointer;">
+       <?php foreach ($this->transporte as $transporte) {?>  
+          <option  value="<?php echo $transporte['cod_transporte'];?>"><?php echo $transporte['cod_transporte']['placa'];?><?php echo $transporte['placa'];?></option>
          <?php }?> 
       </select>
       </div>    
-      </div> 
-     </div>   
-      <br>
-     <div class="row">
-      <div class="col-lg-6">      
-      <div class="form-group">
-      <label for="input" class="">Facultad</label>           
-      <select class="form-control" id="fa" name="fa" style="cursor:pointer;">
-      <?php foreach ($this->practicas as $practicas) {?>  
-      <option  value="<?php echo $practicas['cod_practica'];?>"><?php echo $practicas['cod_practica']['id_facultad'];?><?php echo $practicas['id_facultad']['nombre'];?></option>
-      <?php }?>
-      </select> 
       </div>    
       </div>
-       <div class="col-lg-6">    
-      <div class="form-group">
-      <label for="input" class="">Programa</label>           
-      <select class="form-control" id="pr" name="pr" style="cursor:pointer;">
-       <?php foreach ($this->practicas as $practicas) {?>  
-      <option  value="<?php echo $practicas['cod_practica'];?>"><?php echo $practicas['cod_practica']['id_programa'];?><?php echo $practicas['id_programa']['nombre'];?></option>
-      <?php }?>
-      </select>
-      </div>    
-      </div> 
-      </div> 
-        <br>
-     <div class="row">
-      <div class="col-lg-6">      
-      <div class="form-group">
-      <label for="input" class="">Pasajeros</label>           
-      <select class="form-control" id="pasaje" name="pasaje" style="cursor:pointer;">
-      <?php foreach ($this->programacion as $programacion) {?>  
-      <option  value="<?php echo $programacion['codigo_prog'];?>"><?php echo $programacion['num_pasajeros'];?></option>
-      <?php }?>   
-      </select> 
-      </div>    
-      </div>
-       <div class="col-lg-6">    
-      <div class="form-group">
-      <label for="input" class="">Codigo Práctica</label>           
-      <select class="form-control" id="co" name="co" style="cursor:pointer;">
-       <?php foreach ($this->practica as $practica) {?>  
-          <option  value="<?php echo $practica['cod_practica'];?>"><?php echo $practica['cod_practica'];?><?php echo $practica['cod_practica']['cod_practica'];?></option>
-         <?php }?> 
-      </select>
-      </div>    
-      </div> 
-      </div> 
-      
 </form>
  
 </div>

@@ -22,8 +22,9 @@ class RutasController extends Zend_Controller_Action
        // para que todo lo que este dentro de este metodo se ejecute en todas las Vistas..
     }
     
-    public function agregarrutaAction()
-    { 
+    public function agregarrutaAction(){ 
+      
+        
      $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
@@ -60,6 +61,7 @@ class RutasController extends Zend_Controller_Action
        // var_dump($facultades);
         //Pasarle a la Vista la informción de la facultad
         $this->view->rutas= $rutas;
+   
         
       
       $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
@@ -81,10 +83,13 @@ class RutasController extends Zend_Controller_Action
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->viewRenderer->setNoRender(TRUE);
      
-     //Rcibo los datos por petición ajax
+     try {
+            //Rcibo los datos por petición ajax
      $origen =$this->_getParam('origen');  
      $destino =$this->_getParam('destino');  
      $ruta =$this->_getParam('ruta');  
+     $sitio= $this->_getParam('sitio');
+    // var_dump($sitio);
      //var_dump($facultad);
      
      // Instancia del modelo Facultades. crea una facultad automatico..
@@ -93,20 +98,28 @@ class RutasController extends Zend_Controller_Action
      $ruta_objeto->setorigen($origen);
      $ruta_objeto->setdestino($destino);
      $ruta_objeto->setruta($ruta);
+     $ruta_objeto->setsitio($sitio);
      //da la orden de guardar...
      $this->em->persist($ruta_objeto);
      //Ejecuta la Orden de guardar..
-     $this->em->flush();   
+     $this->em->flush(); 
+         
+     } catch (Exception $e){
+         echo $e->getMessage();
+     }  
         
         
     }
      public function editarrutaAction() { 
       
+          $id= $this->_getParam('id');   
+         
          //Realizo la consulta para obtener el codigo de la facultad...
-         $dql= "select r from Application_Model_Rutas r";
+         $dql= "select r from Application_Model_Rutas r where r.cod_ruta=:ruta";
          //Crear el query para que se guarde la consulta...
          $query= $this->em->createQuery($dql);
          //Se guarde el id de facultad..
+         $query->setParameter('ruta', $id);
          //muestre el resultado en un array...
          $rutas =$query->getArrayResult();
         // var_dump($facultad);     
@@ -144,7 +157,8 @@ class RutasController extends Zend_Controller_Action
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->viewRenderer->setNoRender(TRUE);
      
-     //Recibir id como parametro
+     try {
+          //Recibir id como parametro
      $id= $this->_getParam('id');   
      //Se hace un condicional que el id es mayor que cero
      if($id>0){
@@ -153,7 +167,8 @@ class RutasController extends Zend_Controller_Action
       //Rcibo los datos por petición ajax
      $origen =$this->_getParam('origen');  
      $destino =$this->_getParam('destino');  
-     $ruta =$this->_getParam('ruta');  
+     $ruta =$this->_getParam('ruta'); 
+     $sitio= $this->_getParam('sitio');
      //var_dump($facultad);
      
      // Almacena en el objecto la facultad que tiene el id..
@@ -162,10 +177,16 @@ class RutasController extends Zend_Controller_Action
      $ruta_objeto->setorigen($origen);
      $ruta_objeto->setdestino($destino);
      $ruta_objeto->setruta($ruta);
+     $ruta_objeto->setsitio($sitio);
      //da la orden de guardar...
-     $this->em->persist($ruta_objeto);
+  //   $this->em->persist($ruta_objeto);
      //Ejecuta la Orden de guardar..
-     $this->em->flush();     
+  //   $this->em->flush();     
+     }
+         
+     } catch (Exception $e) {
+        echo $e->getMessage(); 
+         
      }
      $this->view->headScript()->appendFile('/admin/rutas.js');
     }

@@ -5,7 +5,7 @@
  * @Table(name="programacion_recursos")
  */
 
-class Application_Model_Progrecursos {
+class Application_Model_Progrecursos{
     
     /**
      * @Id @Column(type="integer")
@@ -29,13 +29,19 @@ class Application_Model_Progrecursos {
 
      /** @Column(type="datetime") */
     private $fecha_registro;
+    //ojo con los nombres -.-
+      /**
+     * @ManyToMany(targetEntity="Application_Model_Programacion")
+     * @JoinTable(name="recursos_programados",
+     *      joinColumns={@JoinColumn(name="id_pro", referencedColumnName="id_pro")},
+     *      inverseJoinColumns={@JoinColumn(name="codigo_prog", referencedColumnName="codigo_prog")}
+     *      )
+     */
+    
+    private $programarecursos;
     
     //Metodo Público
-    public function getid_pro(){
-        return $this->id_pro;  
-    }
-
-
+  
     public function setvalor($val){
     $this->valor =$val;
         
@@ -49,9 +55,14 @@ class Application_Model_Progrecursos {
     $this->registrado =$reg;
         
     }
-
-
+     public function getid_pro(){
+        return $this->id_pro;  
+    }
     
+    public function getpromarecursos(){
+        return $this->programarecursos;
+    }
+   
     public function __construct() {
         // la variable now, se comporta como un objeto donde la fecha se haga automaticamente..
         $this->fecha_registro =new DateTime('now');

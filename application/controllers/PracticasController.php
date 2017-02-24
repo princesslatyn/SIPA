@@ -25,7 +25,13 @@ class PracticasController extends Zend_Controller_Action
     public function agregarpracticaAction(){ 
      //Mantego la sesion en la pagina de agregar practica
       // $authNamespace = new Zend_Session_Namespace('Zend_Auth');
-   
+     // llamo la session
+         $authNamespace = new Zend_Session_Namespace('Zend_Auth');
+         //saco los datos del usuario
+         $usuario= $authNamespace->usuarios;
+         $rol= $authNamespace->usuarios[0]['id_rol']['id_rol'];
+           $this->view->rol= $rol;
+        // var_dump($rol);
       try{
              // Realizamos la consulta dql, para que se listen los Programas, en la vista Agregar Asignatura..
      $dql ="select p from Application_Model_Programas p";
@@ -90,11 +96,7 @@ class PracticasController extends Zend_Controller_Action
        sqlsrv_free_stmt( $stmt);
        $this->view->docentes= $docentes;
        //.................................//
-        // llamo la session
-         $authNamespace = new Zend_Session_Namespace('Zend_Auth');
-         //saco los datos del usuario
-         $usuario= $authNamespace->usuarios;
-         $rol= $authNamespace->usuarios[0]['id_rol']['id_rol'];
+      
          //hago un condicional
          if($rol == 1){
             //preparo la consulta de facultades
@@ -134,10 +136,8 @@ class PracticasController extends Zend_Controller_Action
        sqlsrv_free_stmt( $stmt);
         
          $this->view->facultad= $datoss;
-         //le paso a la vista
-       //  var_dump($datoss);
-        
-         $this->view->rol= $rol;
+      
+       
         // var_dump($rol);           
              }
              }
@@ -222,6 +222,14 @@ class PracticasController extends Zend_Controller_Action
 
     }
     public function listarpracticaAction(){ 
+         // llamo la session
+         $authNamespace = new Zend_Session_Namespace('Zend_Auth');
+         //saco los datos del usuario
+         $usuario= $authNamespace->usuarios;
+         $rol= $authNamespace->usuarios[0]['id_rol']['id_rol'];
+         
+         $this->view->rol= $rol;
+        
     //preparo la consulta, para extraer la información de la tabla práctica..
         $dql= "select p, pro, pa, cal, asigna from Application_Model_Practicas p join p.programaciones pro join pro.participantes pa join p.id_calendario cal join p.cod_asignatura asigna order by p.cod_practica";
         

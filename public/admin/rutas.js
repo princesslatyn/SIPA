@@ -21,9 +21,13 @@ rutas.agregarruta = function(){
        },
        ruta: {
       required: true
+       },
+        si: {
+      required: true
        }
       }
    });
+    
     //on hace la asignación de un evento..
     $('#agregar').on('click', function(){
        // console.log('Hola')
@@ -37,12 +41,14 @@ rutas.agregarruta = function(){
      console.log(destino);
     var ruta= $('#ruta').val(); 
     console.log(ruta);
+    var sitio=$('#si').val();
+    console.log(sitio);
     //Metodo Para enviar los datos al controlador
-  var ajax= $.post('/rutas/guardarruta', {origen:origen, destino:destino, ruta:ruta});
+  var ajax= $.post('/rutas/guardarruta', {origen:origen, destino:destino, ruta:ruta, sitio:sitio});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
-  ajax.done(function(){
-     window.location='/rutas/listarruta';
-  });
+/**  ajax.done(function(){
+   //  window.location='/rutas/listarruta';
+  }); */
     }
     
     });
@@ -60,9 +66,20 @@ rutas.editarruta = function(){
        },
        ruta: {
       required: true
+       },
+       si: {
+      required: true
        }
       }
    });
+   //Para que se actualice el id
+    var sitio= $('#si').data('sitio');
+    
+     //val le asigna valor al selector
+      $('#si').val(sitio);
+      
+    //Se actualiza el valor del selector cuando elija una sede que este asociada a una asignatura
+    $('#si').trigger('change');
     //on hace la asignación de un evento..
     $('#editar').on('click', function(){
        // console.log('Hola')
@@ -77,17 +94,19 @@ rutas.editarruta = function(){
      console.log(destino);
     var ruta= $('#ruta').val(); 
     console.log(ruta);
+    var sitio=$('#si').val();
+    console.log(sitio);
     //Guardar el id de facultades
     var id=$('#cod_ruta').val();
     
             
    // console.log(facultad);
     //Metodo Para enviar los datos al controlador
- var ajax=  $.post('/rutas/actualizarruta', {origen:origen, destino:destino, ruta:ruta, id:id});
+ var ajax=  $.post('/rutas/actualizarruta', {origen:origen, destino:destino, ruta:ruta, sitio:sitio, id:id});
        //Actualizar Facultad
-        ajax.done(function(){
-     // window.location='/facultades/listarfacultad';
-  });    
+   /**     ajax.done(function(){
+     
+  });    */
     }
     });
     

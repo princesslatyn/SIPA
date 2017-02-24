@@ -1,9 +1,10 @@
 <!-- Evento de departamento -->
-<?php
+
+    <?php
 if($this->rol == 4){?>
 <script>
 $(function(){
-    console.log("hola");
+   // console.log("hola");
     $('#fac').triggerHandler('change');
    // $('#asigna').triggerHandler('change');
    // $('#gru').triggerHandler('change');
@@ -11,18 +12,35 @@ $(function(){
 
 </script>
 <?php } ?>
+
 <br>
 <br>
 <br>
 <style>.modal .modal-dialog{width:800px;padding: 20px}</style>
-<div class="fuelux">
-     <a href="/inicio/departamento">
-        <button type="button"  class="btn btn-default">
-        <span class="glyphicon glyphicon-arrow-left"></span> Inicio</button></a>   
+ <?php
+   if($this->rol == 1){?>
+   <a href="/inicio/admin">
+        <button type="button"  class="btn btn-primary">
+        <span class="glyphicon glyphicon-arrow-left"></span> Admin</button></a>
          <br>
+         <br>
+        <a href="/inicio/departamento">
+        <button type="button"  class="btn btn-default">
+        <span class="glyphicon glyphicon-arrow-left"></span> Inicio</button></a>
+   <?php } else{ 
+
+   if($this->rol == 4){?>
+        <a href="/inicio/departamento">
+        <button type="button"  class="btn btn-default">
+        <span class="glyphicon glyphicon-arrow-left"></span> Inicio</button></a>          
+   <?php }?>
+   <?php }?>      
+    <br>
+<div class="fuelux">
+ 
     <h2>CREACIÓN DE PRÁCTICAS ACADÉMICAS</h2> 
-<div class="wizard" data-initialize="wizard" id="myWizard">   
-<div class="steps-container">
+    <div class="wizard" data-initialize="wizard" id="myWizard">   
+    <div class="steps-container">
 	<ul class="steps">
 		<li data-step="1" data-name="campaign" class="active">
 			<span class="badge">1</span>Paso
@@ -222,9 +240,9 @@ $(function(){
         </div>    
         </div>     
 	</div>
-     <div class="step-pane sample-pane  alert" data-step="2">
-     <div class="row"> 
-      <div class="form-group">
+       <div class="step-pane sample-pane  alert" data-step="2">
+       <div class="row"> 
+       <div class="form-group">
           <h3 class="text-center">Fechas para la Programación de las Prácticas Académicas</h3>  
           <h4 class="text-center">Por Favor ingrese las fecha de salida y de llegada de las programaciones</h4>
           <br>
@@ -266,16 +284,16 @@ $(function(){
             <tr>
                 <th>NoDías</th>
                 <th>Recor</th>
-                <th>De</th> 
+<!--                <th>De</th> -->
                 <th>Fecha Sal</th>
                 <th>Lugar</th>
                 <th>DíasPern</th>
                 <th>FechaLleg</th>
-                <th>Recur</th>
+<!--            <th>Recur</th>
                 <th>Doce.R</th>
                 <th>Aux</th>
-                <th>Ases</th>
-                <th>Obs</th>
+                <th>Ases</th>-->
+<!--            <th>Obs</th<-->
                 <th>Accion</th>
             </tr>
         </thead>
@@ -283,16 +301,16 @@ $(function(){
             <tr>
                 <th>NoDías</th>
                 <th>Recor</th>
-                <th>De</th> 
+<!--                <th>De</th> -->
                 <th>Fecha Sal</th>
                 <th>Lugar</th>
                 <th>DíasPern</th>
                 <th>FechaLleg</th>
-                <th>Recur</th>
+<!--            <th>Recur</th>
                 <th>Doce.R</th>
                 <th>Aux</th>
                 <th>Ases</th>
-                <th>Obs</th>
+                <th>Obs</th>-->
                 <th>Accion</th>
             </tr>
         </tfoot>
@@ -337,14 +355,14 @@ $(function(){
         <select class="form-control docen" name="docen"  style="cursor:pointer;">
         <?php foreach ($this->participantes as $participantes) {?>    
             <option value="<?php echo $participantes['id_participante'];?>"><?php echo $participantes['nombre'];?></option>
-         <?php }?>
+        <?php }?>
         </select>       
         </div> 
-        <div class="col-xs-3">
+   <!--     <div class="col-xs-3">
             <br>   
         <div class="text-right">
         <input type='button' class="button btn btn-default"  value='Agregar Docente' data-toggle="modal" data-target="#myModal1" onclick=""/>
-        <!-- Modal --> 
+       
         <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -377,7 +395,7 @@ $(function(){
         </div>
         </div>
         </div>         
-        </div>      
+        </div>  -->    
         </div>
          <br>
          <div class="row">
@@ -390,12 +408,10 @@ $(function(){
          <?php }?>
         </select>       
         </div>
-        <div class="col-xs-3">
-            <br>   
-              
+ <!--       <div class="col-xs-3">
+            <br>         
         <div class="text-right">
         <input type='button' class="button btn btn-default"  value='Agregar Auxiliar' data-toggle="modal" data-target="#myModal2" onclick=""/>
-        <!-- Modal --> 
         <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" style="display: none;">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -428,10 +444,10 @@ $(function(){
         </div>
         </div>
         </div>         
-        </div>       
-        </div> 
+        </div> -->      
+        </div>  
          <br>
-          <div class="row">
+        <div class="row">
             <br>   
         <div class="col-xs-6">
         <label class="form-group"> Asesores </label>
@@ -441,11 +457,11 @@ $(function(){
          <?php }?>
         </select>       
         </div> 
-        <div class="col-xs-3">
+ <!--   <div class="col-xs-3">
             <br>   
         <div class="text-right">
         <input type='button' class="button btn btn-default"  value='Agregar Asesor' data-toggle="modal" data-target="#myModal3" onclick=""/>
-        <!-- Modal --> 
+      
         <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" style="display: none;">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -478,16 +494,16 @@ $(function(){
         </div>
         </div>
         </div>         
-        </div>     
-        </div>    
+        </div> -->    
+        </div>  
          <br>
-          <div class="row">
+         <div class="row">
              <br>
         <div class="form-group">
         <label for="">Observaciones</label>
         <textarea class="form-control obs"  rows="3"></textarea>
         <small id="emailHelp" class="form-text text-muted">Diligencie los campos.</small>
-        </div>   
+        </div>           
         </div>     
         <input type="hidden" id="codigo_prog" value="">      
         </div>

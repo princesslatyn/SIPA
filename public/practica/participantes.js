@@ -35,8 +35,8 @@ participantes.agregardocente = function(){
       //pintar una nueva opción
       var html= "";
       html= '<option value='+ data.id_participante +'>'+ data.nombre +'</option>';
-      console.log(html);
-      console.log(data);
+    //  console.log(html);
+     // console.log(data);
       $('#docen').append(html);
       //Para que se pueda seleccionar el selector
       $('#docen').find('option[value='+ data.id_participante +']').attr('selected', true);
@@ -50,21 +50,16 @@ participantes.agregardocente = function(){
         
     }
    
-    });
-    
-    
+    });   
 }
 participantes.agregarauxiliar = function(){
     //Validación de que los campos no se vayan vacios
     //on hace la asignación de un evento..
     $('#agrega').on('click', function(){
        // console.log('Hola')
-    //val me devuelve el elemento que esta en el id de la función  (extrae el valor del input)
-    // #facultad valor del input
-    // facultad variable donde se guarda los datos
     
     var nombre= $('#aux').val();  
-    console.log(nombre);
+  //  console.log(nombre);
    var identificacion= $('#auxiliar').val();
    var tipo_participante= ('auxiliar');
    var programa= $('#program').val();
@@ -92,8 +87,7 @@ participantes.agregarauxiliar = function(){
   }  
  
     });
-    
-      
+         
 }
 participantes.agregarasesor = function(){
     //Validación de que los campos no se vayan vacios
@@ -105,7 +99,7 @@ participantes.agregarasesor = function(){
     // facultad variable donde se guarda los datos
     
    var nombre= $('#ase').val();  
-    console.log(nombre);
+  //  console.log(nombre);
    var identificacion= $('#asesor').val();
    var tipo_participante= ('asesor');
    var programa= $('#progra').val();

@@ -137,7 +137,7 @@ $(practicas.init);
   $('#gru').on('change', function(){
     var grupo= $('#gru').val();  
    
-    console.log(grupo);
+   // console.log(grupo);
     
     var ajax= $.get('/Practicas/obtenermatriculados', {grupo:grupo});
     ajax.done(function(data){
@@ -230,18 +230,12 @@ $(practicas.init);
         datatable.row.add([
          num,
          reco,
-         despla,
          sal,
          lug,
          dia,
          lle,
-         recursosdatos,
-         docen +'<input type="hidden" value=' + $('#docen').val() + '>',
-         auxi +'<input type="hidden" value=' + $('#auxi').val() + '>',
-         ases +'<input type="hidden" value=' + $('#ases').val() + '>',
-         obs,
-         '<td><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a>  <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>'
-           
+         '<td><div class="hide"><div class="desplazamiento"><input name="desplazamiento" type="hidden" value='+despla+'></div><div class="docentes">'+docen+'<input name="id_docentes" type="hidden" value='+ $('#docen').val()+'></div><div class="auxiliares">'+auxi+'<input name="id_auxiliares" type="hidden" value=' + $('#auxi').val()+'></div><div class="asesores">'+ases+'<input name="id_asesores" type="hidden" value=' + $('#ases').val()+'></div><div class="observaciones"><input name="observaciones" type="hidden" value=' +obs+'></div><div class="recursos"><input name="recursos" type="hidden" value=' +recursosdatos+'></div></div><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a> <a class="" href="#"><i class="fa fa-file-text-o" style="font-size:18px;color:#704010;cursor:pointer;"></i></a> </td>'
+          
       ]).draw();
       //Para que se limpie el formulario
       var num= $('#num').val("");
@@ -264,13 +258,90 @@ $(practicas.init);
       //pero antes de que el asistente muestra el nuevo paso. 
       //Evento del editar
          $(document).on( 'click', '.editar_prog', function (e) {
+             //Cargar valores por defecto
+             var elemento= $(this).parent().parent();
+             var d = datatable.row( elemento ).data();
+             //se toma el dato de la ultima columna de la tabla
+             var data_default = d[6];
+             var data_obj = $.parseHTML(data_default);
+             //desplazamiento
+             var desplazamiento_def = $(data_obj).find('.desplazamiento').html();
+             //pernoctado se toma de la columna 4 de la tabla tiene valor si y no pero se necesita true o false
+           //  console.log(d[4]);
+             var pernoctado_def = (d[4] == "Si" ? 1 : 0);
+            // console.log(pernoctado_def);
+             //ruta no esta en los datos ocultos de la columna acciones se toma de la columna 1 de la tabla
+             var ruta_def= d[1];
+             //docente
+             var docente_def = $(data_obj).find('.docentes').html();
+             //auxiliar
+             var auxiliar_def = $(data_obj).find('.auxiliares').html();
+             //asesor
+             var asesor_def = $(data_obj).find('.asesores').html();
+             //observaciones
+             var observaciones_def= $(data_obj).find('.observaciones').html();
+             
              
               //No se comporte por defecto viene, de mandarme a otra pagina  
           e.preventDefault(); 
            //Elemnto cliqueado
-       var elementocliqueado= this;
+         var elementocliqueado= this;
           //   console.log('hola');
          var form= $('#form').clone();
+         
+         //se aplican los datos al formulario de editar
+         
+         //recorrido
+         // busca en el selector reco la opcion que tenga el mismo valor que la variable ruta_def
+        var id_ruta = (ruta_def != null ? ruta_def.slice(ruta_def.indexOf("value=")+6, ruta_def.lastIndexOf('>')) : -1);
+        console.log('recorrido');
+        console.log(ruta_def);
+        console.log(id_ruta);
+        if(id_ruta > 0)
+        form.find('.reco').val(id_ruta);
+         
+         //desplazamiento         
+         form.find('.despla').val(desplazamiento_def);
+         console.log(desplazamiento_def);
+         
+        //pernoctado     
+        pernoctado_def > 0 ? form.find('.per').prop('checked', true) : form.find('.per').prop('checked', false);
+        
+        //docente
+        /*
+         * Me llegara un dato similar a este
+         * <div class="docentes">Jhanier Garcia Pitalua<input type="hidden" value="3">&gt;</div>
+         * pero solo debo sacar el id por lo tanto hay que procesar la cadena para obtener el id solamente
+         * en este caso el id es 3
+         */
+        var id_docente = (docente_def != null ? docente_def.slice(docente_def.indexOf("value=")+7, docente_def.lastIndexOf('"')) : -1);
+        console.log(id_docente);
+        if(id_docente > 0)
+        form.find('.docen').val(id_docente);
+        
+        //auxiliar
+        /*
+         * Similar al anterior
+         * <div class="auxiliares">Kamilo Cervantes<input type="hidden" value="4"></div>
+         */
+        var id_auxiliar = (auxiliar_def != null ? auxiliar_def.slice(auxiliar_def.indexOf("value=")+7, auxiliar_def.lastIndexOf('"')): -1);
+        console.log(id_auxiliar);
+        if(id_auxiliar > 0)
+        form.find('.auxi').val(id_auxiliar);
+        
+        //asesor
+        /*
+         * Similar al anterior
+         * <div class="asesores">Luchi Sarriego<input type="hidden" value="5"></div>
+         */
+        var id_asesor = (asesor_def != null ? asesor_def.slice(asesor_def.indexOf("value=")+7, asesor_def.lastIndexOf('"')): -1);
+        console.log(id_asesor);
+         if(id_asesor > 0)
+        form.find('.ases').val(id_asesor);
+        
+        //observaciones
+        form.find('.obs').val(observaciones_def);
+        
          form.removeClass('hide');
            bootbox.dialog({
     message: form,
@@ -286,17 +357,31 @@ $(practicas.init);
           var pernoctado= form.find('.per').is(':checked')?'Si':'No';
           var ruta= form.find('.reco option:selected').html()+'<input type="hidden" value=' + form.find('.reco').val() + '>';
           var docente=form.find('.docen option:selected').html()+'<input type="hidden" value=' + form.find('.docen').val() + '>';
+//          console.log(docente);
           var auxiliar=form.find('.auxi option:selected').html()+'<input type="hidden" value=' + form.find('.auxi').val() + '>';
           var asesor=form.find('.ases option:selected').html()+'<input type="hidden" value=' + form.find('.ases').val() + '>';
           var observaciones= form.find('.obs').val();
            var d = datatable.row( elemento ).data();
+           //se captura el valor guardado de campos escondidos de la tabla
+           var tmp = d[6];
+//           console.log("preprocesado");
+//           console.log(tmp);
+           //se convierte la informacion que esta en html a objeto jquery
+           tmp = $.parseHTML(tmp);
+//           console.log("nodo jquery");
+           console.log(tmp);
+           //de dicha informacion se saca la parte de recurso que no se recopila en el modal de editar
+           var recursos = $('.recursos', tmp).html();
+           console.log(recursos);
            d[1]=ruta;
-           d[2]=desplazamiento;
-           d[5]=pernoctado;
-           d[8]=docente;
-           d[9]=auxiliar;
-           d[10]=asesor;
-           d[11]=observaciones;
+         //  d[2]=desplazamiento;
+           d[4]=pernoctado;
+           d[6]= '<td><div class="hide"><div class="desplazamiento">'+desplazamiento+'</div><div class="docentes">'+docente+'></div><div class="auxiliares">'+auxiliar+'</div><div class="asesores">'+asesor+'</div><div class="observaciones">' +observaciones+'</div><div class="recursos">'+recursos+'</div></div><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a> <a class="" href="#"><i class="fa fa-file-text-o" style="font-size:18px;color:#704010;cursor:pointer;"></i></a> </td>';
+
+          // d[8]=docente;
+         //  d[9]=auxiliar;
+         //  d[10]=asesor;
+          // d[11]=observaciones;
           // console.log(d);
         //  d.counter++;
  
@@ -323,33 +408,72 @@ $(practicas.init);
 });
      
       });
+      //metodo para visualizar los recursos y el valor
+//      $(document).on('')
       //Evento del recursos especiales
       $(document).on( 'click', '.editar_recur', function (e) {
-        //evento del recurso  
+       
+          
+        //evento del recurso 
           e.preventDefault(); 
            //Elemnto cliqueado
        var elementocliqueado= this;
+       var elemento= $(elementocliqueado).parent().parent();
+       // console.log(elemento);
+        var d = datatable.row( elemento ).data();
+      //  console.log(d);
+        var recurso= $('#re').clone();    
+        //se toma el dato de la ultima columna de la tabla
+        var data_default = d[6];
+        
+        var data_obj = $.parseHTML(data_default);
+        //tipo
+        var tipo_def= $(data_obj).find('.recursos').html();
+        console.log(tipo_def);
+        //corto el cadena de string, para que solo me queden los id de los recursos
+        var id_recursos= (tipo_def != null ? tipo_def.slice(tipo_def.indexOf("value=")+6, tipo_def.lastIndexOf('>')): -1);
+        console.log(id_recursos);
+         if(id_recursos > 0)
+        recurso.find('.recursos').val(id_recursos);
           //   console.log('hola');
-         var recurso= $('#re').clone();
-         recurso.removeClass('hide');
-          var table=recurso.find('.recurso').DataTable();
-       $(document).on('click', '.rec', function(e){
-  //No se comporte por defecto viene, de mandarme a otra pagina  
-  e.preventDefault(); 
-   //Elemnto cliqueado
- var elementocliqueado= this;
- //console.log('HOla'); 
- var idrecurso= recurso.find('.tipo').val();   
-     var tipo= recurso.find('.tipo option:selected').html();
-      // console.log(tipo);
-     var valor= recurso.find('.valor').val(); 
-      // console.log(valor);
+        var ajax=$.post('/Progrecurso/visualizarprogrecurso', {tipo_def:id_recursos});
+        
+        ajax.done(function(data){
+            if(data.length > 0){
+               var tabla_recurso = recurso.find('.recurso').dataTable();
+            
+                tabla_recurso.rows().add(data); 
+            }
+            
+            recurso.removeClass('hide');
+            
+        });
+      //   var recurso= $('#re').clone();
+         //se aplican los datos al formulario de editar
+         
        
-        if(valor > 0){
+       var table=recurso.find('.recurso').DataTable();
+       $(document).on('click', '.rec', function(e){
+         
+       //No se comporte por defecto viene, de mandarme a otra pagina  
+       e.preventDefault(); 
+      //Elemnto cliqueado
+      var elementocliqueado= this;
+      //de esta manera no vas a poder sacar los datos
+      //los datos se sacan del datatable no del formulario
+      var idrecurso= recurso.find('.tipo').val();   
+      var tipo= recurso.find('.tipo option:selected').html();
+      // console.log(tipo);
+      var valor= recurso.find('.valor').val(); 
+       //Cargar valores por defecto
+    
+       
+      if(valor > 0){
        //Metodo Para enviar los datos al controlador
-  var ajax= $.post('/Progrecurso/guardarprogrecurso', {valor:valor, idrecurso:idrecurso});
+      var ajax= $.post('/Progrecurso/guardarprogrecurso', {valor:valor, idrecurso:idrecurso});
+      //envio los datos de los recursos por ajax
+     
       ajax.done(function(data){
-         // console.log(data);
        //pintar una nueva opción
         table.row.add([
          data.id_pro,   
@@ -368,7 +492,7 @@ $(practicas.init);
         
     }
    //función para eliminar una fila
-      $(document).on( 'click', '.eliminar_practicaa', function (e) {
+      $(document).on( 'click', '.eliminar_practicaa', function (e){
           // Previene los comportamientos por defectos
            e.preventDefault(); 
     table
@@ -379,7 +503,7 @@ $(practicas.init);
  
  }); 
  
-           bootbox.dialog({
+    bootbox.dialog({
     message: recurso,
     class:'modalancho', 
   title: "Datos de la programación",
@@ -391,7 +515,7 @@ $(practicas.init);
           var elemento= $(elementocliqueado).parent().parent();
           var d = datatable.row( elemento ).data();
           
-           table.rows().data();
+      table.rows().data();
       var recursos= table.data().toArray();
       var recursosdatos= "";
       var ides= [];
@@ -404,7 +528,21 @@ $(practicas.init);
           
       }
         recursosdatos= nombresrecursos.join(',') +'<input type="hidden" value=' + ides.join(',') + '>' ;
-         d[7]=recursosdatos; 
+        console.log(recursosdatos);
+           var tmp = d[6];
+           var tmp2;
+           console.log("preprocesado");
+           console.log(tmp2);
+           //se convierte la informacion que esta en html a objeto jquery
+           tmp2 = $.parseHTML(tmp);
+           console.log("nodo jquery");
+//           console.log(tmp2.html());
+           //de dicha informacion se saca la parte de recurso que no se recopila en el modal de editar
+           $(tmp2).find(".recursos").html(recursosdatos);
+         //  console.log(tmp2);
+           d[6] = $(tmp2).html();
+        //   console.log(d[6]);
+//         d[7]=recursosdatos; 
           // console.log(d);
         //  d.counter++;
  
@@ -457,15 +595,7 @@ $(practicas.init);
           var des_estudiante= $('#est').val();
           
           //Validación
-          //  facultad != "" && departamento != "" && programa != "" && semestre != "" && asignatura != "" && numero_est > 0 && practica != "" && tipo != "" && objetivo != "" && justificacion != "" && des_docente != "" && des_estudiante != ""
-     /**     if(calendario != ""){
-            console.log(calendario); 
-            
-          }else{
-              evt.preventDefault();
-               valid = false;
-             alert('Por Favor Diligencie el campo'); 
-          } */
+     
           if(solicitante != "" && facultad != "" && departamento != "" && programa != "" && semestre != "" && asignatura != "" && grupo != "" && numero_est != "" && practica != "" && tipo != "" && objetivo != "" && justificacion != "" && des_docente != "" && des_estudiante != ""){
           //  console.log(); 
             
@@ -504,9 +634,9 @@ $(practicas.init);
           // console.log(fecha_final);
            
         var convertir= new Date(fecha_inicial)
-            console.log(convertir);
+          // console.log(convertir);
             var fecha= practicas.sumaFecha(1, fecha_inicial);
-            console.log(fecha);
+          //  console.log(fecha);
             var tmp= fecha_final;
             if(fecha_inicial == fecha_final){
                 dias = 1;
@@ -529,34 +659,23 @@ $(practicas.init);
               datatable.row.add ([
               i+1,
               "",
-              "",
               fecha_inicial,
               lugar,
               "",
              fecha_final,
-             "",
-             "",
-             "",
-             "",
-             "",
-          '<td><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>'    
+            
+          '<td><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a> <a class="" href="#"><i class="fa fa-file-text-o" style="font-size:18px;color:#704010;cursor:pointer;"></i></a> </td>'    
              ]).draw();
              }
              else{
                  datatable.row.add ([
               i+1,
               "",
-              "",
               practicas.sumaFecha(i, fecha_inicial),
               lugar,
               "",
              fecha_final,
-             "",
-             "",
-             "",
-             "",
-             "",
-          '<td><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a></td>'    
+          '<td><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a> <a class="" href="#"><i class="fa fa-file-text-o" style="font-size:18px;color:#704010;cursor:pointer;"></i></a> </td>'    
              ]).draw();
              }
              
@@ -624,9 +743,9 @@ $(practicas.init);
     //Validación de que los campos no se vayan vacios
     $( "#myWizard" ).on('finished.fu.wizard', function(){
        
-   
+   //un ejemplo de como extraer los datos de la tabla datatable
      datatable.rows().data();
-    
+    //si lo usas en la tabla de recursos te va a devolver los recursos almacenados
      // console.log(datatable.data().toArray());
       //declaro una variable para conocer la pocisión del vector a donde estan los id de participantes
       var programacion= datatable.data().toArray();
@@ -636,7 +755,7 @@ $(practicas.init);
           programacion[i][8]= programacion[i][8].substring(programacion[i][8].indexOf('value=')+6).replace('>', "");
           programacion[i][9]= programacion[i][9].substring(programacion[i][9].indexOf('value=')+6).replace('>', "");
           programacion[i][10]= programacion[i][10].substring(programacion[i][10].indexOf('value=')+6).replace('>', "");
-          console.log(programacion);
+        //  console.log(programacion);
           
       }
        // console.log('Hola Kami');
@@ -788,7 +907,7 @@ practicas.isValidDate= function (day,month,year){
      var id=$('#cod_practica').val();
 // console.log(facultad_id);
        
-
+ var programacion = "";
  var ajax= $.post('/practicas/actualizarpractica', {datos:datos, programacion:programacion, id:id});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
   ajax.done(function(){

@@ -1,22 +1,55 @@
 <br>
 <br>
 <br>
-<a href="/inicio/departamento">
-        <button type="button"  class="btn btn-default">
-        <span class="glyphicon glyphicon-arrow-left"></span> Inicio</button></a>   
+   <?php
+   if($this->rol == 1){?>
+   <a href="/inicio/admin">
+        <button type="button"  class="btn btn-primary">
+        <span class="glyphicon glyphicon-arrow-left"></span> Admin</button></a>
          <br>
+         <br>
+        <a href="/inicio/departamento">
+        <button type="button"  class="btn btn-default">
+        <span class="glyphicon glyphicon-arrow-left"></span> Inicio</button></a>
+   <?php }else{ 
+   
+   if($this->rol == 4){?>
+        <a href="/inicio/departamento">
+        <button type="button"  class="btn btn-default">
+        <span class="glyphicon glyphicon-arrow-left"></span> Inicio</button></a>          
+   <?php }?>
+   <?php }?> 
+    <br>
 <h2>LISTADO DE PRÁCTICAS ACADÉMICAS</h2>
 <div class="tabla_datos">
                 
-                      <?php foreach ($this->practicas as $practicas) {?>
+                      <?php foreach ($this->practicas as $practicas){?>
                       <div class="panel panel-default item-tabla item-tabla-61">
                       <div class="panel-body">  
                       <table class="table">
+                       
                       <tr>
-                              <td colspan="2" style="text-align: right">
-                                  <a href="/practicas/editarpractica/id/<?php echo $practicas['cod_practica']; ?>" class="btn btn-primary btn-xs editar-tabla-datos" data-id="61"  data-tipo="1">Editar</a> <a href="#"  data-id="61"  data-tipo="1" class="btn btn-danger btn-xs eliminar-tabla-datos">Clonar</a> <a href="#"  data-id="44"  data-tipo="1" class="btn btn-default btn-xs eliminar-tabla-datos">Imprimir</a>
+                            <td colspan="2" style="text-align: right">
+                                
+                                 <?php
+                                 if($this->rol == 1){?>
+                                  <a href="/practicas/editarpractica/id/<?php echo $practicas['cod_practica']; ?>" class="btn btn-primary btn-xs editar-tabla-datos" data-id="61"  data-tipo="1">Editar</a> 
+                                  <a href="#"  data-id="61"  data-tipo="1" class="btn btn-danger btn-xs clonar-tabla-datos">Clonar</a> 
+                                  <a href="#"  data-id="44"  data-tipo="1" class="btn btn-default btn-xs imprimir-tabla-datos">Imprimir</a> 
+                                  <a href="/Partirespos/agregarpartirespo"  data-id="44"  data-tipo="1" class="btn btn-success btn-xs liquidar-tabla-datos">Liquidar</a> 
+                                  <?php  } else{      
+                                 if($this->rol == 4){?>
+                                  <a href="/practicas/editarpractica/id/<?php echo $practicas['cod_practica']; ?>" class="btn btn-primary btn-xs editar-tabla-datos" data-id="61"  data-tipo="1">Editar</a>
+                                  <a href="#" class="btn btn-info btn-xs editar-tabla-datos" data-id="61"  data-tipo="1">Reprogramación</a> 
+                                  <a href="#"  data-id="61"  data-tipo="1" class="btn btn-danger btn-xs clonar-tabla-datos">Clonar</a> 
+                                  <a href="#"  data-id="44"  data-tipo="1" class="btn btn-default btn-xs imprimir-tabla-datos">Imprimir</a>
+                                 <?php }?>   
+                                 <?php }?>  
+                                 
                               </td>
+                        
                           </tr>
+                        
                            <tr>
                               <td>Codigo Práctica</td>
                               <td class="cal"><?php echo $practicas['cod_practica']; ?></td>
@@ -35,11 +68,11 @@
                           </tr>
                            <tr>
                               <td>Número Estudiantes</td>
-                              <td class="campo_f"><?php echo $practicas['num_estudiantes']?></td>
+                              <td class="campo_n"><?php echo $practicas['num_estudiantes']?></td>
                           </tr>
                            <tr>
                               <td>Nombre Práctica</td>
-                              <td class="campo_w"><?php echo $practicas['nombre']?></td>
+                              <td class="campo_p"><?php echo $practicas['nombre']?></td>
                           </tr>
                           <tr>
                               <td>Objetivos </td>

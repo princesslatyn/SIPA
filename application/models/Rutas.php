@@ -22,6 +22,9 @@ class Application_Model_Rutas {
       
      /** @Column(type="string", length=256) */
     private $ruta;
+    
+    /** @Column(type="string", length=256) */
+    private $sitio;
 
      /** @Column(type="datetime") */
     private $fecha_registro;
@@ -38,9 +41,12 @@ class Application_Model_Rutas {
     public function setruta($rut){
      $this->ruta=$rut;
     }
-    
+    public function setsitio($si){
+        $this->sitio=$si;
+    }
 
-    public function __construct() {
+
+        public function __construct() {
         // la variable now, se comporta como un objeto donde la fecha se haga automaticamente..
         $this->fecha_registro =new DateTime('now');
         
