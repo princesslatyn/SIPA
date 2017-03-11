@@ -2,8 +2,8 @@
 
 class Powercampus_Powercampus {
    private $database;
-   private $usuario;
-   private $contrasena;
+  // private $usuario;
+  // private $contrasena;
    private $serverName;
    private static $instancia;
    private $_registry;
@@ -13,9 +13,9 @@ class Powercampus_Powercampus {
     public function __construct() {
         // la variable now, se comporta como un objeto donde la fecha se haga automaticamente..
         $this->database= "Campus";
-        $this->usuario= "lila";
-        $this->contrasena= "lila12345";
-        $this->serverName= "172.16.14.241";
+      //  $this->usuario= "lila";
+      //  $this->contrasena= "lila12345";
+        $this->serverName= "LILA\SQLEXPRESS";
         
         $this->_initRegistry();
         
@@ -45,7 +45,8 @@ class Powercampus_Powercampus {
          //Conexión con la Base de datos del software academico power Campus
          //serverName\instanceName
          $ServerName= $this->serverName;
-         $connection = array( "Database"=>  $this->database, "UID"=>$this->usuario, "PWD"=>$this->contrasena);
+       //  $connection = array( "Database"=>  $this->database, "UID"=>$this->usuario, "PWD"=>$this->contrasena);
+         $connection = array( "Database"=>  $this->database);
          $conn = sqlsrv_connect($ServerName, $connection);
 
           if( $conn ) {

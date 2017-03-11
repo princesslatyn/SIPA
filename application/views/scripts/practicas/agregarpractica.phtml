@@ -38,14 +38,6 @@ $(function(){
    <?php }?>      
     <br>
 <div class="fuelux">
-<<<<<<< HEAD
- 
-=======
-    <a href="/inicio/departamento">
-        <button type="button"  class="btn btn-default">
-        <span class="glyphicon glyphicon-arrow-left"></span> Inicio</button></a>   
-         <br>
->>>>>>> ea53688cca147df01f02867777de28e3320cccb5
     <h2>CREACIÓN DE PRÁCTICAS ACADÉMICAS</h2> 
     <div class="wizard" data-initialize="wizard" id="myWizard">   
     <div class="steps-container">
@@ -132,7 +124,7 @@ $(function(){
         <div class="">
         <label class="form-group"> Facultad </label>
         <select class="form-control" id="fac" name="fac" style="cursor:pointer;">
-         <?php foreach ($this->facultad as $datos) {?>
+         <?php var_dump($this->facultad); foreach ($this->facultad as $datos) {?>
           <option  value="<?php echo $datos['id_facultad'];?>"><?php echo htmlentities(utf8_encode($datos['nombre']));?></option>
          <?php }?>
         </select>       

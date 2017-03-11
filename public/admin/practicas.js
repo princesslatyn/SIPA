@@ -429,12 +429,12 @@ $(practicas.init);
         var data_obj = $.parseHTML(data_default);
         //tipo
         var tipo_def= $(data_obj).find('.recursos').html();
-        console.log(tipo_def);
+       // console.log(tipo_def);
         //corto el cadena de string, para que solo me queden los id de los recursos
         var id_recursos= (tipo_def != null ? tipo_def.slice(tipo_def.indexOf("value=")+6, tipo_def.lastIndexOf('>')): -1);
         console.log(id_recursos);
-         if(id_recursos > 0)
-        recurso.find('.recursos').val(id_recursos);
+         if(id_recursos > 0){
+            recurso.find('.recursos').val(id_recursos);
           //   console.log('hola');
         var ajax=$.post('/Progrecurso/visualizarprogrecurso', {tipo_def:id_recursos});
         
@@ -448,6 +448,10 @@ $(practicas.init);
             recurso.removeClass('hide');
             
         });
+        }else{
+            recurso.removeClass('hide');
+        }
+      
       //   var recurso= $('#re').clone();
          //se aplican los datos al formulario de editar
          

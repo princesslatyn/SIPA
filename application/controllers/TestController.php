@@ -31,14 +31,14 @@ class TestController extends Zend_Controller_Action
      
           echo "Conexión establecida.<br />";
           //Preparo la consulta  del programa asociado al usuario...
-          $sql = "SELECT V_Programas.ID_Programa AS ID_Programa, V_Programas.Programa AS Programa FROM V_Departamentos INNER JOIN V_Programas ON V_Departamentos.ID_Departamento=V_Programas.ID_Departamento WHERE V_Programas.ID_Programa='784'";
+          $sql = "SELECT DISTINCT V_Facultades.Facultad as nombre, V_Facultades.ID as id_facultad FROM V_Departamentos INNER JOIN  V_Facultades ON V_Departamentos.ID_Facultad=V_Facultades.ID INNER JOIN V_Programas ON V_Departamentos.ID_Departamento=V_Programas.ID_Departamento where V_Programas.ID_Programa= '784'";
        //  $sql="SELECT V_Facultades.ID AS id_facultad, V_Facultades.Facultad AS nombre FROM V_Facultades ORDER BY ID";
         // $sql = "SELECT DISTINCT V_Programas.ID_Programa AS id, V_Programas.Programa AS nombre FROM V_Programas  ORDER BY Programa";
       // $sql="SELECT V_Facultades.ID AS id_facultad, V_Facultades.Facultad AS nombre FROM V_Facultades ORDER BY ID";
        //  $sql = "SELECT DISTINCT V_Grupos.Matriculados AS mat, V_Grupos.Grupo AS gru FROM V_Grupos WHERE V_Grupos.Grupo= 'GM3'";
           $stmt = sqlsrv_query( $conn, $sql);
           while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
-           echo  $row['ID_Programa'].", ".$row['Programa']."<br />";     
+           echo  $row['nombre'].", ".$row['id_facultad']."<br />";     
         //  echo $row['ID_Programa'].", ".$row['Programa']."<br />";
         // echo  $row['id_facultad'].", ".$row['nombre']."<br />";     
        //  echo  $row['ID'].", ".$row['dep'].", ".$row['id_fac'].", ".$row['nombre']."<br />";
@@ -125,11 +125,7 @@ class TestController extends Zend_Controller_Action
 //            echo 'Ok';
 //          }else{
 //            echo 'Error de Conexión ):';
-<<<<<<< HEAD
-//        } 
-=======
-//            }
->>>>>>> ea53688cca147df01f02867777de28e3320cccb5
+
    //Conexión con la Base de datos del software de Gestión Humana
     //Conexión con la Base de datos del software academico power Campus
  /**       $serverName = "10.0.4.51"; //serverName\instanceName
@@ -138,20 +134,7 @@ class TestController extends Zend_Controller_Action
 
          if( $conn ) {
      
-<<<<<<< HEAD
-          echo "Conexión establecida Con Kactus.<br />";          
-         // $sql = "SELECT KACTUS.dbo.VIEW_SIPA.cod_empl AS ide, KACTUS.dbo.VIEW_SIPA.ape_empl AS ape, KACTUS.dbo.VIEW_SIPA.nom_empl AS nom, KACTUS.dbo.VIEW_SIPA.nom_carg AS cargo, KACTUS.dbo.VIEW_SIPA.nom_tnom AS cat FROM KACTUS.dbo.VIEW_SIPA WHERE KACTUS.dbo.VIEW_SIPA.cod_empl='2758804'";         
-          $sql = "SELECT KACTUS.dbo.VIEW_SIPA.cod_empl AS ide, KACTUS.dbo.VIEW_SIPA.ape_empl AS ape, KACTUS.dbo.VIEW_SIPA.nom_empl AS nom, KACTUS.dbo.VIEW_SIPA.nom_carg AS cargo, KACTUS.dbo.VIEW_SIPA.nom_tnom AS cat FROM KACTUS.dbo.VIEW_SIPA WHERE (KACTUS.dbo.VIEW_SIPA.nom_carg='DOCENTE 1279') ORDER BY ape_empl";
-          $stmt = sqlsrv_query($conn, $sql);
-        //  var_dump($stmt);
-        //  var_dump($sql = "SELECT * FROM VIEW_SIPA");
-         while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC) ) {
-          //  var_dump($row);
-       echo $row['ide'].", ".$row['ape'].", ".$row['nom'].", ".$row['cargo'].", ".$row['cat']."<br />";
-         }
-         sqlsrv_free_stmt($stmt);
-         // var_dump($row);
-=======
+
           echo "Conexión establecida Con Kactus.<br />";
           $sql = "SELECT * FROM VIEW_SIPA";
           var_dump($sql);
@@ -163,7 +146,7 @@ class TestController extends Zend_Controller_Action
           }
           sqlsrv_free_stmt($stmt);
           var_dump($row);
->>>>>>> ea53688cca147df01f02867777de28e3320cccb5
+
           
             }else{
                 echo "Conexión no se pudo establecer.<br />"; 

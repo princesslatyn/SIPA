@@ -278,13 +278,13 @@ class Zend_XmlRpc_Server extends Zend_Server_Abstract
             throw new Zend_XmlRpc_Server_Exception('Invalid method class', 610);
         }
 
-        $args = null;
+        $argv = null;
         if (2 < func_num_args()) {
-            $args = func_get_args();
-            $args = array_slice($args, 2);
+            $argv = func_get_args();
+            $argv = array_slice($argv, 2);
         }
 
-        $dispatchable = Zend_Server_Reflection::reflectClass($class, $args, $namespace);
+        $dispatchable = Zend_Server_Reflection::reflectClass($class, $argv, $namespace);
         foreach ($dispatchable->getMethods() as $reflection) {
             $this->_buildSignature($reflection, $class);
         }

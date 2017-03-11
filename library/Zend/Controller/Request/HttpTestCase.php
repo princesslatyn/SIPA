@@ -62,7 +62,6 @@ class Zend_Controller_Request_HttpTestCase extends Zend_Controller_Request_Http
         'GET',
         'HEAD',
         'OPTIONS',
-        'PATCH',
         'POST',
         'PUT',
     );

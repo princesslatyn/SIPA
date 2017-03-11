@@ -23,7 +23,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute('rest', $restRoute);
         
     }
-<<<<<<< HEAD
+
      public function _initPowercampus(){
      // $conexion= new Powercampus_Powercampus();
       //var_dump($conexion);
@@ -39,17 +39,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $registry = Zend_Registry::getInstance();
         return $registry->kactus_connection;
       
-=======
-    public function _initPowercampus(){
-        $conn = Powercampus_Powercampus::getInstance();
-        $registry = Zend_Registry::getInstance();
-        return $registry->powercampus_connection;
-        
-    }
-    protected function _initSession(){
-      Zend_Session::start();  
-        
->>>>>>> ea53688cca147df01f02867777de28e3320cccb5
+
     }
 
 }

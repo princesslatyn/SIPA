@@ -221,24 +221,17 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
             curl_setopt($this->_curl, CURLOPT_PORT, intval($port));
         }
 
-        // Set connection timeout
-        $connectTimeout  = $this->_config['timeout'];
-        $constant        = CURLOPT_CONNECTTIMEOUT;
+        // Set timeout
         if (defined('CURLOPT_CONNECTTIMEOUT_MS')) {
-            $connectTimeout *= 1000;
-            $constant = constant('CURLOPT_CONNECTTIMEOUT_MS');
+            curl_setopt($this->_curl, CURLOPT_CONNECTTIMEOUT_MS, $this->_config['timeout'] * 1000);
+        } else {
+            curl_setopt($this->_curl, CURLOPT_CONNECTTIMEOUT, $this->_config['timeout']);
         }
-        curl_setopt($this->_curl, $constant, $connectTimeout);
 
-        // Set request timeout (once connection is established)
-        if (array_key_exists('request_timeout', $this->_config)) {
-            $requestTimeout  = $this->_config['request_timeout'];
-            $constant        = CURLOPT_TIMEOUT;
-            if (defined('CURLOPT_TIMEOUT_MS')) {
-                $requestTimeout *= 1000;
-                $constant = constant('CURLOPT_TIMEOUT_MS');
-            }
-            curl_setopt($this->_curl, $constant, $requestTimeout);
+        if (defined('CURLOPT_TIMEOUT_MS')) {
+            curl_setopt($this->_curl, CURLOPT_TIMEOUT_MS, $this->_config['timeout'] * 1000);
+        } else {
+            curl_setopt($this->_curl, CURLOPT_TIMEOUT, $this->_config['timeout']);
         }
 
         // Set Max redirects

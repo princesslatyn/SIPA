@@ -509,9 +509,7 @@ abstract class Zend_Http_UserAgent_AbstractDevice
                 }
                 $result['browser_version'] = '??';
             }
-        } elseif ($product == 'mozilla' && isset($result['browser_version'])
-                  && $result['browser_version'] < 5.0
-        ) {
+        } elseif ($product == 'mozilla' && $result['browser_version'] < 5.0) {
             // handles the real Mozilla (or old Netscape if version < 5.0)
             $result['browser_name'] = 'Netscape';
         }

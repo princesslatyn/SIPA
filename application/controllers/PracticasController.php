@@ -26,11 +26,13 @@ class PracticasController extends Zend_Controller_Action
      //Mantego la sesion en la pagina de agregar practica
       // $authNamespace = new Zend_Session_Namespace('Zend_Auth');
      // llamo la session
+   
          $authNamespace = new Zend_Session_Namespace('Zend_Auth');
          //saco los datos del usuario
          $usuario= $authNamespace->usuarios;
          $rol= $authNamespace->usuarios[0]['id_rol']['id_rol'];
          $this->view->rol= $rol;
+         var_dump($rol);
         // var_dump($rol);
     
              // Realizamos la consulta dql, para que se listen los Programas, en la vista Agregar Asignatura..
@@ -127,7 +129,8 @@ class PracticasController extends Zend_Controller_Action
           //preparo la consulta para obtener la facultad asociada al programa..
          $sql = "SELECT DISTINCT V_Facultades.Facultad as nombre, V_Facultades.ID as id_facultad FROM V_Departamentos INNER JOIN  V_Facultades ON V_Departamentos.ID_Facultad=V_Facultades.ID INNER JOIN V_Programas ON V_Departamentos.ID_Departamento=V_Programas.ID_Departamento where V_Programas.ID_Programa= ?";
           $stmt = sqlsrv_query( $this->pw, $sql, array($authNamespace->programa[0]["cod_progra_power"]));
-         $authNamespace->programa;
+        // $authNamespace->programa;
+         var_dump($authNamespace->programa[0]["cod_progra_power"]);
           while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
           
           $row['id_facultad']= htmlentities(utf8_encode($row['id_facultad']));  
