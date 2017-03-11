@@ -65,8 +65,14 @@ class LoginController extends Zend_Controller_Action
     //Inicio sesión cuando los datos sean correctos   
        
     $authNamespace = new Zend_Session_Namespace('Zend_Auth');
+<<<<<<< HEAD
     $authNamespace->usuarios = $usuarios; 
     //var_dump($usuarios);
+=======
+    //función para que expire la sessión
+    $authNamespace->setExpirationSeconds('60');
+    $authNamespace->usuarios = $usuarios;
+>>>>>>> ea53688cca147df01f02867777de28e3320cccb5
        
        
     } else {

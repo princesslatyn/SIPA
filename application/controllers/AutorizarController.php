@@ -21,6 +21,7 @@ class AutorizarController extends Zend_Controller_Action{
    
     //instancio la sesión 
     $authNamespace = new Zend_Session_Namespace('Zend_Auth');
+    $authNamespace->setExpirationSeconds('60');
     
     //Creo un swich para que me controle todas los roles
    // var_dump($authNamespace->usuarios[0]['id_rol']['id_rol']);
@@ -45,9 +46,18 @@ class AutorizarController extends Zend_Controller_Action{
             echo "hola";
            $this->_redirect('/inicio/logistica');
             break;
+<<<<<<< HEAD
         case "4": 
             echo "hola";
            $this->_redirect('/inicio/financiera');
+=======
+        case "3": 
+            echo "hola";
+            $this->_redirect('/inicio/financiera');
+            break;
+        case "4":
+            $this->_redirect('/inicio/departamento');
+>>>>>>> ea53688cca147df01f02867777de28e3320cccb5
             break;
         
     }

@@ -120,12 +120,16 @@ class TestController extends Zend_Controller_Action
          
      } */
 //          $servername="172.16.14.241";
-//        $conn= new PDO("sqlsrv:server=$servername;Database=Campus;", "lila", "lila12345");
-//        if($conn){
+//          $conn= new PDO("sqlsrv:server=$servername;Database=Campus;", "lila", "lila12345");
+//          if($conn){
 //            echo 'Ok';
-//        }else{
+//          }else{
 //            echo 'Error de Conexión ):';
+<<<<<<< HEAD
 //        } 
+=======
+//            }
+>>>>>>> ea53688cca147df01f02867777de28e3320cccb5
    //Conexión con la Base de datos del software de Gestión Humana
     //Conexión con la Base de datos del software academico power Campus
  /**       $serverName = "10.0.4.51"; //serverName\instanceName
@@ -134,6 +138,7 @@ class TestController extends Zend_Controller_Action
 
          if( $conn ) {
      
+<<<<<<< HEAD
           echo "Conexión establecida Con Kactus.<br />";          
          // $sql = "SELECT KACTUS.dbo.VIEW_SIPA.cod_empl AS ide, KACTUS.dbo.VIEW_SIPA.ape_empl AS ape, KACTUS.dbo.VIEW_SIPA.nom_empl AS nom, KACTUS.dbo.VIEW_SIPA.nom_carg AS cargo, KACTUS.dbo.VIEW_SIPA.nom_tnom AS cat FROM KACTUS.dbo.VIEW_SIPA WHERE KACTUS.dbo.VIEW_SIPA.cod_empl='2758804'";         
           $sql = "SELECT KACTUS.dbo.VIEW_SIPA.cod_empl AS ide, KACTUS.dbo.VIEW_SIPA.ape_empl AS ape, KACTUS.dbo.VIEW_SIPA.nom_empl AS nom, KACTUS.dbo.VIEW_SIPA.nom_carg AS cargo, KACTUS.dbo.VIEW_SIPA.nom_tnom AS cat FROM KACTUS.dbo.VIEW_SIPA WHERE (KACTUS.dbo.VIEW_SIPA.nom_carg='DOCENTE 1279') ORDER BY ape_empl";
@@ -146,6 +151,19 @@ class TestController extends Zend_Controller_Action
          }
          sqlsrv_free_stmt($stmt);
          // var_dump($row);
+=======
+          echo "Conexión establecida Con Kactus.<br />";
+          $sql = "SELECT * FROM VIEW_SIPA";
+          var_dump($sql);
+          $stmt = sqlsrv_query($conn, $sql);
+          var_dump($stmt);
+         exit();
+         while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC) ) {
+        // echo $row['Cedula'].", ".$row['Apellidos'].", ".$row['Nombres'].", ".$row['Cargo']."<br />";
+          }
+          sqlsrv_free_stmt($stmt);
+          var_dump($row);
+>>>>>>> ea53688cca147df01f02867777de28e3320cccb5
           
             }else{
                 echo "Conexión no se pudo establecer.<br />"; 
