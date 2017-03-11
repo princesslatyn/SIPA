@@ -64,9 +64,9 @@ $(usuarios.init);
  // var ajax= 
       var ajax= $.post('/usuarios/guardarusuario', {nom:nom, ape:ape, ide:ide, correo:correo, usuario:usuario, pass:pass, programa:programa, rol:rol});  
      
-    ajax.done(function(){
+  /**  ajax.done(function(){
       window.location='/usuarios/listarusuario';   
-     }); 
+     });  */
     }
     }); 
  
@@ -128,9 +128,9 @@ usuarios.agregarusurdep = function(){
  // var ajax= 
       var ajax= $.post('/usuarios/guardaruserdep', {nom:nom, ape:ape, ide:ide, correo:correo, usuario:usuario, pass:pass, rol:rol});  
      
-    ajax.done(function(){
-      window.location='/usuarios/listarusuario';   
-     }); 
+  /**  ajax.done(function(){
+    //  window.location='/usuarios/listarusuario';   
+     }); */
     }
     }); 
  

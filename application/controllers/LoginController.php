@@ -49,7 +49,6 @@ class LoginController extends Zend_Controller_Action
      // Preparo la consulta
      $dql="select u, r from Application_Model_Usuarios u join u.id_rol r where u.usuario=:user and u.contrasena=:pass";
     
-     
      $query = $this->em->createQuery($dql);
      //Agrego los Parametros
      $query->setParameter('pass', $pass);
@@ -58,7 +57,7 @@ class LoginController extends Zend_Controller_Action
      
      //Obtengo el resultado del query
      $usuarios = $query->getArrayResult();
-     var_dump(count($usuarios));
+     //var_dump(count($usuarios));
       
      
     if(count($usuarios)== 1){
@@ -67,7 +66,7 @@ class LoginController extends Zend_Controller_Action
        
     $authNamespace = new Zend_Session_Namespace('Zend_Auth');
     $authNamespace->usuarios = $usuarios; 
-    var_dump($usuarios);
+    //var_dump($usuarios);
        
        
     } else {

@@ -46,9 +46,9 @@ rutas.agregarruta = function(){
     //Metodo Para enviar los datos al controlador
   var ajax= $.post('/rutas/guardarruta', {origen:origen, destino:destino, ruta:ruta, sitio:sitio});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
-/**  ajax.done(function(){
+ ajax.done(function(){
    //  window.location='/rutas/listarruta';
-  }); */
+  });
     }
     
     });

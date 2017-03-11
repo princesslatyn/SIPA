@@ -61,6 +61,7 @@ class RutasController extends Zend_Controller_Action
        // var_dump($facultades);
         //Pasarle a la Vista la informción de la facultad
         $this->view->rutas= $rutas;
+       // var_dump($rutas);
    
         
       

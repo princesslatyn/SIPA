@@ -53,7 +53,6 @@ participantes.agregardocente = function(){
     });   
 }
 participantes.agregarauxiliar = function(){
-    //Validación de que los campos no se vayan vacios
     //on hace la asignación de un evento..
     $('#agrega').on('click', function(){
        // console.log('Hola')
@@ -86,8 +85,7 @@ participantes.agregarauxiliar = function(){
       alert('Los Datos Son Incorrectos');
   }  
  
-    });
-         
+    });        
 }
 participantes.agregarasesor = function(){
     //Validación de que los campos no se vayan vacios
@@ -126,9 +124,7 @@ participantes.agregarasesor = function(){
        valid = false;
       alert('Los Datos Son Incorrectos'); 
    }
- 
-    
-    
+
     });
     
     

@@ -37,7 +37,7 @@ $(practicas.init);
  //evento para escoger el departamento
   $('#fac').on('change', function(){
     var facultad = $('#fac').val();
-   // console.log(departamento);
+   // console.log('Hola');
  //var programas =('#pro').val();
  
     
@@ -234,7 +234,7 @@ $(practicas.init);
          lug,
          dia,
          lle,
-         '<td><div class="hide"><div class="desplazamiento"><input name="desplazamiento" type="hidden" value='+despla+'></div><div class="docentes">'+docen+'<input name="id_docentes" type="hidden" value='+ $('#docen').val()+'></div><div class="auxiliares">'+auxi+'<input name="id_auxiliares" type="hidden" value=' + $('#auxi').val()+'></div><div class="asesores">'+ases+'<input name="id_asesores" type="hidden" value=' + $('#ases').val()+'></div><div class="observaciones"><input name="observaciones" type="hidden" value=' +obs+'></div><div class="recursos"><input name="recursos" type="hidden" value=' +recursosdatos+'></div></div><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a> <a class="" href="#"><i class="fa fa-file-text-o" style="font-size:18px;color:#704010;cursor:pointer;"></i></a> </td>'
+         '<td><div class="hide"><div class="desplazamiento"><input name="desplazamiento" type="hidden" value='+despla+'></div><div class="docentes">'+docen+'<input name="id_docentes" type="hidden" value='+ $('#docen').val()+'></div><div class="auxiliares">'+auxi+'<input name="id_auxiliares" type="hidden" value=' + $('#auxi').val()+'></div><div class="asesores">'+ases+'<input name="id_asesores" type="hidden" value=' + $('#ases').val()+'></div><div class="observaciones"><input name="observaciones" type="hidden" value=' +obs+'></div><div class="recursos"><input name="recursos" type="hidden" value=' +recursosdatos+'></div></div> <a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#563d7c;cursor:pointer;"></i></a> <a class href="#"><i class="fa fa-user-plus" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a> <a class="" href="#"><i class="fa fa-file-text-o" style="font-size:18px;color:#704010;cursor:pointer;"></i></a> </td>'
           
       ]).draw();
       //Para que se limpie el formulario
@@ -376,7 +376,7 @@ $(practicas.init);
            d[1]=ruta;
          //  d[2]=desplazamiento;
            d[4]=pernoctado;
-           d[6]= '<td><div class="hide"><div class="desplazamiento">'+desplazamiento+'</div><div class="docentes">'+docente+'></div><div class="auxiliares">'+auxiliar+'</div><div class="asesores">'+asesor+'</div><div class="observaciones">' +observaciones+'</div><div class="recursos">'+recursos+'</div></div><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a> <a class="" href="#"><i class="fa fa-file-text-o" style="font-size:18px;color:#704010;cursor:pointer;"></i></a> </td>';
+           d[6]= '<td><div class="hide"><div class="desplazamiento">'+desplazamiento+'</div><div class="docentes">'+docente+'></div><div class="auxiliares">'+auxiliar+'</div><div class="asesores">'+asesor+'</div><div class="observaciones">' +observaciones+'</div><div class="recursos">'+recursos+'</div></div><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#563d7c;cursor:pointer;"></i></a> <a class href="#"><i class="fa fa-user-plus" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a> <a class="" href="#"><i class="fa fa-file-text-o" style="font-size:18px;color:#704010;cursor:pointer;"></i></a> </td>';
 
           // d[8]=docente;
          //  d[9]=auxiliar;
@@ -664,7 +664,7 @@ $(practicas.init);
               "",
              fecha_final,
             
-          '<td><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a> <a class="" href="#"><i class="fa fa-file-text-o" style="font-size:18px;color:#704010;cursor:pointer;"></i></a> </td>'    
+          '<td><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#563d7c;cursor:pointer;"></i></a> <a class href="#"><i class="fa fa-user-plus" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a> <a class="" href="#"><i class="fa fa-file-text-o" style="font-size:18px;color:#704010;cursor:pointer;"></i></a> </td>'    
              ]).draw();
              }
              else{
@@ -675,7 +675,7 @@ $(practicas.init);
               lugar,
               "",
              fecha_final,
-          '<td><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a> <a class="" href="#"><i class="fa fa-file-text-o" style="font-size:18px;color:#704010;cursor:pointer;"></i></a> </td>'    
+          '<td><a class="editar_prog" href="#"><i class="fa fa-pencil-square-o" style="font-size:18px;color:#563d7c;cursor:pointer;"></i></a> <a class href="#"><i class="fa fa-user-plus" style="font-size:18px;color:#337ab7;cursor:pointer;"></i></a> <a class="editar_recur" href="#"><i class="fa fa-pencil-square-o"  style="font-size:18px;color:#21b384;cursor:pointer;"></i></a> <a class="eliminar_practica" data-practica="" href="#"><i class="fa fa-trash" style="font-size:18px;color:#d9534f;cursor:pointer;"></i></a> <a class="" href="#"><i class="fa fa-file-text-o" style="font-size:18px;color:#704010;cursor:pointer;"></i></a> </td>'    
              ]).draw();
              }
              

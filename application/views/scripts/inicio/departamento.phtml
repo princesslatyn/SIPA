@@ -1,3 +1,61 @@
+<!-- Evento del modal del css -->
+<div class="modal">
+    <div class="ventana">
+   <img src="/img/Image.jpg">
+   <span class="cerrar" id="cerrar_modal">x</span>
+    </div>
+</div>
+
+    <style  type="text/css">
+     
+   .modal{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0,.7);
+    display:none;
+     }
+ 
+  .ventana{
+    width:400px;
+    position:absolute;
+    top:15%;
+    left:50%;
+    margin-left:-200px;
+      }
+
+   .ventana img{ 
+       width:100%;
+       border:2px solid #fff;  
+       
+      }
+      
+   .ventana span{
+    color:#fff;
+    background-color:#000;
+    padding:.2em .5em .3em .5em;
+    font-family:Arial;
+    font-weight:bold;
+    border:2px solid #fff;
+    border-radius:50%;
+    position:absolute;
+    top:-15px;
+    right:-20px;
+    cursor:pointer;
+      } 
+    </style>
+    <script>
+     $(document).ready(function(){
+     $(".modal").fadeIn();
+     $(".cerrar").click(function(){
+     $(".modal").fadeOut(300);
+      });
+  });   
+    </script>
+ <!-- Evento modal javascript -->
+ <!-- Evento modal javascript -->
 <div class="container" style="margin-top: 50px;">
       <div class="row">
       <div class="col-sm-3 col-md-3 col-lg-3">

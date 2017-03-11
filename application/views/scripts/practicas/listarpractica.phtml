@@ -13,7 +13,7 @@
         <span class="glyphicon glyphicon-arrow-left"></span> Inicio</button></a>
    <?php }else{ 
    
-   if($this->rol == 4){?>
+   if($this->rol == 2){?>
         <a href="/inicio/departamento">
         <button type="button"  class="btn btn-default">
         <span class="glyphicon glyphicon-arrow-left"></span> Inicio</button></a>          
@@ -38,7 +38,7 @@
                                   <a href="#"  data-id="44"  data-tipo="1" class="btn btn-default btn-xs imprimir-tabla-datos">Imprimir</a> 
                                   <a href="/Partirespos/agregarpartirespo"  data-id="44"  data-tipo="1" class="btn btn-success btn-xs liquidar-tabla-datos">Liquidar</a> 
                                   <?php  } else{      
-                                 if($this->rol == 4){?>
+                                 if($this->rol == 2){?>
                                   <a href="/practicas/editarpractica/id/<?php echo $practicas['cod_practica']; ?>" class="btn btn-primary btn-xs editar-tabla-datos" data-id="61"  data-tipo="1">Editar</a>
                                   <a href="#" class="btn btn-info btn-xs editar-tabla-datos" data-id="61"  data-tipo="1">Reprogramación</a> 
                                   <a href="#"  data-id="61"  data-tipo="1" class="btn btn-danger btn-xs clonar-tabla-datos">Clonar</a> 

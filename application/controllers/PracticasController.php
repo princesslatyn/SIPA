@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 class PracticasController extends Zend_Controller_Action
 {
@@ -30,9 +30,9 @@ class PracticasController extends Zend_Controller_Action
          //saco los datos del usuario
          $usuario= $authNamespace->usuarios;
          $rol= $authNamespace->usuarios[0]['id_rol']['id_rol'];
-           $this->view->rol= $rol;
+         $this->view->rol= $rol;
         // var_dump($rol);
-      try{
+    
              // Realizamos la consulta dql, para que se listen los Programas, en la vista Agregar Asignatura..
      $dql ="select p from Application_Model_Programas p";
         
@@ -79,8 +79,10 @@ class PracticasController extends Zend_Controller_Action
         // Pasarle la información de programas a la vista..
         $this->view->participante= $participante;
         //visualizo los docentes responsables
-         $docentes= array();
-        $sql = "SELECT DISTINCT KACTUS.dbo.VIEW_SIPA.ape_empl AS ape, KACTUS.dbo.VIEW_SIPA.nom_empl AS nom FROM KACTUS.dbo.VIEW_SIPA ORDER BY ape_empl";
+        $docentes= array();
+        //CONEXION LOCAL
+        $sql = "SELECT DISTINCT  VIEW_SIPA.ape_empl AS ape, VIEW_SIPA.nom_empl AS nom FROM VIEW_SIPA ORDER BY VIEW_SIPA.ape_empl";
+      //  $sql = "SELECT DISTINCT KACTUS.dbo.VIEW_SIPA.ape_empl AS ape, KACTUS.dbo.VIEW_SIPA.nom_empl AS nom FROM KACTUS.dbo.VIEW_SIPA ORDER BY ape_empl";
           $stmt = sqlsrv_query( $this->ka, $sql);
           //var_dump($sql);
           while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
@@ -94,26 +96,32 @@ class PracticasController extends Zend_Controller_Action
          // var_dump($row);
        }
        sqlsrv_free_stmt( $stmt);
-       $this->view->docentes= $docentes;
+       $this->view->docentes= $docentes; 
        //.................................//
-      
+        // var_dump($datos);
+        
+        // var_dump($datos);
+        
          //hago un condicional
          if($rol == 1){
-            //preparo la consulta de facultades
-         $sql = "SELECT V_Facultades.ID AS id_facultad, V_Facultades.Facultad AS nombre  FROM V_Facultades  ORDER BY ID";
-          $stmt = sqlsrv_query( $this->pw, $sql );
+            //preparo la consulta de sistema power campus
+       //  $sql = "SELECT V_Facultades.ID AS id_facultad, V_Facultades.Facultad AS nombre  FROM V_Facultades  ORDER BY ID";
+          //base de datos Local
+          $sql="SELECT V_Facultades.ID AS id_facultad, V_Facultades.Facultad AS nombre FROM V_Facultades ORDER BY ID";
+         // var_dump($sql);
+         $stmt = sqlsrv_query($this->pw, $sql);
          $datos = array();
-          while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
-           $datos[]= $row;   
+         while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+         $datos[]= $row;   
          // echo $row['ID'].", ".$row['Facultad']."<br />";
          //var_dump($row);
        }
-      // var_dump($datos);
        sqlsrv_free_stmt( $stmt);
-        
-         $this->view->facultad= $datos;  
+       
+       $this->view->facultad= $datos;   
+      
          }else {
-             if($rol== 4){
+             if($rol== 2){
          $datoss = array(); 
          // var_dump($datoss);
           //preparo la consulta para obtener la facultad asociada al programa..
@@ -122,8 +130,8 @@ class PracticasController extends Zend_Controller_Action
          $authNamespace->programa;
           while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
           
-        //  $row['ID_Facultad']= htmlentities(utf8_encode($row['ID_Facultad']));  
-        //  $row['Facultad']= htmlentities(utf8_encode($row['Facultad']));
+          $row['id_facultad']= htmlentities(utf8_encode($row['id_facultad']));  
+          $row['nombre']= htmlentities(utf8_encode($row['nombre']));
         //  $row['Departamento']= htmlentities(utf8_encode($row['Departamento']));
         //  $row['Programa']= htmlentities(utf8_encode($row['Programa']));
         //  $row['ID_Departamento']= htmlentities(utf8_encode($row['ID_Departamento']));
@@ -140,7 +148,7 @@ class PracticasController extends Zend_Controller_Action
        
         // var_dump($rol);           
              }
-             }
+             } 
          
         
         
@@ -191,10 +199,7 @@ class PracticasController extends Zend_Controller_Action
       //Pasarle a la Vista la informción de la Calendario
       $this->view->recursos= $recursos; 
         
-          
-      }  catch (Exception $e){
-          echo $e->getMessage();
-      }
+   
        
         
         
@@ -517,7 +522,7 @@ class PracticasController extends Zend_Controller_Action
          
         //realizo la validacion para obtener el programa asociado al departamento
          if($rol == 1){
-           $programas= array();
+          $programas= array();
          $sql = "SELECT * FROM V_Departamentos INNER JOIN  V_Facultades ON V_Departamentos.ID_Facultad=V_Facultades.ID INNER JOIN V_Programas ON V_Departamentos.ID_Departamento=V_Programas.ID_Departamento where V_Departamentos.ID_Departamento= ?";
           $stmt = sqlsrv_query( $this->pw, $sql,  array($departamento));
           //var_dump($sql);
@@ -536,13 +541,15 @@ class PracticasController extends Zend_Controller_Action
       
        sqlsrv_free_stmt( $stmt);   
          }else{
-             if($rol == 4){
+             if($rol == 2){
                  
             $programas = array(); 
-            //preparo la consulta para obtener la facultad asociada al programa..
-             $sql = "SELECT V_Programas.ID_Programa AS ID_Programa, V_Programas.Programa AS Programa FROM V_Departamentos INNER JOIN  V_Programas ON V_Departamentos.ID_Departamento=V_Programas.ID_Departamento WHERE V_Programas.ID_Programa= ?";
+            //preparo la consulta en el power campus..
+            // $sql = "SELECT V_Programas.ID_Programa AS ID_Programa, V_Programas.Programa AS Programa FROM V_Departamentos INNER JOIN  V_Programas ON V_Departamentos.ID_Departamento=V_Programas.ID_Departamento WHERE V_Programas.ID_Programa= ?";
+            $sql = "SELECT V_Programas.ID_Programa AS ID_Programa, V_Programas.Programa AS Programa FROM V_Departamentos INNER JOIN V_Programas ON V_Departamentos.ID_Departamento=V_Programas.ID_Departamento WHERE V_Programas.ID_Programa= ?";
             $stmt = sqlsrv_query($this->pw, $sql, array($authNamespace->programa[0]["cod_progra_power"]));
             $authNamespace->programa;
+          //  var_dump($authNamespace);
             while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
          
             $row['Programa']= htmlentities(utf8_encode($row['Programa']));
@@ -593,7 +600,7 @@ class PracticasController extends Zend_Controller_Action
       
        sqlsrv_free_stmt( $stmt);
         }  else {
-            if($rol == 4){
+            if($rol == 2){
           try{        
           $departamento = array(); 
         // var_dump($departamento);
@@ -730,7 +737,7 @@ class PracticasController extends Zend_Controller_Action
         //declaro el vector de los departamentos
         $matriculados= array();
        // $sql = "SELECT V_Grupos.Matriculados AS mat FROM V_Grupos WHERE V_Grupos.ID_Asignatura=?";
-        $sql = "SELECT V_Grupos.Matriculados AS mat FROM V_Grupos WHERE V_Grupos.Grupo= ?";
+        $sql = "SELECT DISTINCT V_Grupos.Matriculados AS mat FROM V_Grupos WHERE V_Grupos.Grupo= ?";
           $stmt = sqlsrv_query( $this->pw, $sql,  array($grupo));
           //var_dump($sql);
           while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {

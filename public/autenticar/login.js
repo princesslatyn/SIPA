@@ -25,8 +25,9 @@ login.autenticar = function(){
     //val me devuelve el elemento que esta en el id de la función  (extrae el valor del input
     if($('#log').valid()){
     var user= $('#user').val();
+   // console.log(user);
     var pass= $('#pass').val();
-   
+   // console.log(pass);
    // console.log(pass);
     
    // console.log(facultad);

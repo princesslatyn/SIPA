@@ -44,7 +44,9 @@ class UsuariosController extends Zend_Controller_Action
         $this->view->programas= $programas; */
         
             //preparo la consulta de power campus a programas
-         $sql = "SELECT DISTINCT ID_Programa AS id, Programa AS nombre FROM V_Programas  ORDER BY Programa";
+       //  $sql = "SELECT DISTINCT ID_Programa AS id, Programa AS nombre FROM V_Programas  ORDER BY Programa";
+         //preparo la consulta de la base de datos Campus, de SQL Server
+         $sql = "SELECT DISTINCT V_Programas.ID_Programa AS id, V_Programas.Programa AS nombre FROM V_Programas  ORDER BY Programa";
           $stmt = sqlsrv_query( $this->pw, $sql );
          $datos = array();
           while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
@@ -93,8 +95,7 @@ class UsuariosController extends Zend_Controller_Action
      $this->view->headScript()->appendFile('/validacion/additional-methods.min.js');
     }
     
-    public function agregaruserdepAction()
-    { 
+    public function agregaruserdepAction(){ 
        
         //
         //Consulta dql para listar las facultades
@@ -175,9 +176,7 @@ class UsuariosController extends Zend_Controller_Action
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->viewRenderer->setNoRender(TRUE);
      
-    
-     try {
-               //$usuario recibe los datos que se les pasa por petición ajax
+     //$usuario recibe los datos que se les pasa por petición ajax
      $nom =$this->_getParam('nom');
      $ape =$this->_getParam('ape');
      $ide =$this->_getParam('ide');
@@ -200,10 +199,7 @@ class UsuariosController extends Zend_Controller_Action
      $usuario_objeto->setcod_progra_power($programa);
      $usuario_objeto->setid_rol($this->em->getRepository('Application_Model_Roles')->find($rol));
          
-     } catch (Exception $e) {
-         echo $e->getMessage();
-         
-     }
+    
      // Almacena en el objecto la usuario que tiene el id..
     // var_dump($usuario_objeto);     
     //da la orden de guardar...
@@ -225,8 +221,8 @@ class UsuariosController extends Zend_Controller_Action
      $this->_helper->viewRenderer->setNoRender(TRUE);
      
     
-     try {
-               //$usuario recibe los datos que se les pasa por petición ajax
+    
+     //$usuario recibe los datos que se les pasa por petición ajax
      $nom =$this->_getParam('nom');
      $ape =$this->_getParam('ape');
      $ide =$this->_getParam('ide');
@@ -237,26 +233,24 @@ class UsuariosController extends Zend_Controller_Action
      $rol =$this->_getParam('rol');
       // var_dump($facultad);
          // Instancia del modelo Facultades. crea una facultad automatico..
-     $usuario_objeto = new Application_Model_Usuarios();
+     $usuariodep_objeto = new Application_Model_Usuarios();
      //la instancia le asigna una facultad, hacer el nombre de la facultad..
-     $usuario_objeto->setnombre(htmlentities($nom));
-     $usuario_objeto->setapellidos(htmlentities($ape));
-     $usuario_objeto->setidentificacion($ide);
-     $usuario_objeto->setcorreo($correo);
-     $usuario_objeto->setusuario(htmlentities($usuario));
-     $usuario_objeto->setcontrasena(hash('sha256', $pass));
-     $usuario_objeto->setid_rol($this->em->getRepository('Application_Model_Roles')->find($rol));
-         
-     } catch (Exception $e) {
-         echo $e->getMessage();
-         
-     }
+     $usuariodep_objeto->setnombre(htmlentities($nom));
+     $usuariodep_objeto->setapellidos(htmlentities($ape));
+     $usuariodep_objeto->setidentificacion($ide);
+     $usuariodep_objeto->setcorreo($correo);
+     $usuariodep_objeto->setusuario(htmlentities($usuario));
+     $usuariodep_objeto->setcontrasena(hash('sha256', $pass));
+     $usuariodep_objeto->setid_rol($this->em->getRepository('Application_Model_Roles')->find($rol));
+     
+      $this->em->persist($usuariodep_objeto);
+     //Ejecuta la Orden de guardar..
+      $this->em->flush(); 
+    
      // Almacena en el objecto la usuario que tiene el id..
     // var_dump($usuario_objeto);     
     //da la orden de guardar...
-   $this->em->persist($usuario_objeto);
-     //Ejecuta la Orden de guardar..
-     $this->em->flush(); 
+  
      
      //capturar excepciones
    /**  try {

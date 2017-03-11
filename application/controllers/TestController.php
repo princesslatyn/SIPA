@@ -23,25 +23,54 @@ class TestController extends Zend_Controller_Action
      //Le dice a las acciones que no se muestre en la vista html, sino que va a mostrar otro tipo de información
      $this->_helper->viewRenderer->setNoRender(TRUE);
        
- 
-         //Conexión con la Base de datos del software academico power Campus
-     /**    $serverName = "172.16.14.241"; //serverName\instanceName
-         $connectionInfo = array( "Database"=>"Campus", "UID"=>"lila", "PWD"=>"lila12345");
+     //Conexión a la base de datos Campus para la simulación de las vistas del software power campus.
+      $serverName = "LILA\SQLEXPRESS"; //serverName\instanceName
+         $connectionInfo = array( "Database"=>"Campus");
          $conn = sqlsrv_connect( $serverName, $connectionInfo);
           if( $conn ) {
      
           echo "Conexión establecida.<br />";
           //Preparo la consulta  del programa asociado al usuario...
-          $sql = "SELECT DISTINCT V_Asignaturas.Asignatura AS nombre, V_Asignaturas.Version AS ver, V_Programas.Programa AS pro FROM V_Asignaturas INNER JOIN V_Programas ON V_Asignaturas.Id_Programa=V_Programas.ID_Programa WHERE V_Asignaturas.Id_Asignatura='411027'";
-          //La consulta de la facultad y el programa asociado
-        //  $sql = "SELECT V_Departamentos.Departamento AS dep, V_Departamentos.ID_Departamento AS id_dep, V_Programas.ID_Programa AS id_pro, V_Programas.Programa AS pro  FROM V_Departamentos INNER JOIN  V_Programas ON V_Departamentos.ID_Departamento=V_Programas.ID_Departamento  where V_Programas.ID_Programa= '784'";
-         // $sql = "SELECT ID_Departamento AS ID, Departamento AS dep, ID_Facultad AS id_fac, Facultad AS nombre FROM V_Departamentos INNER JOIN V_Facultades ON V_Departamentos.ID_Facultad=V_Facultades.ID WHERE ID_Facultad='01'";
-         // $sql = "SELECT V_Grupos.Matriculados AS mat, V_Grupos.Grupo AS gru, V_Asignaturas.Asignatura AS nombre FROM V_Grupos INNER JOIN V_Asignaturas ON V_Grupos.ID_Asignatura=V_Asignaturas.Id_Asignatura  WHERE V_Asignaturas.Id_Asignatura='411027' AND V_Grupos.Grupo='GS1'";
+          $sql = "SELECT V_Programas.ID_Programa AS ID_Programa, V_Programas.Programa AS Programa FROM V_Departamentos INNER JOIN V_Programas ON V_Departamentos.ID_Departamento=V_Programas.ID_Departamento WHERE V_Programas.ID_Programa='784'";
+       //  $sql="SELECT V_Facultades.ID AS id_facultad, V_Facultades.Facultad AS nombre FROM V_Facultades ORDER BY ID";
+        // $sql = "SELECT DISTINCT V_Programas.ID_Programa AS id, V_Programas.Programa AS nombre FROM V_Programas  ORDER BY Programa";
+      // $sql="SELECT V_Facultades.ID AS id_facultad, V_Facultades.Facultad AS nombre FROM V_Facultades ORDER BY ID";
+       //  $sql = "SELECT DISTINCT V_Grupos.Matriculados AS mat, V_Grupos.Grupo AS gru FROM V_Grupos WHERE V_Grupos.Grupo= 'GM3'";
+          $stmt = sqlsrv_query( $conn, $sql);
+          while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+           echo  $row['ID_Programa'].", ".$row['Programa']."<br />";     
+        //  echo $row['ID_Programa'].", ".$row['Programa']."<br />";
+        // echo  $row['id_facultad'].", ".$row['nombre']."<br />";     
+       //  echo  $row['ID'].", ".$row['dep'].", ".$row['id_fac'].", ".$row['nombre']."<br />";
+         // echo $row['mat'].", ".$row['gru']."<br />";
+        // var_dump($row);
+       }
+       sqlsrv_free_stmt( $stmt);
+          
+            }else{
+                 echo "Conexión no se pudo establecer.<br />";
+                 die( print_r( sqlsrv_errors(), true));
+            } 
+     
+            //conexiòn de la base de datos local de kactus
+            //Conexión a la base de datos Kactus para la simulación de las vistas del software power campus.
+          
+     /**    $serverName = "LILA\SQLEXPRESS"; //serverName\instanceName
+         $connectionInfo = array( "Database"=>"KACTUS");
+         $conn = sqlsrv_connect( $serverName, $connectionInfo);
+          if( $conn ) {
+     
+          echo "Conexión establecida.<br />";
+          //Preparo la consulta  del programa asociado al usuario...
+         
+        //  $sql = "SELECT DISTINCT VIEW_SIPA.cod_empl AS ced, VIEW_SIPA.ape_empl AS ape, VIEW_SIPA.nom_empl AS nom, VIEW_SIPA.nom_carg AS cargo, VIEW_SIPA.nom_tnom AS cat FROM VIEW_SIPA ORDER BY VIEW_SIPA.ape_empl";
+        // $sql = "SELECT DISTINCT V_Programas.ID_Programa AS id, V_Programas.Programa AS nombre FROM V_Programas  ORDER BY Programa";
+      // $sql="SELECT V_Facultades.ID AS id_facultad, V_Facultades.Facultad AS nombre FROM V_Facultades ORDER BY ID";
        //  $sql = "SELECT DISTINCT V_Grupos.Matriculados AS mat, V_Grupos.Grupo AS gru FROM V_Grupos WHERE V_Grupos.Grupo= 'GM3'";
           $stmt = sqlsrv_query( $conn, $sql);
           while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
         //  echo $row['ID_Programa'].", ".$row['Programa']."<br />";
-         echo  $row['nombre'].", ".$row['ver'].", ".$row['pro']."<br />";     
+         echo  $row['ID_Programa'].", ".$row['Programa'].", ".$row['id_de'].", ".$row['dep']."<br />";     
        //  echo  $row['ID'].", ".$row['dep'].", ".$row['id_fac'].", ".$row['nombre']."<br />";
          // echo $row['mat'].", ".$row['gru']."<br />";
         // var_dump($row);
@@ -52,6 +81,44 @@ class TestController extends Zend_Controller_Action
                  echo "Conexión no se pudo establecer.<br />";
                  die( print_r( sqlsrv_errors(), true));
             } */
+            
+            
+    /** try {
+        //Conexión con la Base de datos del software academico power Campus
+        $serverName = "172.16.14.241"; //serverName\instanceName
+         $connectionInfo = array( "Database"=>"Campus", "UID"=>"lila", "PWD"=>"lila12345");
+         $conn = sqlsrv_connect( $serverName, $connectionInfo);
+          if( $conn ) {
+     
+          echo "Conexión establecida.<br />";
+          //Preparo la consulta  del programa asociado al usuario...
+          // $sql = "SELECT V_Asignaturas.Id_Asignatura AS id_as, V_Asignaturas.Asignatura AS nombre, V_Asignaturas.Semestre AS sem, V_Programas.Id_Programa AS id_pro, V_Pensum.Version AS ver FROM V_Asignaturas INNER JOIN V_Programas ON V_Asignaturas.Id_Programa=V_Programas.ID_Programa INNER JOIN V_Asignaturas ON V_Asignaturas.Version=V_Pensum.Version";
+         //  $sql = "SELECT V_Programas.ID_Programa AS id_pro, V_Programas.Programa AS nombre, V_Departamentos.ID_Departamento AS id_dep, V_Departamentos.Departamento AS dep  FROM V_Programas INNER JOIN V_Departamentos ON V_Programas.ID_Departamento=V_Departamentos.ID_Departamento ORDER BY V_Departamentos.ID_Departamento";
+         // $sql = "SELECT DISTINCT V_Asignaturas.Id_Asignatura AS id_asi, V_Asignaturas.Asignatura AS nombre, V_Asignaturas.Version AS ver, V_Programas.Programa AS pro, V_Asignaturas.Semestre AS sem FROM V_Asignaturas INNER JOIN V_Programas ON V_Asignaturas.Id_Programa=V_Programas.ID_Programa  ORDER BY V_Asignaturas.Version";
+          //La consulta de la facultad y el programa asociado
+        //  $sql = "SELECT V_Departamentos.Departamento AS dep, V_Departamentos.ID_Departamento AS id_dep, V_Programas.ID_Programa AS id_pro, V_Programas.Programa AS pro  FROM V_Departamentos INNER JOIN  V_Programas ON V_Departamentos.ID_Departamento=V_Programas.ID_Departamento  where V_Programas.ID_Programa= '784'";
+        //  $sql = "SELECT ID_Departamento AS ID, Departamento AS dep, ID_Facultad AS id_fac, Facultad AS nombre FROM V_Departamentos INNER JOIN V_Facultades ON V_Departamentos.ID_Facultad=V_Facultades.ID";
+          $sql = "SELECT V_Grupos.Matriculados AS mat, V_Grupos.Grupo AS gru, V_Grupos.ID_Asignatura AS id_as, V_Grupos.ID_Programa AS id_pro FROM V_Grupos INNER JOIN V_Asignaturas ON V_Grupos.ID_Asignatura=V_Asignaturas.Id_Asignatura INNER JOIN V_Grupos ON V_Grupos.ID_Programa=V_Asignaturas.V_Programas.ID_Programa";
+       //  $sql = "SELECT DISTINCT V_Grupos.Matriculados AS mat, V_Grupos.Grupo AS gru FROM V_Grupos WHERE V_Grupos.Grupo= 'GM3'";
+          $stmt = sqlsrv_query( $conn, $sql);
+          while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+        //  echo $row['ID_Programa'].", ".$row['Programa']."<br />";
+         echo  $row['id_as'].", ".$row['gru'].", ".$row['mat'].", ".$row['id_pro']."<br />";     
+       //  echo  $row['ID'].", ".$row['dep'].", ".$row['id_fac'].", ".$row['nombre']."<br />";
+         // echo $row['mat'].", ".$row['gru']."<br />";
+        // var_dump($row);
+       }
+       sqlsrv_free_stmt( $stmt);
+          
+            }else{
+                 echo "Conexión no se pudo establecer.<br />";
+                 die( print_r( sqlsrv_errors(), true));
+            }   
+         
+     } catch (Exception $e) {
+         echo $e->getMessage();
+         
+     } */
 //          $servername="172.16.14.241";
 //        $conn= new PDO("sqlsrv:server=$servername;Database=Campus;", "lila", "lila12345");
 //        if($conn){
@@ -61,7 +128,7 @@ class TestController extends Zend_Controller_Action
 //        } 
    //Conexión con la Base de datos del software de Gestión Humana
     //Conexión con la Base de datos del software academico power Campus
-        $serverName = "10.0.4.51"; //serverName\instanceName
+ /**       $serverName = "10.0.4.51"; //serverName\instanceName
         $connectionInfo = array( "Database"=>"KACTUS", "UID"=>"Unicor", "PWD"=>"ABC123456789");
         $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
@@ -86,7 +153,7 @@ class TestController extends Zend_Controller_Action
           //  }       
          
    
-         }          
+         }   */       
        
     }
     
