@@ -36,13 +36,10 @@ rutas.agregarruta = function(){
     // facultad variable donde se guarda los datos
     if($('#rut').valid()){
     var origen= $('#ori').val(); 
-     console.log(origen);
     var destino= $('#des').val();
-     console.log(destino);
     var ruta= $('#ruta').val(); 
-    console.log(ruta);
     var sitio=$('#si').val();
-    console.log(sitio);
+ 
     //Metodo Para enviar los datos al controlador
   var ajax= $.post('/rutas/guardarruta', {origen:origen, destino:destino, ruta:ruta, sitio:sitio});
   // Codigo para actualizar la facultad cuando se agrega una nueva facultad..
@@ -142,9 +139,9 @@ $(document).on('click', '.eliminar_ruta', function(e){
  });
       }
     },
-    danger: {
+   success: {
       label: "Cancelar",
-      className: "btn-danger",
+      className: "btn-success",
       callback: function() {
        // Example.show("oh, Error!");
       }

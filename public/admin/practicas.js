@@ -73,7 +73,7 @@ $(practicas.init);
          $('#sem').html('');
         //declaro una variable
         
-          for(var i=0; i<data.length; i++){
+        for(var i=0; i<data.length; i++){
         // console.log(data);
         //agregar contenido al selector
         $('#sem').append('<option value="'+data[i]['sem']+'" selected="selected">'+data[i]['sem']+'</option>');
@@ -343,25 +343,24 @@ $(practicas.init);
         form.find('.obs').val(observaciones_def);
         
          form.removeClass('hide');
-           bootbox.dialog({
-    message: form,
-    class:'modalancho', 
-  title: "Datos de la programación",
-  buttons: {
-    default: {
-      label: "Aceptar",
-      className: "btn-default",
-      callback: function() {
+         bootbox.dialog({
+         message: form,
+         class:'modalancho', 
+         title: "Datos de la programación",
+         buttons: {
+         default: {
+         label: "Aceptar",
+         className: "btn-default",
+         callback: function() {
           var elemento= $(elementocliqueado).parent().parent();
           var desplazamiento= form.find('.despla').val();
           var pernoctado= form.find('.per').is(':checked')?'Si':'No';
           var ruta= form.find('.reco option:selected').html()+'<input type="hidden" value=' + form.find('.reco').val() + '>';
           var docente=form.find('.docen option:selected').html()+'<input type="hidden" value=' + form.find('.docen').val() + '>';
-//          console.log(docente);
           var auxiliar=form.find('.auxi option:selected').html()+'<input type="hidden" value=' + form.find('.auxi').val() + '>';
           var asesor=form.find('.ases option:selected').html()+'<input type="hidden" value=' + form.find('.ases').val() + '>';
           var observaciones= form.find('.obs').val();
-           var d = datatable.row( elemento ).data();
+          var d = datatable.row( elemento ).data();
            //se captura el valor guardado de campos escondidos de la tabla
            var tmp = d[6];
 //           console.log("preprocesado");
@@ -385,7 +384,7 @@ $(practicas.init);
           // console.log(d);
         //  d.counter++;
  
-   datatable
+         datatable
         .row(elemento)
         .data( d )
         .draw();
@@ -396,9 +395,9 @@ $(practicas.init);
  
       }
     },
-    danger: {
+    success: {
       label: "Cancelar",
-      className: "btn-danger",
+      className: "btn-success",
       callback: function() {
        // Example.show("oh, Error!");
       }
@@ -411,42 +410,36 @@ $(practicas.init);
       //metodo para visualizar los recursos y el valor
 //      $(document).on('')
       //Evento del recursos especiales
-      $(document).on( 'click', '.editar_recur', function (e) {
-       
-          
+      $(document).on( 'click', '.editar_recur', function (e) { 
         //evento del recurso 
-          e.preventDefault(); 
-           //Elemnto cliqueado
+       e.preventDefault(); 
+       //Elemnto cliqueado
        var elementocliqueado= this;
        var elemento= $(elementocliqueado).parent().parent();
        // console.log(elemento);
-        var d = datatable.row( elemento ).data();
+       var d = datatable.row( elemento ).data();
       //  console.log(d);
-        var recurso= $('#re').clone();    
+       var recurso= $('#re').clone();    
         //se toma el dato de la ultima columna de la tabla
-        var data_default = d[6];
+       var data_default = d[6];
         
-        var data_obj = $.parseHTML(data_default);
+       var data_obj = $.parseHTML(data_default);
         //tipo
-        var tipo_def= $(data_obj).find('.recursos').html();
+       var tipo_def= $(data_obj).find('.recursos').html();
        // console.log(tipo_def);
         //corto el cadena de string, para que solo me queden los id de los recursos
-        var id_recursos= (tipo_def != null ? tipo_def.slice(tipo_def.indexOf("value=")+6, tipo_def.lastIndexOf('>')): -1);
+       var id_recursos= (tipo_def != null ? tipo_def.slice(tipo_def.indexOf("value=")+6, tipo_def.lastIndexOf('>')): -1);
         console.log(id_recursos);
-         if(id_recursos > 0){
-            recurso.find('.recursos').val(id_recursos);
-          //   console.log('hola');
-        var ajax=$.post('/Progrecurso/visualizarprogrecurso', {tipo_def:id_recursos});
-        
-        ajax.done(function(data){
-            if(data.length > 0){
-               var tabla_recurso = recurso.find('.recurso').dataTable();
-            
-                tabla_recurso.rows().add(data); 
+       if(id_recursos > 0){
+       recurso.find('.recursos').val(id_recursos);
+       //   console.log('hola');
+       var ajax=$.post('/Progrecurso/visualizarprogrecurso', {tipo_def:id_recursos});
+       ajax.done(function(data){
+       if(data.length > 0){
+       var tabla_recurso = recurso.find('.recurso').dataTable();
+       tabla_recurso.rows().add(data); 
             }
-            
-            recurso.removeClass('hide');
-            
+       recurso.removeClass('hide');    
         });
         }else{
             recurso.removeClass('hide');
@@ -510,7 +503,7 @@ $(practicas.init);
     bootbox.dialog({
     message: recurso,
     class:'modalancho', 
-  title: "Datos de la programación",
+  title: "Datos de los Recursos",
   buttons: {
     default: {
       label: "Aceptar",
@@ -561,9 +554,9 @@ $(practicas.init);
  
       }
     },
-    danger: {
+    success: {
       label: "Cancelar",
-      className: "btn-danger",
+      className: "btn-success",
       callback: function() {
        // Example.show("oh, Error!");
       }

@@ -122,7 +122,7 @@ $(document).on('click', '.eliminar_conductor', function(e){
  //console.log('HOla'); 
     bootbox.dialog({
   message: "Esta Seguro de Borrar el conductor",
-  title: "Confirmar Facultad",
+  title: "Confirmar Conductor",
   buttons: {
     default: {
       label: "Aceptar",
@@ -143,9 +143,9 @@ $(document).on('click', '.eliminar_conductor', function(e){
  });
       }
     },
-    danger: {
+    success: {
       label: "Cancelar",
-      className: "btn-danger",
+      className: "btn-success",
       callback: function() {
        // Example.show("oh, Error!");
       }

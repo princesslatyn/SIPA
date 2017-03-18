@@ -105,19 +105,12 @@ usuarios.agregarusurdep = function(){
     if($('#usu').valid()){
     //Declaro las variables que se van a enviar por ajax  
     var nom= $('#nom').val();
-    console.log(nom);
     var ape= $('#ape').val();
-    console.log(ape);
     var ide= $('#ide').val();
-    console.log(ide);
     var correo= $('#correo').val();
-    console.log(correo);
     var usuario= $('#usuario').val();
-    console.log(usuario);
     var pass= $('#pass').val();
-    console.log(pass);
     var rol= $('#rol').val();
-    console.log(rol);
     //console.log(facultad);
     //val me devuelve el elemento que esta en el id de la función  (extrae el valor del input)
     // #facultad valor del input
@@ -314,7 +307,7 @@ $(document).on('click', '.eliminar_usuario', function(e){
   message: "Esta Seguro de Borrar La Usuario",
   title: "Confirmar Usuario",
   buttons: {
-   default: {
+  default: {
       label: "Aceptar",
       className: "btn-default",
       callback: function() {
@@ -331,9 +324,9 @@ $(document).on('click', '.eliminar_usuario', function(e){
     });
       }
     },
-    danger: {
+    success: {
       label: "Cancelar",
-      className: "btn-danger",
+      className: "btn-success",
       callback: function() {
        // Example.show("oh, Error!");
       }

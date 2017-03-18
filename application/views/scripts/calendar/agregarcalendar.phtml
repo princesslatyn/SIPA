@@ -1,16 +1,16 @@
 
 <div class="container col-sm-4 col-md-6 col-lg-9" style="margin-top: 20px;">
-<h3 class=""> Agregar Calendario Académico</h3>     
+<h3 class="" style="font-family:robotoblack;font-size:23px;color:#777"> Agregar Calendario Académico</h3>     
 <br>
-<div class="panel panel-default">  
-<div class="panel-heading"> Datos del Calendario Académico</div>   
+<div class="panel panel-success">  
+<div class="panel-heading" style="font-family:robotoblack;font-size:18px;color:#777"> Datos del Calendario Académico</div>   
 <div class="panel-body">  
 <form id="cale">  
  <div class="row"> 
      <br>
-      <div class="col-lg-6"> 
+      <div class="col-xs-6 col-md-6 col-lg-6"> 
       <div class="form-group">
-      <label>Año</label> 
+      <label style="font-family:aleolight;font-size:14px;color:#000">Año</label> 
       <select class="form-control" id="annio" name="annio" style="cursor:pointer;"> 
        <?php foreach ($this->annio as $annio) {?>  
       <option  value="<?php echo $annio['id_annio'];?>"><?php echo $annio['annio'];?></option>
@@ -19,9 +19,9 @@
       </div>    
       </div>
       
-      <div class="col-lg-6"> 
+      <div class="col-xs-6 col-md-6 col-lg-6"> 
       <div class="form-group">
-      <label>Periodo</label>    
+      <label style="font-family:aleolight;font-size:14px;color:#000">Periodo</label>    
       <select class="form-control" id="per" name="per" style="cursor:pointer;">
       <?php foreach ($this->periodo as $periodo) {?>  
       <option  value="<?php echo $periodo['id_periodo'];?>"><?php echo $periodo['periodo'];?></option>
@@ -32,8 +32,8 @@
  </div> 
     <br>
  <div class="row"> 
-  <div class="col-lg-6">
-        <label class="form-group"> Estado del calendario</label>
+  <div class="col-xs-6 col-md-6 col-lg-6">
+        <label class="form-group" style="font-family:aleolight;font-size:14px;color:#000"> Estado del calendario</label>
         <select class="form-control" id="ca" name="ca"  style="cursor:pointer;">
             <option value="1">Abierto</option>
             <option value="0">Cerrado</option>
@@ -45,19 +45,19 @@
     <div class="row"> 
      <br>
       <div class="form-group">
-      <div class="col-lg-6">    
-      <label for="input" class="">Fecha Inicio</label>           
+      <div class="col-xs-6 col-md-6 col-lg-6">    
+      <label for="input" class="" style="font-family:aleolight;font-size:14px;color:#000">Fecha Inicio</label>           
       <div class='input-group date' id='divMiCalendario' style="cursor:pointer;">
       <input type='text' id="ini" name="ini" placeholder="DD/MM/AAAA" class="form-control calendario"  />
-      <div class="input-group-addon"><span id="calend" class="glyphicon glyphicon-calendar calendarioboton"></span>
+      <div class="input-group-addon"><span id="calend"></span>
       </div>    
       </div> 
       </div>
-      <div class="col-lg-6">    
-      <label for="input" class="">Fecha Final</label>           
+      <div class="col-xs-6 col-md-6 col-lg-6">    
+      <label for="input" class="" style="font-family:aleolight;font-size:14px;color:#000">Fecha Final</label>           
       <div class='input-group date' id='divMiCalendario1' style="cursor:pointer;">
       <input type='text' id="fin" name="fin" placeholder="DD/MM/AAAA" class="form-control calendario"  />
-      <div class="input-group-addon"><span id="calend" class="glyphicon glyphicon-calendar calendarioboton"></span>
+      <div class="input-group-addon"><span id="calend"></span>
       </div>    
       </div> 
       </div>    
@@ -69,9 +69,7 @@
 </div>    
    <div class="row espacio">
    <div class=" text-center">
-     <input type="button" value="Guardar" id="agregar" class="btn btn-default"  />
-     <input type="button" value="Cancelar" class="btn btn-danger " /> 
-    
+   <input type="button" value="Guardar" id="agregar" class="btn btn-default" style="font-family:aleobold;font-size:18px;color:#1d9d74" />
    </div>          
    </div>  
 </div>

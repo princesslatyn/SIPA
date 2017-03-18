@@ -21,6 +21,7 @@ class LoginController extends Zend_Controller_Action
     
        // para que todo lo que este dentro de este metodo se ejecute en todas las Vistas..
        $this->view->headLink()->appendStylesheet('/css/fontfamily.css');
+       $this->view->headLink()->appendStylesheet('/css/font-face.css');
        $this->view->headLink()->appendStylesheet('/bootstrap/css/bootstrap.min.css');
        $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
        $this->view->headLink()->appendStylesheet('/css/form-elements.css');

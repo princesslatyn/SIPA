@@ -105,8 +105,8 @@ $(document).on('click', '.eliminar_servicio', function(e){
  var elementocliqueado= this;
  //console.log('HOla'); 
     bootbox.dialog({
-  message: "Esta Seguro de Borrar el Vehiculo",
-  title: "Confirmar Vehiculo",
+  message: "Esta Seguro de Borrar el Servicio",
+  title: "Confirmar Servicio",
   buttons: {
     default: {
       label: "Aceptar",
@@ -127,9 +127,9 @@ $(document).on('click', '.eliminar_servicio', function(e){
  });
       }
     },
-    danger: {
+    success: {
       label: "Cancelar",
-      className: "btn-danger",
+      className: "btn-success",
       callback: function() {
        // Example.show("oh, Error!");
       }

@@ -203,6 +203,15 @@ class LiquiconductorController extends Zend_Controller_Action
      } */
          //Se le pasa la variable a la vista...
         $this->view->facultad= $facultad; 
+        
+         //preparo la consulta para extraer los conductores..
+        $dql3= "select c from Application_Model_Conductores c";
+        
+        $query3= $this->em->createQuery($dql3);
+        
+        $conductor = $query3->getArrayResult();
+        
+        $this->view->conductor =$conductor; 
          
      $this->view->headLink()->appendStylesheet('/css/bootstrap-datepicker.min.css'); 
      $this->view->headLink()->appendStylesheet('/css/fuelux.min.css'); 

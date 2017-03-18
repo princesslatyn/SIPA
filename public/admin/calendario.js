@@ -199,9 +199,9 @@ $(document).on('click', '.eliminar_calendario', function(e){
  });
       }
     },
-    danger: {
+    success: {
       label: "Cancelar",
-      className: "btn-danger",
+      className: "btn-success",
       callback: function() {
        // Example.show("oh, Error!");
       }

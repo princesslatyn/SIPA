@@ -63,8 +63,9 @@ class ConductorController extends Zend_Controller_Action
        // var_dump($facultades);
         //Pasarle a la Vista la informción de la facultad
         $this->view->conductores= $conductores;   
-     
-    $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
+       // var_dump($conductores);
+        
+      $this->view->headLink()->appendStylesheet('/css/jquery.dataTables.min.css');
       $this->view->headLink()->appendStylesheet('/font-awesome/css/font-awesome.css');
       $this->view->headLink()->appendStylesheet('/css/facultad.css');
       $this->view->headScript()->appendFile('/js/jquery.dataTables.min.js');

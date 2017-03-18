@@ -1,45 +1,39 @@
 
 <div class="container col-sm-4 col-md-6 col-lg-9" style="margin-top: 20px;">
-<h3 class=""> Agregar Conductor</h3>     
+<h3 class="" style="font-family:robotoblack;font-size:23px;color:#777"> Agregar Conductor</h3>     
 <br>
-<div class="panel panel-default">  
-<div class="panel-heading"> Datos del Conductor</div>   
+<div class="panel panel-success">  
+<div class="panel-heading" style="font-family:robotoblack;font-size:18px;color:#777"> Datos del Conductor</div>   
 <div class="panel-body">
 <form id="con">
 <div class="row">    
+      <div class="col-lg-6">   
       <div class="form-group">
-      <div class="col-lg-6">    
       <label for="input" class="">Nombres</label>           
       <input type="text" class="form-control" value="<?php echo $this->conductores[0]['nombre'];?>" id="nom" name="nom"> 
       </div>    
       </div> 
- </div>
-    <br>
-    <div class="row">
-     <div class="form-group">
-      <div class="col-lg-6">    
+      <div class="col-lg-6">  
+      <div class="form-group">
       <label for="input" class="">Apellidos</label>           
       <input type="text" class="form-control" value="<?php echo $this->conductores[0]['apellido'];?>" id="ape" name="ape"> 
       </div>    
-      </div>    
-    </div> 
+      </div>
+ </div> 
     <br>
     <div class="row">
-     <div class="form-group">
-      <div class="col-lg-6">    
+      <div class="col-lg-6">  
+      <div class="form-group">
       <label for="input" class="">Identificación</label>           
       <input type="text" class="form-control" value="<?php echo $this->conductores[0]['identificacion'];?>" id="ide" name="ide"> 
       </div>    
-      </div>    
-    </div>
-    <br>
-    <div class="row">
-     <div class="form-group">
-      <div class="col-lg-6">    
+      </div>  
+      <div class="col-lg-6">   
+      <div class="form-group">
       <label for="input" class="">Telefono</label>           
       <input type="tel" class="form-control" value="<?php echo $this->conductores[0]['telefono'];?>" id="tele" name="tele"> 
       </div>    
-      </div>    
+      </div>   
     </div>
     <br>
     <div class="row">
@@ -58,8 +52,7 @@
    <div class="row espacio">
    <div class=" text-center">
     <input type="hidden" id="id_conductor" value="<?php echo $this->conductores[0]['id_conductor'];?>">   
-    <input type="button" id="editar" value="Guardar"  class="btn btn-default"  />
-    <input type="button" value="Cancelar"  class="btn btn-danger " />  
+    <input type="button" id="editar" value="Guardar"  class="btn btn-default" style="font-family:aleobold;font-size:18px;color:#1d9d74" /> 
    </div>          
    </div>  
 </div>

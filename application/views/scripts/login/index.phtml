@@ -6,6 +6,7 @@
         
         <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href='/css/family.css' rel='stylesheet' type='text/css'>
+         <link href='/css/font-face.css' rel='stylesheet' type='text/css'>
         <link href='/css/login.css' rel='stylesheet' type='text/css'>
         <meta name="viewport" content="width=device-width, initial-scale=1">
          <link rel="shortcut icon" href="/img/logo.jpg"> 
@@ -24,35 +25,35 @@
             <br>
             <div class="row">
             <div class="col-md-4 col-md-offset-4">
-            <div class="panel panel-default" >
+            <div class="panel panel-success">
             <div class="panel-heading">
-                <h3 class="panel-title" align="center"><strong>Autenticación Sipa</strong></h3>
+                <h3 class="panel-title" align="center" style="font-family:aleobold;font-size:20px"><strong>Autenticación Sipa</strong></h3>
             </div>
            <div class="panel-body"  class='img-responsive'alt='imagen responsive'>
             <form id="log" >
             <div class="row">
-              <div class="col-xs-8 form-group ">
-              <label for="user" class="control-label">Usuario:</label>
-              <input class="form-control" id="user" name="user" type="text" placeholder="Usuario" required/> 
+              <div class="col-xs-offset-0 col-xs-12 form-group">
+                  <label for="user" style="font-family:aleobold;font-size:18px;color:#3c763d" class="control-label">Usuario:</label>
+              <input class="form-control text-center" id="user" name="user" type="text" style="font-family:aleobold;font-size:16px;color:#3c763d" placeholder=" Digite el Usuario"> 
                </div>
-             <div class="col-xs-8 form-group ">
-                 <label for="contrasena" class="control-label">Contraseña:</label>
-                 <input class="form-control" id="pass" name="pass"  type="password" placeholder="contraseña" required/>         
+             <div class="col-xs-offset-0 col-xs-12 form-group ">
+                 <label for="contrasena" style="font-family:aleobold;font-size:18px;color:#3c763d" class="control-label">Contraseña:</label>
+                 <input class="form-control text-center" id="pass" name="pass" style="font-family:aleobold;font-size:16px;color:#3c763d"  type="password" placeholder="Digite la Contraseña">         
              </div>
                <div id="remember" class="col-xs-8 form-group">
-                    <label>
+                    <label style="font-family:aleobold;font-size:16px;color:#3c763d">
                         <input type="checkbox" value="remember-me"> Recuérdame
                     </label>
                 </div>
              <div class="form-group">  
-             <div class='col-xs-offset-3 col-sm-8' style='padding-top: 5px;'>
-             <button  id="acceder" class="btn btn-primary ">Acceder</button>
+             <div class='col-xs-offset-4 col-sm-8' style='padding-top:5px'>
+                 <button  id="acceder" class="btn btn-default btn-lg" style="font-family:aleobold;font-size:18px;color:#1d9d74">Acceder</button>
              </div>
              </div>        
              </div>
              </form> 
                <br>
-              <a href="#" class="forgot-password">
+               <a href="#" class="forgot-password" style="font-family:aleobold;font-size:16px;color:#1d9d74">
                 Ha Olvidado la Contraseña?
             </a>  
              </div>    

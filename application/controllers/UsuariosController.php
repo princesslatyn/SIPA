@@ -260,20 +260,20 @@ class UsuariosController extends Zend_Controller_Action
      
    }
     public function editarusuarioAction(){ 
+        
+         $sql = "SELECT DISTINCT V_Programas.ID_Programa AS id, V_Programas.Programa AS nombre FROM V_Programas  ORDER BY Programa";
+          $stmt = sqlsrv_query( $this->pw, $sql );
+         $datos = array();
+          while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+           $datos[]= $row;   
+         // echo $row['ID'].", ".$row['Facultad']."<br />";
+         //var_dump($row);
+       }
+      // var_dump($datos);
+       sqlsrv_free_stmt( $stmt);
+        
+         $this->view->programas= $datos;  
          
-        $dql3 ="select p from Application_Model_Programas p";
-        
-        // Ejecutar el Query, la variable query es donde se carga la consulta.
-        $query3 = $this->em->createQuery($dql3);
-        
-       $programas = $query3->getArrayResult();
-      // var_dump($programas);
-        
-        //Imprimir en la pagina lo que esta en la variable en este caso facultades
-       // var_dump($facultades);
-        //Pasarle a la Vista la informción de la facultad
-        $this->view->programas= $programas;
-        
          //Consulta dql para listar las Roles
         $dql4 ="select r from Application_Model_Roles r";
         
@@ -464,7 +464,7 @@ class UsuariosController extends Zend_Controller_Action
         $usuario_objeto= ($this->em->getRepository('Application_Model_Usuarios')->find($id));
         $usuario_objeto->setcontrasena(hash('sha256', $pas));
        
-        var_dump('hola');
+       // var_dump('hola');
    
     // var_dump($usuario_objeto);
      

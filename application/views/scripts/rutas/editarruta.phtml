@@ -1,21 +1,21 @@
 
 <div class="container col-sm-4 col-md-6 col-lg-9" style="margin-top: 20px;">
-<h3 class=""> Editar Ruta</h3>     
+<h3 class="" style="font-family:robotoblack;font-size:23px;color:#777"> Editar Ruta</h3>     
 <br>
-<div class="panel panel-default">  
-<div class="panel-heading"> Datos de la Ruta</div>   
+<div class="panel panel-success">  
+<div class="panel-heading" style="font-family:robotoblack;font-size:18px;color:#777"> Datos de la Ruta</div>   
 <div class="panel-body">
    <form id="rut">
       <div class="row"> 
       <div class="col-lg-6">    
       <div class="form-group">    
-      <label for="input" class="">Origen</label>           
+      <label for="input" class="" style="font-family:aleolight;font-size:14px;color:#000">Origen</label>           
       <input type="text" class="form-control" value="<?php echo $this->rutas[0]['origen'];?>" id="ori" name="ori"> 
       </div>    
       </div> 
       <div class="col-lg-6">   
       <div class="form-group"> 
-      <label for="input" class="">Destino</label>           
+      <label for="input" class="" style="font-family:aleolight;font-size:14px;color:#000">Destino</label>           
       <input type="text" class="form-control"  value="<?php echo $this->rutas[0]['destino'];?>" id="des" name="des"> 
       </div>    
       </div>    
@@ -24,13 +24,13 @@
     <div class="row">
      <div class="col-lg-6">
      <div class="form-group">    
-      <label for="input" class="">Ruta</label>           
+      <label for="input" class="" style="font-family:aleolight;font-size:14px;color:#000">Ruta</label>           
       <input type="text" class="form-control" value="<?php echo $this->rutas[0]['ruta'];?>" id="ruta" name="ruta"> 
       </div>    
       </div>
      <div class="col-lg-6">
       <div class="form-group">    
-      <label for="input" class="">Sitio</label>           
+      <label for="input" class="" style="font-family:aleolight;font-size:14px;color:#000">Sitio</label>           
       <select class="form-control" id="si" name="si" data-sitio="<?php echo $this->rutas[0]['cod_ruta'];?>" style="cursor:pointer;">
       <?php foreach ($this->rutas as $rutas) {?>
       <option  value="<?php echo $rutas['cod_ruta']; ?>"><?php echo $rutas['sitio']; ?></option>
@@ -49,9 +49,7 @@
    <div class="row">
    <div class=" text-center">
        <input type="hidden" id="cod_ruta" value="<?php echo $this->rutas[0]['cod_ruta'];?>"> 
-       <input type="button" id="editar" value="Guardar"  class="btn btn-default"  />
-    <input type="button" value="Cancelar" class="btn btn-danger " /> 
-     
+       <input type="button" id="editar" value="Guardar"  class="btn btn-default" style="font-family:aleobold;font-size:18px;color:#1d9d74" />   
    </div>          
    </div>  
 </div>

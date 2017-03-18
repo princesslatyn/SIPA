@@ -1,28 +1,28 @@
 <div class="row col-sm-4 col-md-6 col-lg-9" style="margin-top: 10px;">
-    <h3>Programación de las Prácticas</h3>
+<h3 style="font-family:robotoblack;font-size:23px;color:#777">Programación de las Prácticas</h3>
     <br>
         <table id="example" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Ruta</th>
-                <th>Facha salida</th>
-                <th>Fecha llegada</th>
-                <th>pasajeros</th>
-                <th>Docente</th>
-                <th>Codigo Programación</th>
-                <th>Acciones</th>
+                <th style="font-family:aleolight;font-size:14px;color:#000">Ruta</th>
+                <th style="font-family:aleolight;font-size:14px;color:#000">Facha salida</th>
+                <th style="font-family:aleolight;font-size:14px;color:#000">Fecha llegada</th>
+                <th style="font-family:aleolight;font-size:14px;color:#000">pasajeros</th>
+                <th style="font-family:aleolight;font-size:14px;color:#000">Docente</th>
+                <th style="font-family:aleolight;font-size:14px;color:#000">Codigo Programación</th>
+                <th style="font-family:aleolight;font-size:14px;color:#000">Acciones</th>
                 
             </tr>
         </thead>
         <tfoot>
             <tr>
-                <th>Ruta</th>
-                <th>Facha salida</th>
-                <th>Fecha llegada</th>
-                <th>pasajeros</th>
-                <th>Docente</th>
-                <th>Codigo Programación</th>
-                <th>Acciones</th>
+                <th style="font-family:aleolight;font-size:14px;color:#000">Ruta</th>
+                <th style="font-family:aleolight;font-size:14px;color:#000">Facha salida</th>
+                <th style="font-family:aleolight;font-size:14px;color:#000">Fecha llegada</th>
+                <th style="font-family:aleolight;font-size:14px;color:#000">pasajeros</th>
+                <th style="font-family:aleolight;font-size:14px;color:#000">Docente</th>
+                <th style="font-family:aleolight;font-size:14px;color:#000">Codigo Programación</th>
+                <th style="font-family:aleolight;font-size:14px;color:#000">Acciones</th>
             </tr>
         </tfoot>
         <tbody>
@@ -34,7 +34,7 @@
                 <td><?php echo $programacion ['num_pasajeros'];?></td>
                 <td><?php echo $programacion ['cod_practica']['nom_solicitante'];?></td>
                 <td><?php echo $programacion ['codigo_prog'];?></td>
-                <td><a href="/liquiconductor/agregarliquiconductor/id/<?php echo $programacion ['codigo_prog'];?> "><i class="fa fa-pencil-square" style="font-size:18px;color:#5cb85c;cursor:pointer;"></i></a></td>
+                <td><a href="/liquiconductor/editarliquiconductor/id/<?php echo $programacion ['codigo_prog'];?> "><i class="fa fa-pencil-square" style="font-size:18px;color:#5cb85c;cursor:pointer;"></i></a></td>
             </tr> 
             <?php }?>
         </tbody>

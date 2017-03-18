@@ -1,14 +1,14 @@
 
 <div class="container col-sm-4 col-md-6 col-lg-9" style="margin-top: 20px;">
-<h3 class=""> Editar Servicio</h3>     
+<h3 class="" style="font-family:robotoblack;font-size:23px;color:#777"> Editar Servicio</h3>     
 <br>
-<div class="panel panel-default">  
-<div class="panel-heading"> Datos de los Servicios</div>   
+<div class="panel panel-success">  
+<div class="panel-heading" style="font-family:robotoblack;font-size:18px;color:#777"> Datos de los Servicios</div>   
 <div class="panel-body">
   <form id="ser">
-    <div class="row">     
+    <div class="row">
+      <div class="col-lg-6">   
       <div class="form-group">
-      <div class="col-lg-6">    
       <label for="input" class="">Tipo Servicio</label>           
       <select class="form-control" value="<?php echo $this->servicios[0]['tipo'];?>" id="servi" name="servi" style="cursor:pointer;">
       <option>Bus Interno</option>
@@ -16,20 +16,17 @@
       </select>
       </div>    
       </div>
-      </div> 
-       <br>
-      <div class="row">    
+      <div class="col-lg-6">     
       <div class="form-group">
-      <div class="col-lg-6">    
       <label for="input" class="">Valor</label>           
       <input type="text" class="form-control" value="<?php echo $this->servicios[0]['valor'];?>"  id="valo" name="valo"> 
       </div>    
-      </div> 
-     </div> 
+      </div>   
+      </div>  
        <br>
-        <div class="row">     
+      <div class="row"> 
+      <div class="col-lg-6">     
       <div class="form-group">
-      <div class="col-lg-6">    
       <label for="input" class="">Codigo Programación</label> 
       <select class="form-control" id="codi" name="codi" data-programacion="<?php echo $this->servicios[0]['codigo_prog']['codigo_prog'];?>" style="cursor:pointer;">
       <?php foreach ($this->programacion as $programacion) {?>    
@@ -46,8 +43,8 @@
    <div class="row">
    <div class=" text-center">
     <input type="hidden" id="cod_servicio" value="<?php echo $this->servicios[0]['cod_servicio'];?>">  
-    <input type="button" id="editar" value="Guardar"  class="btn btn-default"  />
-    <input type="button" value="Cancelar" class="btn btn-danger " /> 
+    <input type="button" id="editar" value="Guardar"  class="btn btn-default" style="font-family:aleobold;font-size:18px;color:#1d9d74" />
+ 
      
    </div>          
    </div>  
